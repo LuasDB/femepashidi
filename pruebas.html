@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+
+    <style>
+        .bg{
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            
+            overflow: hidden;
+            border-radius: 10px;
+            
+            
+            background-repeat: no-repeat;
+            background-size:contain;
+            opacity: 0.5;
+        }
+        .bg img{
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+        .transparent{
+            position: relative;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: blue;
+            opacity: 0.2;
+            z-index: 2;
+            
+        }
+        
+        .bubbles{
+            position: absolute;
+            display: flex;
+            z-index: 10;
+            
+        }
+        .bubbles span{
+            position: relative;
+            top: 0;
+            min-width: 30px;
+            height: 30px;
+            background: #4fc3da;
+            border-radius: 50%;
+            box-shadow: 0 0 0 10px  #4fc3dc44,
+            0 0 50px  #4fc3da,
+            0 0 100px  #4fc3da;
+            margin:0 4px;
+            animation: animate 15s linear infinite;
+            animation-duration: calc(75s / var(--i));
+           
+        }
+        .bubbles span:nth-child(even){
+            background: #ffffff;
+            box-shadow: 0 0 0 10px  #4fc3dc44,
+            0 0 50px  #4fc3da,
+            0 0 100px  #4fc3da;
+           
+        }
+
+        @keyframes animate{
+            0%{
+                transform: translateY(-10vh) scale(0);
+            }
+            100%{
+                transform: translateY(100vh) scale(0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div class="bubbles">
+            <span style="--i:11;"></span>
+            <span style="--i:12;"></span>
+            <span style="--i:24;"></span>
+            <span style="--i:10;"></span>
+            <span style="--i:14;"></span>
+            <span style="--i:23;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:16;"></span>
+            <span style="--i:19;"></span>
+            <span style="--i:20;"></span>
+            <span style="--i:22;"></span>
+            <span style="--i:25;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:21;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:15;"></span>
+            <span style="--i:26;"></span>
+            <span style="--i:17;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:28;"></span>
+            <span style="--i:11;"></span>
+            <span style="--i:12;"></span>
+            <span style="--i:24;"></span>
+            <span style="--i:10;"></span>
+            <span style="--i:14;"></span>
+            <span style="--i:23;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:16;"></span>
+            <span style="--i:19;"></span>
+            <span style="--i:20;"></span>
+            <span style="--i:22;"></span>
+            <span style="--i:25;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:21;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:15;"></span>
+            <span style="--i:26;"></span>
+            <span style="--i:17;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:28;"></span>
+           
+        </div>
+        <img src="./img/images/patines.jpg" alt="patines">
+        
+        <div class="transparent"></div>
+        
+        <h2>Nombre de la empresa</h2>
+    </div>
+   
+</body>
+</html>

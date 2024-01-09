@@ -1,0 +1,243 @@
+/* 
+Para el proyecto utilizaremos la metodología BEM (BLOQUE-ELEMENTO-MODIFICADOR):
+BLOQUE:
+.card{}
+BLOQUE-ELEMENTO:
+.card__form1{}
+BLOQUE-ELEMENTOS:
+.card__form1-input{}
+BLOQUE-ELEMENTOS-MODIFICADOR:
+.card__input__green{}
+
+En cada clase usaremos el siguiente orden :
+
+1.- POSICIONAMIENTO
+2.- BOX MODEL
+3.- TIPOGRAFIA
+4.- VISUALES
+5.- OTROS
+
+.form-registro{
+    position:absolute;
+    top:10px;
+    rigth:0;
+
+    width:90%;
+    heigth:40vh;
+    border-radius:5px;
+
+    font-size:1.2rem;
+    font-weigth:bold;
+
+    color:red1;
+    backgronud-color:blue1;
+
+    z-index:100;
+    transition: 1s;
+}
+
+Nombres de clases en Ingles para tenerlos todos igual
+
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+/* font-family: 'Nunito', sans-serif;
+font-family: 'Rubik Maps', system-ui; */
+
+
+/* Global Variables */
+:root{
+    --primary-color:#0000ff;
+    --secundary-color:#4fc3da;
+    --purple-color:#4e4ef8;
+    
+}
+/* General styles */
+body{
+font-family: 'Nunito', sans-serif;
+
+}
+section{
+    min-height: 100vh;
+}
+
+/* Header */
+header{
+    position: fixed;
+    top: 0;
+    left: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 11vh;
+
+    backdrop-filter:blur(10px);
+    
+    border-bottom: 1px solid rgba(248, 244, 244, 0.5);
+    
+    z-index: 200;
+}
+header div{
+    display: flex;
+    align-items: center;
+}
+header div div{
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+}
+header div div p{
+    margin: 0;
+}
+header img{
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+}
+.nav-menus{
+    display: flex;
+    gap: 25px;
+    padding: 0 20px;
+}
+.nav-menus a{
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+}
+.nav-menus a.active{
+    color: var(--primary-color);
+}
+
+
+/* Blocks */
+article{
+    margin: 20px;
+    padding: 15px;
+}
+
+.container{
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+
+}
+.button{
+    padding: 15px;
+    margin: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.button-blue{
+    background-color:var(--purple-color);
+    color: white;  
+}
+.col-2{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.col-2 img{
+    width: 80%;
+    border-radius: 5px;
+}
+
+/* Elements */
+.logo{
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+/* Modificators */
+.align-center{
+    align-self: center;
+}
+/* Section hero */
+.hero .bg{
+    position: relative;
+    width: 100%;
+    height: 100vh;    
+    overflow: hidden;
+    
+    background-image: url(./../img/images/patines.jpg);
+    background-size: 100% 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 1px 2px 20px 5px var(--secundary-color);
+   
+}
+.hero .bg img{
+    width: 100%;
+    height: 100vh;
+   
+}
+.transparent{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /* background: #2828f7; */
+    background: var(--secundary-color);
+    opacity: 0.5;
+    z-index: 10;
+    
+    
+}
+.bubbles{
+    position: absolute;
+    display: flex; 
+}
+.bubbles span{
+    position: relative;
+    top: 0;
+    min-width: 30px;
+    height: 30px;
+    background: #4fc3da;
+    border-radius: 50%;
+    box-shadow: 0 0 0 10px  #4fc3dc44,
+    0 0 50px  #4fc3da,
+    0 0 100px  #4fc3da;
+    margin:0 4px;
+    animation: animate 15s linear infinite;
+    animation-duration: calc(75s / var(--i));
+}
+.bubbles span:nth-child(even){
+    background: #ffffff;
+    box-shadow: 0 0 0 10px  #4fc3dc44,
+    0 0 50px  #4fc3da,
+    0 0 100px  #4fc3da;
+   
+}
+@keyframes animate{
+    0%{
+        transform: translateY(-10vh) scale(0);
+    }
+    100%{
+        transform: translateY(100vh) scale(0.5);
+    }
+}
+.info{
+    position: relative;
+    top: 20%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    color: white;
+    z-index: 100;
+}
+.info h1{
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.info p{
+    margin: 20px;
+    font-size: large;
+    text-align: center;
+}
+
+
