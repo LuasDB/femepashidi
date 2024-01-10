@@ -6,6 +6,7 @@
     <title>FEMEPASHIDI</title>
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/style.css">
+   
 </head>
 <body>
     <header id="menu">
@@ -30,8 +31,8 @@
     </header>
     <aside></aside>
     <main>
-        <section class="hero" >
-            <div class="bg">
+        <section class="animation-action hero " id="home" >
+            <div class="bg border-ice">
                 <div class="bubbles">
                     <span style="--i:11;"></span>
                     <span style="--i:12;"></span>
@@ -81,21 +82,131 @@
                     <article class="info">
                         <h1>Bienvenidos nuestra pagina oficial </h1>
                         <p>En este sitio encontraras toda la información sobre competencias vigentes y fechas, asi como inscripciones a los torneos actuales</p>
-                        <a href="#" class="button button-blue align-center">Ver calendario</a>
+                        <a href="#" class="button button-blue align-center button-50">Ver eventos</a>
                     </article>.
 
                 </div>          
                 <div class="transparent"></div>
             </div>
         </section>
+        
 
+        <section id="about" class="animation-action about-section border-ice">           
+            <div class="scroll-animation-up col-2">
+                
+                <article class="article__about card w-50 h-50">
+                    <h1 class="article__tittle">Nosotros</h1>
+                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                    <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+                </article>
+                <img  class="article__about--image scroll-animation-down" src="./img/images/logo_fede.png" alt="Logo FEDE">
+                
+            </div>
+            
+        </section>
+        <section id="events" class="events-section">
+            <!-- Botones para demostrar cómo mover el scroll -->
+            <a class="btn-right" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
+            <a class="btn-left" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
+            <h1 class="article__tittle margin-bar"> Conoce los eventos para este 2024</h1>
+
+            <div class="carrucel">
+                <div class="carrusel-item">
+                  <article class=" card w-50 h-50">
+                      <h1 class="article__tittle">Evento 1</h1>
+                      <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                      <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+                  </article>
+              </div>
+              <div class="carrusel-item">
+                <article class=" card w-50 h-50">
+                    <h1 class="article__tittle">Evento 2</h1>
+                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                    <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+                </article>
+            </div>
+            <div class="carrusel-item">
+              <article class=" card w-50 h-50">
+                  <h1 class="article__tittle">Evento 3</h1>
+                  <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                  <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+              </article>
+            </div>
+            <div class="carrusel-item">
+                <article class=" card w-50 h-50">
+                    <h1 class="article__tittle">Evento 1</h1>
+                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                    <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+                </article>
+            </div>
+            <div class="carrusel-item">
+                <article class=" card w-50 h-50">
+                    <h1 class="article__tittle">Evento 1</h1>
+                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                    <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+                </article>
+            </div>
+            <div class="carrusel-item">
+                <article class=" card w-25 h-50">
+                    <h1 class="article__tittle">Evento 1</h1>
+                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                    <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+                </article>
+            </div>
+                 
+              </div>
+              <script>
+                // Mover el scroll horizontal a la derecha
+                function moverScrollDerecha() {
+                    var contenedor = document.querySelector('.carrucel');
+                    contenedor.scrollLeft += 50; // Ajusta la cantidad según sea necesario
+                }
+        
+                // Mover el scroll horizontal a la izquierda
+                function moverScrollIzquierda() {
+                    var contenedor = document.querySelector('.carrucel');
+                    contenedor.scrollLeft -= 50; // Ajusta la cantidad según sea necesario
+                }
+            </script>
+        
+            
+        
+              
+            
+        </section>
+        <section id="competitors" class="competitors-section">
+
+        </section>
+        <section id="directory" class="directory-section">
+
+        </section>
+        <section id="social-media">
+            <nav class="social-media">
+                <a href="#"><img src="./img/icon/square-facebook.svg" alt="fb icon"></a>
+                <a href="#"><img src="./img/icon/square-instagram.svg" alt="Instagram icon"></a>
+                <a href="#"><img src="./img/icon/square-x-twitter.svg" alt="Twiter x"></a>
+                <a href="#"><img src="./img/icon/tiktok.svg" alt="Tiktok"></a>
+                <a href="#"><img src="./img/icon/youtube.svg" alt="YouTube"></a>
+            </nav>
+
+        </section>
+       
+        <section id="logos">
+
+        </section>
+        <section id="contact">
+
+        </section> 
+<
     </main>
+    
     <footer>
 
     </footer>
 
    
-   
+<script src="./js/animations.js"></script>
+
     
 </body>
 </html>

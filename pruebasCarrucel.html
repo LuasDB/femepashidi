@@ -1,96 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <style>
-.carousel-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.card-carousel {
-  display: flex;
-  overflow: hidden;
-}
-
-.card {
-  width: 300px;
-  height: 400px;
-  margin: 0 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.5s ease-in-out;
-}
-
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-
-    </style>
-</head>
-<body> 
-  <div class="carousel-container">
-    <div class="card-carousel">
-        <button class="nav-button prev">&lt; Anterior</button>
-      <div class="card">
-        <img src="./img/icon/square-facebook.svg" alt="Estado 1">
-      </div>
-      <div class="card">
-        <img src="./img/icon/square-instagram.svg" alt="Estado 2">
-      </div>
-      <div class="card">
-        <img src="./img/icon/square-x-twitter.svg" alt="Estado 3">
-      </div>
-      <div class="card">
-        <img src="./img/icon/tiktok.svg" alt="Estado 4">
-      </div>
-      <button class="nav-button next">Siguiente &gt;</button>
-    </div>
-  </div>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const cardCarousel = document.querySelector(".card-carousel");
-        let currentIndex = 0;
-
-        function showCard(index) {
-            const cardWidth = document.querySelector(".card").offsetWidth;
-            cardCarousel.style.transform = `translateX(${-index * cardWidth}px)`;
-        }
-
-        // Avanzar al siguiente estado
-        function nextCard() {
-            currentIndex = (currentIndex + 1) % 4;
-            showCard(currentIndex);
-        }
-
-        // Retroceder al estado anterior
-        function prevCard() {
-            currentIndex = (currentIndex - 1 + 4) % 4;
-            showCard(currentIndex);
-        }
-
-        // Configurar botones de navegación
-        document.querySelector(".carousel-container").addEventListener("click", function (event) {
-            if (event.target.classList.contains("next")) {
-            nextCard();
-            } else if (event.target.classList.contains("prev")) {
-            prevCard();
-            }
-        });
-
-        // Mostrar el primer estado al cargar la página
-        showCard(currentIndex);
-});
-
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    .slider{
+      aspect-ratio: 5 / 10;
+      width:100%;
+      position: relative;
+      display: flex;
+      overflow: scroll;
+      scroll-snap-type: x mandatory;
+    }
+    .slider article{
+      width: 100%;
+      left: 0;
+      position: sticky;
+      scroll-snap-align: center;
+     
+    }
     
+  </style>
+</head>
+<body>
+
+  <div class="carrusel">
+    <div class="carrusel-item">
+      <article class=" card w-50 h-50">
+          <h1 class="article__tittle">Evento 1</h1>
+          <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+          <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+      </article>
+  </div>
+  <div class="carrusel-item">
+    <article class=" card w-50 h-50">
+        <h1 class="article__tittle">Evento 2</h1>
+        <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+        <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+    </article>
+</div>
+<div class="carrusel-item">
+  <article class=" card w-50 h-50">
+      <h1 class="article__tittle">Evento 3</h1>
+      <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+      <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+  </article>
+</div>
+     
+  </div>
+  
 </body>
 </html>

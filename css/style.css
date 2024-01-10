@@ -55,10 +55,16 @@ font-family: 'Rubik Maps', system-ui; */
 /* General styles */
 body{
 font-family: 'Nunito', sans-serif;
+/* scroll-behavior: smooth; */
 
 }
 section{
     min-height: 100vh;
+    height: 100vh;
+    /* scroll-behavior: smooth; */
+    
+    
+    
 }
 
 /* Header */
@@ -126,22 +132,63 @@ article{
 }
 .button{
     padding: 15px;
-    margin: 15px;
+    margin: 15px auto;
     border-radius: 10px;
+
+    text-align: center;
     text-decoration: none;
     cursor: pointer;
+
+    transition: transform 0.5s;
+}
+.button:hover{
+    transform: translateY(-10px);
+    background: #0000ff;
+    
 }
 .button-blue{
     background-color:var(--purple-color);
     color: white;  
 }
+.button-50{
+    width: 50%; 
+}
+.button-25{
+    width: 25%; 
+}
+
 .col-2{
     display: grid;
     grid-template-columns: repeat(2,1fr);
+    place-items: center;
+    align-items: center;
+    
+
 }
 .col-2 img{
     width: 80%;
     border-radius: 5px;
+}
+
+.left-20{
+    margin-left: 20%;
+}
+.w-25{
+    width: 25%;
+    margin: 0 auto;
+}
+.w-50{
+    width: 50%;
+    margin: 0 auto;
+}
+.h-75{
+    height: 75vh;
+}
+.h-50{
+    height: 50vh;
+}
+.margin-bar{
+    margin: 8vh 0;
 }
 
 /* Elements */
@@ -154,6 +201,9 @@ article{
 .align-center{
     align-self: center;
 }
+.border-ice{
+    box-shadow: 1px 2px 20px 5px var(--secundary-color);
+}
 /* Section hero */
 .hero .bg{
     position: relative;
@@ -165,7 +215,7 @@ article{
     background-size: 100% 100vh;
     background-repeat: no-repeat;
     background-position: center;
-    box-shadow: 1px 2px 20px 5px var(--secundary-color);
+    
    
 }
 .hero .bg img{
@@ -210,14 +260,7 @@ article{
     0 0 100px  #4fc3da;
    
 }
-@keyframes animate{
-    0%{
-        transform: translateY(-10vh) scale(0);
-    }
-    100%{
-        transform: translateY(100vh) scale(0.5);
-    }
-}
+
 .info{
     position: relative;
     top: 20%;
@@ -239,5 +282,189 @@ article{
     font-size: large;
     text-align: center;
 }
+
+/* Animations */
+@keyframes animate{
+    0%{
+        transform: translateY(-10vh) scale(0);
+    }
+    100%{
+        transform: translateY(100vh) scale(0.5);
+    }
+}
+@keyframes slideUp{
+    from{
+        transform: translateY(200px);
+        
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+@keyframes slideDown{
+    from{
+        transform: translateY(-500px);
+        
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+.scroll-animation-up{
+    opacity: 0;
+    filter: blur(1px);
+   
+    transform: scaleY(100px);
+    transition:  1.5s;
+}
+.scroll-animation-down{
+    opacity: 0;
+    filter: blur(1px);
+    transition:  1.5s;
+}
+.show-up{
+    opacity: 1;
+    filter: blur(0px);
+    animation: slideUp 2s;
+}
+.show-down{
+    opacity: 1;
+    filter: blur(0px);
+    animation: slideDown 2s;
+}
+/* About Section */
+.about-section{
+    display: grid;
+    place-items: center;
+    align-items: center;
+    width: 100%;
+    
+    
+    /* background-color: rgb(79, 195, 218,0.1); */
+    
+    background: linear-gradient(360deg, rgba(4,72,122,0.5) 2%, rgba(237,222,222,1) 50%, rgba(208,232,237,1) 96%);
+    background: linear-gradient(
+                to left top,
+                rgba(39, 152, 233, 0.8),rgba(255, 255, 255, 0.8));
+            
+    box-shadow: 1px 2px 20px 5px rgba(39, 152, 233, 0.8); 
+}
+.about-section img{
+    width: 50%;
+    margin: 10px auto;
+}
+.article__about{
+   padding-left:  15%;
+}
+.article__tittle{
+    color: var(--purple-color);
+    /* margin: 0; */
+}
+/* events section  */
+.events-section{
+   
+  
+   margin: 0;
+   padding:0;
+   
+   z-index: 1;
+   background-image: url('../img/images/paisaje.jpg');
+   
+   background-size: 100% 100vh;
+   background-repeat: no-repeat;
+   background-position: center;
+   
+  
+}
+.info-events{
+ margin: 100px;
+}
+
+
+
+/* Carrusel */
+.carrucel{
+    height: 100vh;
+    display: flex;
+    flex-wrap: nowrap;
+  
+    width: 100%;
+    overflow-x: auto;
+    overflow-x: hidden;
+    overflow: hidden;
+
+
+    position: absolute; /* Permite que la barra de desplazamiento se coloque sobre el contenido */
+    
+}
+.carrucel::-webkit-scrollbar{
+    height: 12px;
+    position: absolute; /* Asegura que la barra de desplazamiento esté posicionada sobre el contenido */
+
+}
+.carrucel::-webkit-scrollbar-thumb {
+    background-color: var(--secundary-color); /* Color del thumb (barra deslizante) */
+    border-radius: 6px; /* Bordes redondeados del thumb */
+}
+.carrucel::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de la pista del scrollbar */
+    border-radius: 6px; /* Bordes redondeados de la pista */
+}
+.btn-right{
+    position: relative;
+    top: 22%;
+    left:70%;
+    z-index: 150;
+    cursor: pointer;
+    text-decoration: none; /* Quitar subrayado */
+    color: inherit; 
+    
+}
+.btn-left{
+    position: relative;
+    top: 22%;
+    left:30%;
+    z-index: 150;
+    cursor: pointer;
+    
+}
+
+
+
+
+
+
+.carrusel-item{
+    flex: 1 0 auto;
+    scroll-snap-align: center;
+    width: 400px;
+}
+  /* ELEMENTS */
+  .card{           
+    display: flex;
+    flex-direction: column;
+    /* background: linear-gradient(
+        to left top,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.5)
+    ); */
+    border-radius: 1rem;
+    /* margin: 2rem; */
+    padding: 3rem;
+    box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.5);
+    justify-content: space-between;
+    backdrop-filter:blur(10px);
+    
+}
+.card h1,.car p{
+    opacity: 1;
+}
+
+
+
+
+
+
+
 
 
