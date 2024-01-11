@@ -1,3 +1,6 @@
+/*
+ANIMACION PARA ELEMENTOS HACIA ARRIBA
+*/
 const observerAbout = new IntersectionObserver((entries)=>{
     
     entries.forEach(entry=>{
@@ -10,6 +13,9 @@ const observerAbout = new IntersectionObserver((entries)=>{
 });
 const elements_animate= document.querySelectorAll('.scroll-animation-up');
 elements_animate.forEach((element) => observerAbout.observe(element));
+/*
+ANIMACION PARA ELEMENTOS HACIA ABAJO
+*/
 const observerAbout2 = new IntersectionObserver((entries)=>{
     
   entries.forEach(entry=>{
@@ -22,6 +28,42 @@ const observerAbout2 = new IntersectionObserver((entries)=>{
 });
 const elements_animate2= document.querySelectorAll('.scroll-animation-down');
 elements_animate2.forEach((element) => observerAbout2.observe(element));
+
+/*
+ANIMACION PARA ELEMENTOS CON SCALE
+*/
+const observerScale = new IntersectionObserver((entries)=>{
+    
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('animation-scale');
+        }else{
+            entry.target.classList.remove('animation-scale');
+        }
+    });
+  });
+  const elements_scale= document.querySelectorAll('.animation-event-to-scale');
+  elements_scale.forEach((element) => observerScale.observe(element));
+
+/*
+ANIMACION PARA ELEMENTOS CON SCALE
+*/
+const observerRight = new IntersectionObserver((entries)=>{
+    
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('animation-right');
+        }else{
+            entry.target.classList.remove('animation-right');
+        }
+    });
+  });
+  const elements_right= document.querySelectorAll('.animation-event-to-right');
+  elements_right.forEach((element) => observerRight.observe(element));
+/*
+OBSERVAR SCROLL
+*/
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

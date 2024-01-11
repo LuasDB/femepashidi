@@ -24,9 +24,8 @@
             <a href="#home" class="active">INICIO</a>
             <a href="#about">NOSOTROS</a>
             <a href="#events">EVENTOS</a>
-            <a href="">ASOCIACIONES</a>
-            <a href="">DIRECTORIO</a>
-            
+            <a href="#directory">DIRECTORIO</a>
+            <a href="">DIRECTORIO</a> 
         </nav>
     </header>
     <aside></aside>
@@ -104,52 +103,56 @@
             </div>
             
         </section>
-        <section id="events" class="events-section">
+        <section id="events" class="events-section  border-ice">
             <!-- Botones para demostrar cómo mover el scroll -->
-            <a class="btn-right" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
-            <a class="btn-left" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
-            <h1 class="article__tittle margin-bar"> Conoce los eventos para este 2024</h1>
-
-            <div class="carrucel">
+            <div class="controls padding-header animation-event-to-right">
+                <a class="btn-arrow" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
+                <h1 class="article__tittle  animation-event-to-right"> Conoce los eventos</h1> 
+                <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>   
+            </div>  
+            <!-- <a class="btn-right animation-event-to-right " onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
+            <a class="btn-left animation-event-to-right " onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
+            <h1 class="article__tittle margin-bar animation-event-to-right "> Conoce los eventos</h1> -->
+            
+            <div class="carrucel animation-event-to-scale">
                 <div class="carrusel-item">
-                  <article class=" card w-50 h-50">
+                  <article class=" card ">
                       <h1 class="article__tittle">Evento 1</h1>
-                      <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                      <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
                       <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
                   </article>
               </div>
-              <div class="carrusel-item">
-                <article class=" card w-50 h-50">
+              <div class="carrusel-item ">
+                <article class=" card ">
                     <h1 class="article__tittle">Evento 2</h1>
-                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                    <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
                     <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
                 </article>
             </div>
-            <div class="carrusel-item">
-              <article class=" card w-50 h-50">
+            <div class="carrusel-item ">
+              <article class=" card ">
                   <h1 class="article__tittle">Evento 3</h1>
-                  <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
                   <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
               </article>
             </div>
-            <div class="carrusel-item">
-                <article class=" card w-50 h-50">
-                    <h1 class="article__tittle">Evento 1</h1>
-                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+            <div class="carrusel-item ">
+                <article class=" card ">
+                    <h1 class="article__tittle">Evento 4</h1>
+Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
                     <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
                 </article>
             </div>
-            <div class="carrusel-item">
-                <article class=" card w-50 h-50">
+            <div class="carrusel-item ">
+                <article class=" card" >
                     <h1 class="article__tittle">Evento 1</h1>
-                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
                     <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
                 </article>
             </div>
-            <div class="carrusel-item">
-                <article class=" card w-25 h-50">
-                    <h1 class="article__tittle">Evento 1</h1>
-                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+            <div class="carrusel-item ">
+                <article class=" card">
+                    <h1 class="article__tittle">Evento 1</h1> Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
                     <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
                 </article>
             </div>
@@ -158,14 +161,15 @@
               <script>
                 // Mover el scroll horizontal a la derecha
                 function moverScrollDerecha() {
-                    var contenedor = document.querySelector('.carrucel');
-                    contenedor.scrollLeft += 50; // Ajusta la cantidad según sea necesario
+                    var contenedor = document.querySelectorAll('.carrucel');
+                    contenedor.forEach(cont=>cont.scrollLeft += 150);
                 }
         
                 // Mover el scroll horizontal a la izquierda
                 function moverScrollIzquierda() {
-                    var contenedor = document.querySelector('.carrucel');
-                    contenedor.scrollLeft -= 50; // Ajusta la cantidad según sea necesario
+                    var contenedor = document.querySelectorAll('.carrucel');
+                    contenedor.forEach(cont=>cont.scrollLeft -= 150);
+                     // Ajusta la cantidad según sea necesario
                 }
             </script>
         
@@ -174,12 +178,94 @@
               
             
         </section>
+        <section id="directory" class="animation-action directory-section border-ice">     
+            
+                <div class="carrucel scroll-animation-up">
+                    <article class="card card--profile carrusel-item">
+                      <div class="person-image">
+                        <img class="image-circle" src="https://media.istockphoto.com/id/1339096538/es/foto/retrato-de-estudio-de-un-hombre-cauc%C3%A1sico-confiado-con-una-camisa-azul-sobre-un-fondo-gris.jpg?s=1024x1024&w=is&k=20&c=7bYXTP1SDiM-WveSSob9eIKDmXmkxF4lc9XHeAGacxo=" alt="Person">
+                      </div>
+                      <div class="card--profile-info">
+                        <span>Lic. Arturo Gómez Villanueva</span>
+                        <p>Director de operaciones</p>
+                      <div class="social-cards">
+                        <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
+                        <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                        <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+                      </div>
+                    </div>
+                    </article>
+                    <article class="card card--profile carrusel-item">
+                      <div class="person-image">
+                        <img class="image-circle" src="https://media.istockphoto.com/id/1171524282/es/foto/mujer-feliz.jpg?s=1024x1024&w=is&k=20&c=jy6ktSUlbUZYjdBegeLoUItPv_hgHXeNRjXat4t1Ao4=" alt="Person">
+                      </div>
+                      <div class="card--profile-info">
+                        <span>Ing. Andrea Vazquez Cabañas</span>
+                        <p>Diseño UX/UI</p>
+                      <div class="social-cards">
+                        <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
+                        <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                        <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+                      </div>
+                    </div>
+                    </article>
+                    <article class="card card--profile carrusel-item">
+                      <div class="person-image">
+                        <img class="image-circle" src="https://media.istockphoto.com/id/688944736/es/foto/confianza-no-est%C3%A1-definida-por-mi-edad.jpg?s=1024x1024&w=is&k=20&c=cd5-ef66jf6a5P9VHamBh4liE2uHJh7oZbIiFw-VMGI=" alt="Person">
+                      </div>
+                      <div class="card--profile-info">
+                        <span>Lic. Karina Bobadilla Juarez</span>
+                        <p>Gerente de Ventas</p>
+                      <div class="social-cards">
+                        <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
+                        <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                        <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+                      </div>
+                    </div>
+                    </article>
+                    <article class="card card--profile carrusel-item">
+                      <div class="person-image">
+                        <img class="image-circle" src="https://media.istockphoto.com/id/1224612514/es/foto/joven-asi%C3%A1tico-aislado-en-fondo-blanco-mirando-hacia-los-lados.jpg?s=612x612&w=0&k=20&c=13euzhY4_T5WshZQXQzQMOXNr6NBKhAhPkilOcJUYJ4=" alt="Person">
+                      </div>
+                      <div class="card--profile-info">
+                        <span>Lic. Arturo Gómez Villanueva</span>
+                        <p>Director de operaciones</p>
+                      <div class="social-cards">
+                        <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
+                        <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                        <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+                      </div>
+                    </div>
+                    </article>
+                    <article class="card card--profile carrusel-item">
+                      <div class="person-image">
+                        <img class="image-circle" src="https://media.istockphoto.com/id/1005922956/es/foto/estudiante-pasado-el-examen-encantado-de-aprender.jpg?s=1024x1024&w=is&k=20&c=qwMP9PRaJsKbtb74uvVxE2akeNjhup7uzuD5avVLUX4=" alt="Person">
+
+                      </div>
+                      <div class="card--profile-info">
+                        <span>Ana Lilia Zamora García</span>
+                        <p>Fotografia y edición</p>
+                      <div class="social-cards">
+                        <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
+                        <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                        <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+                      </div>
+                    </div>
+                    </article>
+                    
+                  </div>
+                  <div class="controls ">
+                      <a class="btn-arrow" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
+                      <h1 class=""> Nuestro equipo</h1> 
+                      <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
+                  </div>
+      
+        </section>
         <section id="competitors" class="competitors-section">
 
-        </section>
-        <section id="directory" class="directory-section">
 
         </section>
+        
         <section id="social-media">
             <nav class="social-media">
                 <a href="#"><img src="./img/icon/square-facebook.svg" alt="fb icon"></a>

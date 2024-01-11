@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: grid;
+            place-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+        .card{
+            width: 300px;
+            height: 300px;
+            background: aqua;
+            border-radius: 10px;
+            transition:  1s;
+        }
+        .animation-event-to-right{
+            
+            opacity: 0;
+        }
+        .animation-right{
+            animation: moveRight 1s linear;
+        }
+        @keyframes moveRight{
+            from{
+                transform: translateX(-500px);
+                opacity: 0;
+            }
+            to{
+                transform: translateX(0px);
+                opacity: 1;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card animation animation-right">
+            Hola mundo!!
+        </div>
+
+    </div>
+    
+</body>
+</html>
