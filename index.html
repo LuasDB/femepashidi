@@ -25,7 +25,7 @@
             <a href="#about">NOSOTROS</a>
             <a href="#events">EVENTOS</a>
             <a href="#directory">DIRECTORIO</a>
-            <a href="">DIRECTORIO</a> 
+            <a href="#antidoping">ANTIDOPAJE</a> 
         </nav>
     </header>
     <aside></aside>
@@ -88,20 +88,124 @@
                 <div class="transparent"></div>
             </div>
         </section>
-        
-
         <section id="about" class="animation-action about-section border-ice">           
-            <div class="scroll-animation-up col-2">
-                
-                <article class="article__about card w-50 h-50">
-                    <h1 class="article__tittle">Nosotros</h1>
-                    <p>Somos .... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                    <a href="#directory" class="button button-50 button-blue">Nuestro equipo</a>
+            <div class="scroll-animation-up col-2 margin-bar">
+                <article class="article__about card w-50 h-40">
+                    <h1 class="article__tittle margin-top-0">Nosotros</h1>
+                    <p>Somos .... erferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                    <div class="social-cards">
+                        <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
+                        <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                        <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+                        <a class=""><img src="./img/icon/tiktok.svg" alt="X-twiter"></a>
+                        <a class=""><img src="./img/icon/youtube.svg" alt="X-twiter"></a>
+                    </div>
                 </article>
-                <img  class="article__about--image scroll-animation-down" src="./img/images/logo_fede.png" alt="Logo FEDE">
+                <img  class="article__about--image scroll-animation-down img-about" src="./img/images/logo_fede.png" alt="Logo FEDE">
+            </div>
+            <br>
+            <h2 class="article__tittle">Galeria</h2>
+            <!-- <div class="section-galery">
+                <div class="container-galery">
+                    <div id="carrucel_galery" class="carrusel-galery">
+                        <img class="imagen" src="https://media.istockphoto.com/id/1438189055/es/foto/pareja-activa-en-la-pista-de-patinaje.jpg?s=1024x1024&w=is&k=20&c=AgB213SaPbdzdwr7tIJRzCt9DYGvcuX8vRFBRPxAAlQ=" alt="uno">
+                        <img class="imagen" src="./img/images/pista.jpg" alt="dos">
+                        <img class="imagen" src="./img/images/patines.jpg" alt="tres">
+                        <img class="imagen" src="./img/images/paisaje.jpg" alt="uno">
+                        <img class="imagen" src="https://media.istockphoto.com/id/1310223022/es/foto/algunos-buscan-las-estrellas-otros-se-deslizan-a-trav%C3%A9s-de-ellas.jpg?s=1024x1024&w=is&k=20&c=V60nTpmQYbOOLTj0U1AbAm0RDCcJ_8v9AmV6LZuOqI0=" alt="dos">
+                        <img class="imagen" src="./img/images/patines.jpg" alt="tres">
+                    </div>
+                    <div class="barra-progreso-galery">
+                        <div class="btn-galery btn-galery-focus" onclick="nuevoIndice(0)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(1)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(2)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(3)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(4)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(5)"></div> 
+                    </div>
+                    <button class="botonAnterior" onclick="cambiarImagen(-1)">&#10094;</button>
+                    <button class="botonSiguiente" onclick="cambiarImagen(1)">&#10095;</button> 
+                    
+                </div>
+                
+               
+            </div>
+            <br><br><br><br> -->
+
+            <div class="section-galery2">
+
+                <div class="container-galery " >
+                    <div id="carrucel_galery" class="carrusel-galery">
+                        <img class="imagen" src="https://media.istockphoto.com/id/1438189055/es/foto/pareja-activa-en-la-pista-de-patinaje.jpg?s=1024x1024&w=is&k=20&c=AgB213SaPbdzdwr7tIJRzCt9DYGvcuX8vRFBRPxAAlQ=" alt="uno">
+                        <img class="imagen" src="./img/images/pista.jpg" alt="dos">
+                        <img class="imagen" src="./img/images/patines.jpg" alt="tres">
+                        <img class="imagen" src="./img/images/paisaje.jpg" alt="uno">
+                        <img class="imagen" src="https://media.istockphoto.com/id/1310223022/es/foto/algunos-buscan-las-estrellas-otros-se-deslizan-a-trav%C3%A9s-de-ellas.jpg?s=1024x1024&w=is&k=20&c=V60nTpmQYbOOLTj0U1AbAm0RDCcJ_8v9AmV6LZuOqI0=" alt="dos">
+                        <img class="imagen" src="./img/images/patines.jpg" alt="tres">
+                        <!-- Agrega más imágenes según sea necesario -->
+                    </div>
+                    <div class="barra-progreso-galery">
+                        <div class="btn-galery btn-galery-focus" onclick="nuevoIndice(0)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(1)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(2)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(3)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(4)"></div>
+                        <div class="btn-galery" onclick="nuevoIndice(5)"></div> 
+                    </div>
+                    <button class="botonAnterior" onclick="cambiarImagen(-1)">&#10094;</button>
+                    <button class="botonSiguiente" onclick="cambiarImagen(1)">&#10095;</button> 
+                    
+                </div>
+                <article class="article__about card w-50 h-40">
+                    <h1 class="article__tittle margin-top-0">Contactanos</h1>
+                    <p><img src="./img/icon/square-instagram.svg" alt="Instagram">Direccion: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum molestias porro  </p>
+                    <p><img src="./img/icon/square-x-twitter.svg" alt="X-twiter">Telefono: +525514374912</p>
+                    <p><a class=""><img src="./img/icon/tiktok.svg" alt="X-twiter"></a>Correo: info@correo.com</p>
+                </article>
+
+                
                 
             </div>
-            
+            <script>
+                var indiceActual = 0;
+                var imagenes = document.querySelectorAll('.imagen');
+                const btn_galery = document.querySelectorAll('.btn-galery');
+                var barraProgreso = document.getElementById('progreso');
+                const carr_galery=document.getElementById('carrucel_galery');
+                var totalImagenes = imagenes.length;
+        
+                function cambiarImagen(direccion) {
+                    indiceActual += direccion;
+                    let desplazamiento = imagenes[0].clientWidth;
+                    console.log(desplazamiento);
+                    if(direccion > 0){carr_galery.scrollLeft += desplazamiento;}else{
+                        carr_galery.scrollLeft -= desplazamiento;
+                    }
+        
+                    if (indiceActual < 0) {indiceActual = totalImagenes - 1;} 
+                    else if(indiceActual >= totalImagenes) {
+                        indiceActual = 0;
+                        carr_galery.scrollLeft=0;
+                    }    
+                    btn_galery.forEach(btn=>{
+                        btn.classList.remove('btn-galery-focus');
+                    });
+                    btn_galery[indiceActual].classList.add('btn-galery-focus')  
+                }
+                function nuevoIndice(nuevo){
+                    indiceActual=nuevo;
+                    btn_galery.forEach(btn=>{
+                        btn.classList.remove('btn-galery-focus');
+                    });
+                    btn_galery[nuevo].classList.add('btn-galery-focus');
+                    carr_galery.scrollLeft=0;
+                    let desplazamiento = imagenes[0].clientWidth * nuevo;
+                    carr_galery.scrollLeft=desplazamiento;
+                }
+                
+        
+                setInterval(() => { cambiarImagen(1) }, 3000);
+            </script>
         </section>
         <section id="events" class="events-section  border-ice">
             <!-- Botones para demostrar cómo mover el scroll -->
@@ -157,30 +261,25 @@ Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitat
                 </article>
             </div>
                  
-              </div>
-              <script>
-                // Mover el scroll horizontal a la derecha
-                function moverScrollDerecha() {
-                    var contenedor = document.querySelectorAll('.carrucel');
-                    contenedor.forEach(cont=>cont.scrollLeft += 150);
-                }
-        
-                // Mover el scroll horizontal a la izquierda
-                function moverScrollIzquierda() {
-                    var contenedor = document.querySelectorAll('.carrucel');
-                    contenedor.forEach(cont=>cont.scrollLeft -= 150);
-                     // Ajusta la cantidad según sea necesario
-                }
-            </script>
-        
-            
-        
-              
-            
+            </div>
+            <script>
+            // Mover el scroll horizontal a la derecha
+            function moverScrollDerecha() {
+                var contenedor = document.querySelectorAll('.carrucel');
+                contenedor.forEach(cont=>cont.scrollLeft += 150);
+            }
+    
+            // Mover el scroll horizontal a la izquierda
+            function moverScrollIzquierda() {
+                var contenedor = document.querySelectorAll('.carrucel');
+                contenedor.forEach(cont=>cont.scrollLeft -= 150);
+                    // Ajusta la cantidad según sea necesario
+            }
+            </script>   
         </section>
         <section id="directory" class="animation-action directory-section border-ice">     
             
-                <div class="carrucel scroll-animation-up">
+                <div class="carrucel scroll-animation-up prueba">              
                     <article class="card card--profile carrusel-item">
                       <div class="person-image">
                         <img class="image-circle" src="https://media.istockphoto.com/id/1339096538/es/foto/retrato-de-estudio-de-un-hombre-cauc%C3%A1sico-confiado-con-una-camisa-azul-sobre-un-fondo-gris.jpg?s=1024x1024&w=is&k=20&c=7bYXTP1SDiM-WveSSob9eIKDmXmkxF4lc9XHeAGacxo=" alt="Person">
@@ -225,7 +324,7 @@ Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitat
                     </article>
                     <article class="card card--profile carrusel-item">
                       <div class="person-image">
-                        <img class="image-circle" src="https://media.istockphoto.com/id/1224612514/es/foto/joven-asi%C3%A1tico-aislado-en-fondo-blanco-mirando-hacia-los-lados.jpg?s=612x612&w=0&k=20&c=13euzhY4_T5WshZQXQzQMOXNr6NBKhAhPkilOcJUYJ4=" alt="Person">
+                        <img class="image-circle" src="https://media.istockphoto.com/id/1484597994/es/foto/retrato-de-un-joven-cauc%C3%A1sico-adolescente-de-18-o-19-a%C3%B1os-al-aire-libre.jpg?s=1024x1024&w=is&k=20&c=KtA99YfIE2OUZc9MXQhdRUA2jDbz3Dchiy9G-hq7kuI=" alt="Person">
                       </div>
                       <div class="card--profile-info">
                         <span>Lic. Arturo Gómez Villanueva</span>
@@ -252,9 +351,8 @@ Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitat
                       </div>
                     </div>
                     </article>
-                    
-                  </div>
-                  <div class="controls ">
+                </div>
+                  <div class="controls">
                       <a class="btn-arrow" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
                       <h1 class=""> Nuestro equipo</h1> 
                       <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
@@ -266,16 +364,6 @@ Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitat
 
         </section>
         
-        <section id="social-media">
-            <nav class="social-media">
-                <a href="#"><img src="./img/icon/square-facebook.svg" alt="fb icon"></a>
-                <a href="#"><img src="./img/icon/square-instagram.svg" alt="Instagram icon"></a>
-                <a href="#"><img src="./img/icon/square-x-twitter.svg" alt="Twiter x"></a>
-                <a href="#"><img src="./img/icon/tiktok.svg" alt="Tiktok"></a>
-                <a href="#"><img src="./img/icon/youtube.svg" alt="YouTube"></a>
-            </nav>
-
-        </section>
        
         <section id="logos">
 

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            
+            
+        }
+        .container-galery{         
+            width: 100%;
+            height: 90vh;
+
+        }
+        .carrusel-galery {
+            display: flex;
+            flex-direction: column;
+            flex-wrap:wrap;   
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            overflow-x: scroll;
+            overflow: hidden;
+        }
+
+        .imagen { 
+            margin: 0;
+            width: 100%;
+            height: 80vh;
+            min-width: 300px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .barra-progreso-galery {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;       
+            width: 100%;
+            margin: 0 auto;
+            
+        }
+        .btn-galery{
+            width: 15px;
+            height: 15px;
+            background: #4fc3daa8;
+            border-radius: 50%;
+            margin:0 10px;
+            cursor: pointer;
+        }
+        .btn-galery-focus{
+            background: white;
+            box-shadow: 0 0 0 1px  #4fc3dc44,
+            0 0 10px  #4fc3da,
+            0 0 10px  #4fc3da;
+        }
+        #botonAnterior,
+        #botonSiguiente {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #botonAnterior {
+            left: 10px;
+        }
+        #botonSiguiente {
+            right: 10px;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container-galery">
+        <div id="carrucel_galery" class="carrusel-galery">
+            <img class="imagen" src="./img/images/paisaje.jpg" alt="uno">
+            <img class="imagen" src="./img/images/pista.jpg" alt="dos">
+            <img class="imagen" src="./img/images/patines.jpg" alt="tres">
+            <img class="imagen" src="./img/images/paisaje.jpg" alt="uno">
+            <img class="imagen" src="./img/images/pista.jpg" alt="dos">
+            <img class="imagen" src="./img/images/patines.jpg" alt="tres">
+            <!-- Agrega más imágenes según sea necesario -->
+        </div>
+        <div class="barra-progreso-galery">
+            <div class="btn-galery btn-galery-focus" onclick="nuevoIndice(0)"></div>
+            <div class="btn-galery" onclick="nuevoIndice(1)"></div>
+            <div class="btn-galery" onclick="nuevoIndice(2)"></div>
+            <div class="btn-galery" onclick="nuevoIndice(3)"></div>
+            <div class="btn-galery" onclick="nuevoIndice(4)"></div>
+            <div class="btn-galery" onclick="nuevoIndice(5)"></div> 
+        </div>
+        <button id="botonAnterior" onclick="cambiarImagen(-1)">&#10094;</button>
+        <button id="botonSiguiente" onclick="cambiarImagen(1)">&#10095;</button>  
+    </div>
+    
+    <script>
+        var indiceActual = 0;
+        var imagenes = document.querySelectorAll('.imagen');
+        const btn_galery = document.querySelectorAll('.btn-galery');
+        var barraProgreso = document.getElementById('progreso');
+        const carr_galery=document.getElementById('carrucel_galery');
+        var totalImagenes = imagenes.length;
+
+        function cambiarImagen(direccion) {
+            indiceActual += direccion;
+            let desplazamiento = imagenes[0].clientWidth;
+            console.log(desplazamiento);
+            if(direccion > 0){carr_galery.scrollLeft += desplazamiento;}else{
+                carr_galery.scrollLeft -= desplazamiento;
+            }
+
+            if (indiceActual < 0) {indiceActual = totalImagenes - 1;} 
+            else if(indiceActual >= totalImagenes) {
+                indiceActual = 0;
+                carr_galery.scrollLeft=0;
+            }    
+            btn_galery.forEach(btn=>{
+                btn.classList.remove('btn-galery-focus');
+            });
+            btn_galery[indiceActual].classList.add('btn-galery-focus')  
+        }
+        function nuevoIndice(nuevo){
+            indiceActual=nuevo;
+            btn_galery.forEach(btn=>{
+                btn.classList.remove('btn-galery-focus');
+            });
+            btn_galery[nuevo].classList.add('btn-galery-focus');
+            carr_galery.scrollLeft=0;
+            let desplazamiento = imagenes[0].clientWidth * nuevo;
+            carr_galery.scrollLeft=desplazamiento;
+        }
+        
+
+        setInterval(() => { cambiarImagen(1) }, 3000);
+    </script>
+
+</body>
+</html>

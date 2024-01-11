@@ -59,8 +59,8 @@ font-family: 'Nunito', sans-serif;
 
 }
 section{
-    min-height: 100vh;
-    height: 100vh;
+   
+    
    
     scroll-behavior: smooth;
     
@@ -206,13 +206,15 @@ article{
 .h-75{
     height: 75vh;
 }
+.h-40{
+    height: 40vh;
+}
 .h-50{
     height: 50vh;
 }
 .margin-bar{
-    margin-top: 8vh;
-    text-align: center;
-    margin-bottom: 2%;
+    margin-top: 13vh;
+   
 }
 
 /* Elements */
@@ -233,8 +235,7 @@ article{
     position: relative;
     width: 100%;
     height: 100vh;    
-    overflow: hidden;
-    
+    overflow: hidden; 
     background-image: url(./../img/images/patines.jpg);
     background-size: 100% 100vh;
     background-repeat: no-repeat;
@@ -284,7 +285,6 @@ article{
     0 0 100px  #4fc3da;
    
 }
-
 .info{
     position: relative;
     top: 20%;
@@ -306,7 +306,6 @@ article{
     font-size: large;
     text-align: center;
 }
-
 /* Animations */
 @keyframes animate{
     0%{
@@ -340,6 +339,7 @@ article{
    
     transform: scaleY(100px);
     transition:  1.5s;
+    
 }
 .scroll-animation-down{
     opacity: 0;
@@ -350,18 +350,24 @@ article{
     opacity: 1;
     filter: blur(0px);
     animation: slideUp 2s;
+    
 }
 .show-down{
     opacity: 1;
     filter: blur(0px);
     animation: slideDown 2s;
+    
 }
 .animation-avent-to-scale{
     opacity: 0;
+    transition-delay: 1s;
+    animation-delay: 2s;
 }
 .animation-scale{
     opacity: 1;
     animation: scaleUp 1s linear;
+    transition-delay: 2s;
+    
     
 }
 @keyframes scaleUp{
@@ -394,38 +400,137 @@ article{
 }
 /* About Section */
 .about-section{
-    display: grid;
+    display: grid;   
     place-items: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 10%;
     
     
     /* background-color: rgb(79, 195, 218,0.1); */
     
-    background: linear-gradient(360deg, rgba(4,72,122,0.5) 2%, rgba(237,222,222,1) 50%, rgba(208,232,237,1) 96%);
+    /* background: linear-gradient(360deg, rgba(4,72,122,0.5) 2%, rgba(237,222,222,1) 50%, rgba(208,232,237,1) 96%);
     background: linear-gradient(
                 to left top,
-                rgba(39, 152, 233, 0.8),rgba(255, 255, 255, 0.8));
+                rgba(39, 152, 233, 0.8),rgba(255, 255, 255, 0.8)); */
             
     box-shadow: 1px 2px 20px 5px rgba(39, 152, 233, 0.8); 
 }
-.about-section img{
+.about-section .img-about{
     width: 50%;
     margin: 10px auto;
 }
 .article__about{
-   padding-left:  15%;
+   padding-bottom: 10%;
 }
 .article__tittle{
     color: var(--purple-color);
     /* margin: 0; */
 }
+.section-galery{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+/* Galery Caurocel */
+.container-galery{         
+    width: 100%;
+    height: 75vh;
+    
+}
+.carrusel-galery {
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap;   
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow-x: scroll;
+    overflow: hidden;
+}
+
+.imagen { 
+    margin: 0;
+    width: 100%;
+    height: 80vh;
+    min-width: 300px;
+    transition: scroll 2s ease-in-out;
+}
+
+.barra-progreso-galery {
+    position: relative;
+    left: 0;
+    bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;       
+    width: 100%;
+    margin-bottom: 2rem;
+    
+}
+.btn-galery{
+    width: 15px;
+    height: 15px;
+    background: #bedfe6;
+    border-radius: 50%;
+    margin:0 10px;
+    cursor: pointer;
+}
+.btn-galery-focus{
+    background: white;
+    box-shadow: 0 0 0 1px  #4fc3dc44,
+    0 0 10px  #4fc3da,
+    0 0 10px  #4fc3da;
+}
+.botonAnterior,
+.botonSiguiente {
+    position: relative;
+    top: -50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    
+}
+.botonAnterior {
+    left:2%;
+}
+.botonSiguiente {
+    left: 93%;
+}
+
+
+.section-galery2{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    margin: 1.2rem;
+    
+}
+.section-galery2 .carrusel-galery{
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
 /* events section  */
 .events-section{
    
   
    margin: 0;
    padding:0;
+   height: 100vh;
+   width: 100%;
    
    z-index: 1;
    background-image: url('../img/images/paisaje.jpg');
@@ -455,7 +560,6 @@ article{
     overflow: hidden;
     /* position: absolute;  */
     /* Permite que la barra de desplazamiento se coloque sobre el contenido */
-    
 }
 .carrucel::-webkit-scrollbar{
     height: 12px;
@@ -482,6 +586,10 @@ article{
     flex: 1 0 auto;
     scroll-snap-align: center;
     width: 400px;
+    scroll-behavior: smooth;
+}
+.carrusel-item:nth-child(1){
+    margin-left: 100px;
 }
 .controls{
     display: grid;
@@ -503,63 +611,76 @@ article{
     
 }
 
-    .card--profile{
-      width: 200px;
-      min-width: 200px;
-      height: 35vh;
-      margin:0 1rem;
-      margin-top: 25vh;
-      display: flex;
-      align-items: center;
-    }
-    .person-image{
-      width: 150px;
-      height: 150px;
-      position: relative;
-      top:-100px;
-      
-    }
-    .image-circle{
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-    }
-    .card--profile-info{    
-      position: relative;
-      top:-80px;
-      margin: 0;
-      text-align: center;
-      display: grid;
-      grid-template-rows: 1fr 1fr 1fr;
-      
-    }
-    .card--profile-info span{
+.card--profile{
+    width: 20%;
+    min-width: 200px;
+    height: 35vh;
+    margin:0 1rem;
+    margin-top: 25vh;
+    display: flex;
+    align-items: center;
+}
+.person-image{
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top:-100px;
+}
+.image-circle{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.5);
+    
+}
+.card--profile-info{    
+    position: relative;
+    top:-80px;
+    margin: 0;
+    text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    
+}
+.card--profile-info span{
 
-        
-      color: blue;
-      
-    }
-    .card--profile-info p{
-      color: gray;
-    }
-    .social-cards{
-      width: 100%;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-around;
-    }
-    .social-cards a{
+    
+    color: blue;
+    
+}
+.card--profile-info p{
+    color: gray;
+}
+.social-cards{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+.social-cards a{
 
-      width:30px;
-      padding: 0;
-      font-size: 0.8rem;
-      margin-top: 15px;
-      
-    }
-    .social-cards a img{
-      width: 100%;
-      
-    }
+    width:30px;
+    padding: 0;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    cursor: pointer;
+    
+}
+.social-cards a img{
+    width: 100%;
+    
+}
+/* Utilidades importantes */
+.margin-top-0{
+    margin-top: 0;
+}
+.no-margin{
+    margin: 0;
+}
+.no-margin-bottom{
+    margin-bottom:  0;
+}
+    
 
   
 
