@@ -56,6 +56,10 @@ font-family: 'Rubik Maps', system-ui; */
 body{
 font-family: 'Nunito', sans-serif;
 /* scroll-behavior: smooth; */
+display: flex;
+flex-direction: column;
+width: 100%;
+
 
 }
 section{
@@ -144,6 +148,22 @@ article{
     margin: 20px;
     padding: 15px;
 }
+.article__about p{
+    margin: 4px auto;
+    font-size: 0.9rem;
+
+}
+.article__about p a{
+    font-size: 1rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    text-decoration: none;
+
+}
+.article__about span img{
+    color: var(--secundary-color);
+}
+
 
 .container{
     position: absolute;
@@ -203,6 +223,10 @@ article{
     width: 50%;
     margin: 0 auto;
 }
+.w-70{
+    width: 70%;
+    margin: 0 auto;
+}
 .h-75{
     height: 75vh;
 }
@@ -212,9 +236,15 @@ article{
 .h-50{
     height: 50vh;
 }
+.h-80{
+    height: 80vh;
+}
 .margin-bar{
     margin-top: 13vh;
    
+}
+.text-center{
+    text-align: center;
 }
 
 /* Elements */
@@ -335,14 +365,15 @@ article{
 }
 .scroll-animation-up{
     opacity: 0;
-    filter: blur(1px);
-   
+    filter: blur(1px);   
     transform: scaleY(100px);
     transition:  1.5s;
     
 }
 .scroll-animation-down{
     opacity: 0;
+    transform: scaleY(-100px);
+
     filter: blur(1px);
     transition:  1.5s;
 }
@@ -404,6 +435,7 @@ article{
     place-items: center;
     align-items: center;
     width: 100%;
+    
     margin-bottom: 10%;
     
     
@@ -417,11 +449,12 @@ article{
     box-shadow: 1px 2px 20px 5px rgba(39, 152, 233, 0.8); 
 }
 .about-section .img-about{
-    width: 50%;
+    width: 25%;
     margin: 10px auto;
 }
 .article__about{
-   padding-bottom: 10%;
+    padding: 2% auto 0;
+
 }
 .article__tittle{
     color: var(--purple-color);
@@ -433,13 +466,31 @@ article{
     width: 100%;
     
 }
+.images-logos{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
+}
+.logo-1{
+    width: 100%;
+    display: flex;
+    
+}
+.logo-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.grid-center{
+    place-items: center;
+    align-items: center;
+}
 /* Galery Caurocel */
-.container-galery{         
+.section-galery2 .container-galery{         
     width: 100%;
     height: 75vh;
     
 }
-.carrusel-galery {
+.section-galery2 .carrusel-galery {
     display: flex;
     flex-direction: column;
     flex-wrap:wrap;   
@@ -450,7 +501,8 @@ article{
     overflow: hidden;
 }
 
-.imagen { 
+
+.section-galery2 .imagen { 
     margin: 0;
     width: 100%;
     height: 80vh;
@@ -500,7 +552,7 @@ article{
     left:2%;
 }
 .botonSiguiente {
-    left: 93%;
+    left: 90%;
 }
 
 
@@ -513,6 +565,21 @@ article{
 }
 .section-galery2 .carrusel-galery{
     border-radius: 10px;
+    box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.5);
+
+}
+.down-arrow{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.down-arrow img{
+    position: relative;
+    top: -10px;
+    width: 80px;
+    cursor: pointer;
 }
 
 
@@ -544,10 +611,9 @@ article{
 .info-events{
  margin: 100px;
 }
-/* Directory section */
-
-
-
+.events__tittle{
+    color: #ffff;
+}
 
 /* Carrusel */
 .carrucel{
@@ -679,8 +745,144 @@ article{
 }
 .no-margin-bottom{
     margin-bottom:  0;
+
 }
+/* Antidoping section */
+.antidoping-section{
+    padding-top: 11vh;
+    max-height: 75vh;
+
+}
+.container-antidoping{
     
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    place-items: center;
+    margin: 2rem;
+    gap: 1.5rem;
+
+}
+.image-antidoping img{
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.5);
+}
+
+/* Footer */
+footer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10rem;
+    min-height: 100px;
+    background-color: #4e4ef8;
+    padding: 20px 50px;
+
+    text-align: center;
+    color: aquamarine;
+    }
+    footer img{
+    width:50%;
+    }
+    .container-footer{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    align-items: center;
+    justify-content: center;
+    }
+    footer .logo-footer{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    }
+    footer a svg  {
+    width: 40px;
+    height: 40px;
+    }
+    footer a svg path {
+    fill: #fff; 
+    }
+    footer .wave{
+    position: absolute;
+    top: -100px;
+    left: 0;
+
+    width: 100%;
+    height: 100px;
+    
+    background:url(../img/images/wave-purple.png);
+    background-size: 1000px 100px;
+    }
+    footer .wave#wave1{
+        width: 100%;
+
+    bottom: 0;
+    opacity: 1;
+    z-index: 1000;
+    animation: animateWave1 4s linear infinite;
+    }
+    footer .wave#wave2{
+        width: 100%;
+    bottom: 10px;
+    opacity: 0.5;
+    z-index: 999;
+    animation: animateWave2 4s linear infinite;
+    }
+    footer .wave#wave3{
+        width: 100%;
+    bottom: 15px;
+    opacity: 0.2;
+    z-index: 998;
+    animation: animateWave3 3s linear infinite;
+    }
+    footer .wave#wave4{
+        width: 100%;
+    bottom: 20px;
+    opacity: 0.7;
+
+    z-index: 996;
+    animation: animateWave4 3s linear infinite;
+    }
+    @keyframes animateWave1 {
+    0%{
+        background-position: 1000px;
+    }
+    100%{
+        background-position: 0px;
+    }
+    }
+    @keyframes animateWave2 {
+    0%{
+        background-position: 0px;
+    }
+    100%{
+        background-position: 1000px;
+    }
+    }
+    
+
+    
+
+    @keyframes animateWave3 {
+    0%{
+        background-position: 0px;
+    }
+    100%{
+        background-position: 1000px;
+    }
+    }
+    @keyframes animateWave4 {
+    0%{
+        background-position: 1000px;
+    }
+    100%{
+        background-position: 0px;
+    }
+    }
+
+
 
   
 

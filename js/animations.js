@@ -28,7 +28,6 @@ const observerAbout2 = new IntersectionObserver((entries)=>{
 });
 const elements_animate2= document.querySelectorAll('.scroll-animation-down');
 elements_animate2.forEach((element) => observerAbout2.observe(element));
-
 /*
 ANIMACION PARA ELEMENTOS CON SCALE
 */
@@ -74,7 +73,7 @@ const nombre = document.querySelector('#menu div div');
 // Función para manejar el evento de scroll
 function handleScroll() {
     const scrollPosition = window.scrollY;
-    
+    console.log('[Y]:',scrollPosition);
 
    if(scrollPosition > 595 ){
     // menu.style.backgroundColor = "rgb(79, 195, 218,0.4)";
@@ -95,9 +94,54 @@ function handleScroll() {
    }
 }
 
+
+/*PRUEBA*/
+
+
+
+// const arrow_down = document.querySelector('.down-arrow img');
+//     arrow_down.addEventListener('click',()=>{
+//         const ventana_about = document.querySelector('.section-galery2');
+//         let desplazamientoY = window.scrollY += ventana_about.clientHeight + 100;
+        
+//         window.scrollTo({
+//             top:desplazamientoY,
+//             behavior:'smooth'
+//             });
+//             // window.scrollY -= ventana_about.clientHeight + 100;      
+//     });
+
+const arrow_down = document.querySelector('.down-arrow img');
+    arrow_down.addEventListener('click',()=>{
+        const ventana_about = document.querySelector('.section-galery2');
+        
+        // Obtener la posición actual del desplazamiento vertical
+        let currentPosition = window.scrollY;
+
+        // Calcular la nueva posición del desplazamiento hacia abajo (agregar 800px)
+        let targetPosition = currentPosition + ventana_about.clientHeight + 100;
+
+        // Realizar el desplazamiento suave utilizando setInterval
+        let scrollInterval = setInterval(function() {
+        // Desplazar hacia abajo en incrementos pequeños
+        window.scrollBy(0, 10);
+        console.log('[NUEVA Y]:',window.scrollY)
+
+        // Verificar si se alcanzó la posición objetivo
+        if (window.scrollY >= targetPosition) {
+            // Detener el intervalo cuando se alcanza la posición objetivo
+            clearInterval(scrollInterval);
+        }
+        }, 16.67); // Aproximadamente 60 fps
+    });
+
 // Agrega un event listener para el evento de scroll
 window.addEventListener("scroll", handleScroll);
+
+
 });
+
+
 
 
 
