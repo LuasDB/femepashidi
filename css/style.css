@@ -50,6 +50,7 @@ font-family: 'Rubik Maps', system-ui; */
     --primary-color:#0000ff;
     --secundary-color:#4fc3da;
     --purple-color:#4e4ef8;
+    --nav-color:rgb(32,32,154);
     
 }
 /* General styles */
@@ -71,6 +72,13 @@ section{
     
     
 }
+#menu_button{
+    display: none;
+}
+#logo_tablet{
+    display: none;
+}
+
 
 /* Header */
 header{
@@ -103,9 +111,12 @@ header div div p{
     margin: 0;
 }
 header img{
-    width: 60px;
-    height: 60px;
+    width: 10%;
+    
     margin: 10px;
+}
+#menu_open{
+    display: none;
 }
 .nav-menus{
     display: flex;
@@ -114,8 +125,10 @@ header img{
 }
 .nav-menus a{
     color: white;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
     text-decoration: none;
+    
 }
 .nav-menus a.active{
     color: var(--primary-color);
@@ -267,7 +280,8 @@ article{
     height: 100vh;    
     overflow: hidden; 
     background-image: url(./../img/images/patines.jpg);
-    background-size: 100% 100vh;
+    background-position: 1000px;
+    background-size: 150% 100vh;
     background-repeat: no-repeat;
     background-position: center;
     
@@ -436,7 +450,7 @@ article{
     align-items: center;
     width: 100%;
     
-    margin-bottom: 10%;
+    
     
     
     /* background-color: rgb(79, 195, 218,0.1); */
@@ -464,7 +478,6 @@ article{
     display: flex;
     flex-direction: column;
     width: 100%;
-    
 }
 .images-logos{
     display: grid;
@@ -485,10 +498,10 @@ article{
     align-items: center;
 }
 /* Galery Caurocel */
+
 .section-galery2 .container-galery{         
-    width: 100%;
-    height: 75vh;
-    
+    width: 75%;
+    height: 76vh;
 }
 .section-galery2 .carrusel-galery {
     display: flex;
@@ -549,17 +562,18 @@ article{
     
 }
 .botonAnterior {
-    left:2%;
+    left:1%;
 }
 .botonSiguiente {
-    left: 90%;
+    left: 78%;
 }
 
 
 .section-galery2{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
     align-items: center;
+    place-items: center;
     margin: 1.2rem;
     
 }
@@ -707,6 +721,7 @@ article{
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     
+    
 }
 .card--profile-info span{
 
@@ -777,11 +792,11 @@ footer{
 
     margin-top: 10rem;
     min-height: 100px;
-    background-color: #4e4ef8;
+    background-color: rgb(112, 171, 247);
     padding: 20px 50px;
 
     text-align: center;
-    color: aquamarine;
+    color: rgb(242, 248, 246);
     }
     footer img{
     width:50%;
@@ -861,10 +876,6 @@ footer{
         background-position: 1000px;
     }
     }
-    
-
-    
-
     @keyframes animateWave3 {
     0%{
         background-position: 0px;

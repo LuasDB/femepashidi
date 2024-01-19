@@ -72,26 +72,37 @@ const nombre = document.querySelector('#menu div div');
 
 // Función para manejar el evento de scroll
 function handleScroll() {
-    const scrollPosition = window.scrollY;
-    console.log('[Y]:',scrollPosition);
+    // Define la media query que deseas verificar
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
 
-   if(scrollPosition > 595 ){
-    // menu.style.backgroundColor = "rgb(79, 195, 218,0.4)";
-    menu.style.backdropFilter = "blur(15px)"; 
-    nombre.style.color= "#4e4ef8";
-    letras.forEach(a=>{
-        a.style.color= "#4e4ef8";
-    }) ;
+    // Verifica si la media query coincide actualmente
+    if (mediaQuery.matches) {
+        
     }
-   else{
-   
-    menu.style.backdropFilter = "blur(10px)"; 
-    menu.style.backgroundColor="";
-    letras.forEach(a=>{
-        a.style.color= "white";
-    }) ;
-    nombre.style.color= "white";
-   }
+    else{
+        const scrollPosition = window.scrollY;
+        console.log('[Y]:',scrollPosition);
+    
+       if(scrollPosition > 595 ){
+        menu.style.backgroundColor = "rgb(32, 32, 154,0.4)";
+        menu.style.backdropFilter = "blur(15px)"; 
+        nombre.style.color= "rgb(41 127 144)";
+        letras.forEach(a=>{
+            a.style.color= "rgb(41 127 144)";
+        }) ;
+        }
+       else{
+       
+        menu.style.backdropFilter = "blur(10px)"; 
+        menu.style.backgroundColor="";
+        letras.forEach(a=>{
+            a.style.color= "white";
+        }) ;
+        nombre.style.color= "white";
+       }
+
+    }
+    
 }
 
 
