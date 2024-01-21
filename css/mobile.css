@@ -1,0 +1,37 @@
+
+#logo_tablet{
+    display: block;
+    position: fixed;
+    top: 2%;
+    left: 2%;
+    width: 10%;
+    z-index: 100;
+}
+header{
+    top: 1rem;
+    left: calc(100% + 310px);
+    width: 300px;
+    min-width: 300px;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    transition: all 1s;
+    background-color:rgb(32,32,154,0.5);
+   
+}
+.hero .bg{
+    height: 50vh;
+}
+.welcome-hero article{
+   font-size: 0.5rems;
+}
+
+
+
+.section-galery2{
+    display: flex;
+    flex-direction: column;
+}
