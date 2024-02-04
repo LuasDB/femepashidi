@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Contenedor con Scroll Horizontal</title>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.scroll-container {
+    width: 50%;
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.elemento {
+    min-width: 100%;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    scroll-snap-align: center;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+}
+
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <div class="elemento">Elemento 1</div>
+        <div class="elemento">Elemento 2</div>
+        <div class="elemento">Elemento 3</div>
+        <div class="elemento">Elemento 4</div>
+        <!-- Agrega más elementos según sea necesario -->
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.scroll-container');
+
+    container.addEventListener('scroll', function () {
+        const scrollLeft = container.scrollLeft;
+        const elementos = document.querySelectorAll('.elemento');
+
+        elementos.forEach(function (elemento) {
+            const elementoLeft = elemento.offsetLeft;
+
+            if (scrollLeft >= elementoLeft && scrollLeft < elementoLeft + elemento.offsetWidth) {
+                const scrollCenter = elementoLeft + elemento.offsetWidth / 2 - window.innerWidth / 2;
+                container.scrollTo({ left: scrollCenter, behavior: 'smooth' });
+            }
+        });
+    });
+});
+
+    </script>
+    
+</body>
+</html>
