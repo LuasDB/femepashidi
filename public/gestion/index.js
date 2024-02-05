@@ -1,9 +1,10 @@
 /****************************************************************************************************************
  * funciones para facilitar el llamado a elementos del DOM
  * ***********************************************************************************************************/
-const $ = (elemento)=> document.querySelector(elemento); 
-const $a = (elemento)=> document.querySelectorAll(elemento); 
+const $ = (elemento)=> document.querySelector(elemento);
+const $a = (elemento)=> document.querySelectorAll(elemento);
 const n = (elemento)=> document.getElementById(elemento);
+const nuevo = (elemento)=> document.createElement(elemento);
 const monitor = $('main');
 /****************************************************************************************************************
  * Funciones que se agregarán a los btotones principales una vez renderizado el DOM
@@ -14,12 +15,24 @@ document.addEventListener("DOMContentLoaded", function () {
     n('solicitudes').onclick = ()=> callSolicitudesList();
     n('eventos').onclick = ()=> callEventosList();
     n('comunicados').onclick = ()=> callComunicadosList();
-    
 });
+/****************************************************************************************************************
+ * Variables para la API para mandar a llamar a construir en el monitor
+ ***********************************************************************************************************/
+const API_USERS = 'http://localhost:3000/api/v1/users/';
+const API_ASSOCIATIONS = 'http://localhost:3000/api/v1/associations/';
+const API_REGISTERS = 'http://localhost:3000/api/v1/register/';
+const API_EVENTS = 'http://localhost:3000/api/v1/events/';
+const API_COMUNICATIONS = 'http://localhost:3000/api/v1/communications/';
 /****************************************************************************************************************
  * Funciones para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
-const callPatinadoresList = ()=>{
+const callPatinadoresList = async()=>{
+  try {
+    const resApi =await fetch(API_USERS);
+    const data = await resApi.json();
+    console.log(data);
+
     monitor.innerHTML=`
     <section class="card bg-blue-100">
         <h3>Patinadores</h3>
@@ -35,29 +48,45 @@ const callPatinadoresList = ()=>{
               <th>FECHA DE NACIMIENTO</th>
               <th>ASOCIACION</th>
               <th>VER</th>
+              <th>ELIMINAR</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>FUBM901026HDFNRR07</td>
-              <td>MARIO SAUL DE LA FUENTE BARRUETA</td>
-              <td>INTERMEDIO</td>
-              <td>26-10-1990</td>
-              <td>CDMX</td>
-              <td><span class="material-symbols-outlined">
-                visibility
-                </span></td>
-            </tr>
-             
+          <tbody id="listado_users">
+
           </tbody>
         </table>
-        
-    
-    
       </section>`;
-      n('nuevo-patinador').onclick = ()=> nuevoRegistro('patinador');
+    data.documents.forEach(element => {
+      let fila = nuevo('tr');
+      fila.innerHTML=`
+        <td>${element.data.curp}</td>
+        <td>${element.data.nombre} ${element.data.apellido_paterno} ${element.data.apellido_materno}</td>
+        <td>${element.data.nivel_actual}</td>
+        <td>${element.data.fecha_nacimiento}</td>
+        <td>${element.data.asociacion}</td>
+        <td id="${element.id}" class="blue"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
+        <td id="${element.id}_delete" class="red"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>`;
+
+        n('listado_users').appendChild(fila);
+
+        n(element.id).onclick = ()=> visualizar(element,'users');
+        n(`${element.id}_delete`).onclick = ()=> eliminar(element,'users');
+
+
+    });
+
+    n('nuevo-patinador').onclick = ()=> nuevoRegistro('patinador');
+
+  } catch (error) {
+    console.log('ERROR',error)
+  }
+
 }
-const callAsociacionesList = ()=>{
+const callAsociacionesList = async()=>{
+  try {
+    const resApi =await fetch(API_ASSOCIATIONS);
+    const data = await resApi.json();
+    console.log(data);
     monitor.innerHTML=`
     <section class="card bg-blue-100">
         <h3>Asociaciones</h3>
@@ -75,27 +104,39 @@ const callAsociacionesList = ()=>{
               <th>ELIMINAR</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Nombre de la asociacion</td>
-              <td>Lic. Francisco Garcia Villanueva</td>
-              <td>francisco.garcia@correo.com</td>
-              <td class="activo"><p>Activo</p></td>
-              <td class="blue"><span class="material-symbols-outlined">
-                edit
-                </span></td>
-              <td class="red"><span class="material-symbols-outlined">
-                delete
-                </span></td>
-            </tr>
-             
+          <tbody id="listado_asociaciones">
+
           </tbody>
         </table>
       </section>`;
+      data.documents.forEach(element =>{
+        let fila = nuevo('tr');
+        fila.innerHTML=`
+        <td>${element.data.nombre}</td>
+        <td>${element.data.representante}</td>
+        <td>${element.data.correo}</td>
+        <td class="${element.data.status.toLowerCase()}"><p>${element.data.status}</p></td>
+        <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">
+          edit
+          </span></td>
+        <td class="red" id="${element.id}_delete"><span class="material-symbols-outlined" id="${element.id}_delete">
+          delete
+          </span></td>
+        </tr>`;
+        n('listado_asociaciones').appendChild(fila);
+        n(element.id).onclick = ()=> editar(element,'associations');
+        n(`${element.id}_delete`).onclick = ()=> eliminar(element,'associations');
+      });
       n('nuevo-asociacion').onclick = ()=> nuevoRegistro('asociacion');
-
+  } catch (error) {
+    console.log(error);
+  }
 }
-const callSolicitudesList = ()=>{
+const callSolicitudesList = async()=>{
+  try {
+    const resApi =await fetch(API_REGISTERS);
+    const data = await resApi.json();
+    console.log(data);
     monitor.innerHTML=`
     <section class="card bg-blue-100">
         <h3>Solicitudes</h3>
@@ -110,43 +151,34 @@ const callSolicitudesList = ()=>{
               <th>VER SOLICITUD</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>FUBM901026HDFNRR07</td>
-              <td>MARIO SAUL DE LA FUENTE BARRUETA</td>
-              <td>INTERMEDIO</td>
-              <td>NOMBRE DE COMPETENCIA</td>
-              <td class="inscrito"><p>INSCRIPCION</p></td>
-              <td class="blue"><span class="material-symbols-outlined">
-                visibility
-                </span></td>
-            </tr>
-            <tr>
-              <td>ECOJ901026HDFNRR07</td>
-              <td>OSCAR JAVIER ENRIQUEZ CRESPO</td>
-              <td>INTERMEDIO</td>
-              <td>NOMBRE DE COMPETENCIA</td>
-              <td class="aprobado"><p>APROBADO</p></td>
-              <td class="blue"><span class="material-symbols-outlined">
-                visibility
-                </span></td>
-            </tr>
-            <tr>
-              <td>RBDS901026HDFNRR07</td>
-              <td>DANIEL SAMUEL REYES BAUTISTA</td>
-              <td>INTERMEDIO</td>
-              <td>NOMBRE DE COMPETENCIA</td>
-              <td class="registrado"><p>REGISTRADO</p></td>
-              <td class="blue"><span class="material-symbols-outlined">
-                visibility
-                </span></td>
-            </tr>
-             
+          <tbody id="listado_solicitudes">
           </tbody>
         </table>
       </section>`;
+    data.documents.forEach(element=>{
+      let fila = nuevo('tr');
+      fila.innerHTML = `
+      <td>${element.data.user.curp}</td>
+      <td>${element.data.user.nombre} ${element.data.user.apellido_paterno} ${element.data.user.apellido_materno}</td>
+      <td>${element.data.user.nivel_actual}</td>
+      <td>${element.data.event.nombre}</td>
+      <td class="${element.data.status}"><p>${element.data.status.toUpperCase()}</p></td>
+      <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
+      `;
+      n('listado_solicitudes').appendChild(fila);
+
+      n(`${element.id}`).onclick = ()=> visualizar(element,'register');
+
+    });
+  } catch (error) {
+    console.log(error)
+  }
 }
-const callEventosList = ()=>{
+const callEventosList = async()=>{
+  try {
+    const resApi =await fetch(API_EVENTS);
+    const data = await resApi.json();
+    console.log(data);
     monitor.innerHTML=`
     <section class="card bg-blue-100">
         <h3>Eventos</h3>
@@ -164,39 +196,36 @@ const callEventosList = ()=>{
               <th>ELIMINAR</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>EVENTO 1</td>
-              <td>28 DE FEBRERO 2024</td>
-              <td>CIUDAD DE MÉXICO, A.OREGÓN</td>
-              <td class="activo"><p>Activo</p></td>
-              <td class="blue"><span class="material-symbols-outlined">
-                edit
-                </span></td>
-              <td class="red"><span class="material-symbols-outlined">
-                delete
-                </span></td>
-            </tr>
-            <tr>
-                <td>EVENTO 2</td>
-                <td>15 DE FEBRERO 2024</td>
-                <td>CIUDAD DE MÉXICO, A.OREGÓN</td>
-                <td class="pausa"><p>Pausa</p></td>
-                <td class="blue"><span class="material-symbols-outlined">
-                  edit
-                  </span></td>
-                <td class="red"><span class="material-symbols-outlined">
-                  delete
-                  </span></td>
-              </tr>
-             
+          <tbody id="listado_eventos">
           </tbody>
         </table>
       </section>`;
+      data.documents.forEach(element =>{
+        let fila = nuevo('tr');
+        fila.innerHTML = `
+        <td>EVENTO 1${element.data.nombre}</td>
+        <td>28 DE FEBRERO 2024 ${element.data.fecha_larga}</td>
+        <td>CIUDAD DE MÉXICO, A.OREGÓN${element.data.lugar}</td>
+        <td class="${element.data.status.toLowerCase()}"><p>${element.data.status}</p></td>
+        <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">edit</span></td>
+        <td class="red" id="${element.id}_delete"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>
+        `;
+        n('listado_eventos').appendChild(fila);
+        n(element.id).onclick = ()=> editar(element,'events');
+        n(`${element.id}_delete`).onclick = ()=> eliminar(element,'events');
+      });
     n('nuevo-evento').onclick = ()=> nuevoRegistro('evento');
-    
+  } catch (error) {
+    console.log(error);
+  }
+
+
 }
-const callComunicadosList = ()=>{
+const callComunicadosList = async()=>{
+  try {
+    const resApi =await fetch(API_COMUNICATIONS);
+    const data = await resApi.json();
+    console.log(data);
     monitor.innerHTML=`
     <section class="card bg-blue-100">
         <h3>Comunicados</h3>
@@ -214,37 +243,31 @@ const callComunicadosList = ()=>{
               <th>ELIMINAR</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>TITULO DEL COMUNICADO</td>
-              <td>https://images.pexels.com/photos/6015846/pexels-photo-6015846.jpeg?auto=compress&cs=tinysrgb&w=600</td>
-              <td>Breve descripcion</td>
-              <td class="activo"><p>Activo</p></td>
-              <td class="blue"><span class="material-symbols-outlined">
-                edit
-                </span></td>
-              <td class="red"><span class="material-symbols-outlined">
-                delete
-                </span></td>
-            </tr>
-            <tr>
-                <td>TITULO DEL COMUNICADO</td>
-                <td>https://images.pexels.com/photos/6015846/pexels-photo-6015846.jpeg?auto=compress&cs=tinysrgb&w=600</td>
-                <td>Breve descripcion</td>
-                <td class="activo"><p>Activo</p></td>
-                <td class="blue"><span class="material-symbols-outlined">
-                  edit
-                  </span></td>
-                <td class="red"><span class="material-symbols-outlined">
-                  delete
-                  </span></td>
-              </tr>
-             
+          <tbody id="listado_com">
+
           </tbody>
         </table>
       </section>`;
+    data.documents.forEach(element =>{
+      let fila = nuevo('tr');
+      fila.innerHTML = `
+      <td>${element.data.titulo.toUpperCase()}</td>
+      <td>${element.data.url_img}</td>
+      <td>${element.data.descripcion}</td>
+      <td class="${element.data.status.toLowerCase()}"><p>${element.data.status}</p></td>
+      <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">edit</span></td>
+      <td class="red" id="${element.id}_delete"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>
+      `;
+      n('listado_com').appendChild(fila);
+      n(element.id).onclick = ()=> editar(element,'communications');
+      n(`${element.id}_delete`).onclick = ()=> eliminar(element,'communications');
+
+    });
       n('nuevo-comunicado').onclick = ()=> nuevoRegistro('comunicado');
-    
+
+  } catch (error) {
+    console.log(error);
+  }
 }
 /****************************************************************************************************************
  * Funciones para mandar a llamar a construir formularios
@@ -267,4 +290,26 @@ function nuevoRegistro(tipo){
     default:
       break;
   }
+}
+/****************************************************************************************************************
+ * Funciones para mandar a llamar alguna accion
+ ***********************************************************************************************************/
+const visualizar = (element,collection)=>{
+  console.group('Visualizar');
+  console.log(collection);
+  console.log(element.id);
+  console.groupEnd()
+
+}
+const eliminar = (element,collection)=>{
+  console.group('Eliminar');
+  console.log(collection);
+  console.log(element.id);
+  console.groupEnd()
+}
+const editar = (element,collection)=>{
+  console.group('Editar');
+  console.log(collection);
+  console.log(element.id);
+  console.groupEnd()
 }

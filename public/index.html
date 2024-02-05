@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/tablet.css" media="(max-width:820px)">
     <link rel="stylesheet" href="./css/mobile.css" media="(max-width:560px)">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-   
+
 </head>
 <body>
   <div class="logo-div">
@@ -32,7 +32,7 @@
      }
     })
   </script>
-  
+
     <header id="menu">
         <div>
             <img src="./img/galery/LOGO FEDE BLANCO.png" alt="logo">
@@ -40,7 +40,7 @@
                 <p>Federación Mexicana de Patinaje sobre Hielo </p>
                 <p> y Deportes de Invierno, A.C.</p>
             </div>
-            
+
         </div>
         <nav class="nav-menus">
             <a href="#home" class="active">INICIO</a>
@@ -48,8 +48,8 @@
             <a href="#events">EVENTOS</a>
             <a href="#communications">COMUNICADOS</a>
             <a href="#directory">OFICIALES</a>
-            <a href="#antidoping">ANTIDOPAJE</a> 
-        </nav> 
+            <a href="#antidoping">ANTIDOPAJE</a>
+        </nav>
     </header>
     <main>
         <section class="animation-action hero " id="home" >
@@ -95,21 +95,21 @@
                     <span style="--i:17;"></span>
                     <span style="--i:13;"></span>
                     <span style="--i:28;"></span>
-                   
-                </div>   
-                <div class="col-2 welcome-hero">    
-                    
+
+                </div>
+                <div class="col-2 welcome-hero">
+
                     <article class="info">
                         <h1>Bienvenidos nuestra pagina oficial </h1>
                         <p>En este sitio encontraras toda la información sobre competencias vigentes y fechas, asi como inscripciones a los torneos actuales</p>
                         <a href="#" class="button button-blue align-center button-50">Descripcion de boton</a>
                     </article>
                     <div class="relleno"></div>
-                </div>          
+                </div>
                 <div class="transparent"></div>
             </div>
         </section>
-        <section id="about" class="animation-action about-section border-ice">           
+        <section id="about" class="animation-action about-section border-ice">
             <div class="scroll-animation-up col-2 margin-bar h-80">
                 <article class="article__about card w-70 ">
                     <h1 class="article__tittle no-margin">Nosotros</h1>
@@ -126,7 +126,7 @@
                         <a class=""><img src="./img/icon/tiktok.svg" alt="X-twiter"></a>
                         <a class=""><img src="./img/icon/youtube.svg" alt="X-twiter"></a>
                     </div>
-                    
+
                 </article>
                 <div class="images-logos scroll-animation-down ">
                     <div class="logo-1">
@@ -137,9 +137,9 @@
                         <img  class="article__about--image  img-about" src="./img/images/isu.png" alt="Logo ISU">
                     </div>
                 </div>
-                
+
             </div>
-            <div class="down-arrow" ><img src="/img/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg" alt="abajo"></div>
+            <div class="down-arrow" ><img src="./img/images/down-arrow.svg" alt="abajo"></div>
             <br class="enter">
             <br class="enter">
             <br class="enter">
@@ -160,11 +160,11 @@
                         <div class="btn-galery" onclick="nuevoIndice(2)"></div>
                         <div class="btn-galery" onclick="nuevoIndice(3)"></div>
                         <div class="btn-galery" onclick="nuevoIndice(4)"></div>
-                        <div class="btn-galery" onclick="nuevoIndice(5)"></div> 
+                        <div class="btn-galery" onclick="nuevoIndice(5)"></div>
                     </div>
                     <button class="botonAnterior" onclick="cambiarImagen(-1)">&#10094;</button>
-                    <button class="botonSiguiente" onclick="cambiarImagen(1)">&#10095;</button> 
-                    
+                    <button class="botonSiguiente" onclick="cambiarImagen(1)">&#10095;</button>
+
                 </div>
                 <article class="article__about card w-50 h-40">
                     <h1 class="article__tittle margin-top-0">Contactanos</h1>
@@ -177,7 +177,7 @@
                     <a><span class="material-symbols-outlined">
                         mail
                         </span>Correo: info@correo.com</a>
-                </article>         
+                </article>
             </div>
             <!-- <br><br>
             <br><br> -->
@@ -188,27 +188,27 @@
                 var barraProgreso = document.getElementById('progreso');
                 const carr_galery=document.getElementById('carrucel_galery');
                 var totalImagenes = imagenes.length;
-        
+
                 function cambiarImagen(direccion) {
                     indiceActual += direccion;
                     let desplazamiento = imagenes[0].clientWidth;
-                    
+
                     if(direccion > 0){
                       carr_galery.scrollLeft += desplazamiento;
                     }
                       else{
                         carr_galery.scrollLeft -= desplazamiento;
                     }
-        
-                    if (indiceActual < 0) {indiceActual = totalImagenes - 1;} 
+
+                    if (indiceActual < 0) {indiceActual = totalImagenes - 1;}
                     else if(indiceActual >= totalImagenes) {
                         indiceActual = 0;
                         carr_galery.scrollLeft=0;
-                    }    
+                    }
                     btn_galery.forEach(btn=>{
                         btn.classList.remove('btn-galery-focus');
                     });
-                    btn_galery[indiceActual].classList.add('btn-galery-focus')  
+                    btn_galery[indiceActual].classList.add('btn-galery-focus')
                 }
                 function nuevoIndice(nuevo){
                     indiceActual=nuevo;
@@ -220,17 +220,17 @@
                     let desplazamiento = imagenes[0].clientWidth * nuevo;
                     carr_galery.scrollLeft=desplazamiento;
                 }
-                     
+
                 setInterval(() => { cambiarImagen(1) }, 3000);
             </script>
-        </section> 
+        </section>
         <section id="events" class="events-section  border-ice">
             <!-- Botones para demostrar cómo mover el scroll -->
             <div class="controls padding-header animation-event-to-right">
                 <a class="btn-arrow" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
-                <h1 class="events__tittle  animation-event-to-right"> Conoce los eventos</h1> 
-                <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>   
-            </div>              
+                <h1 class="events__tittle  animation-event-to-right"> Conoce los eventos</h1>
+                <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
+            </div>
             <div class="carrucel animation-event-to-scale">
                 <div class="carrusel-item">
                   <article class=" card ">
@@ -260,25 +260,25 @@
                 <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
             </article>
         </div>
-            
-           
-           
-                 
-            
+
+
+
+
+
             <script>
             // Mover el scroll horizontal a la derecha
             function moverScrollDerecha() {
                 var contenedor = document.querySelectorAll('.carrucel');
                 contenedor.forEach(cont=>cont.scrollLeft += 150);
             }
-    
+
             // Mover el scroll horizontal a la izquierda
             function moverScrollIzquierda() {
                 var contenedor = document.querySelectorAll('.carrucel');
                 contenedor.forEach(cont=>cont.scrollLeft -= 150);
                     // Ajusta la cantidad según sea necesario
             }
-            </script>   
+            </script>
         </section>
         <section id="communications">
           <div class="communications-container">
@@ -302,11 +302,11 @@
               <figure>
                 <img src="./img/notifications/not3.png" alt="Mensaje 1">
               </figure>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </p>
               <h2>Aviso 3</h2>
             </article>
-            
+
           </div>
           <div class="communications-container2">
             <div class="notifications2">
@@ -348,16 +348,16 @@
                   notification.classList.add('hidden');
                 })
                 notifications[indiceCarrucel].classList.remove('hidden');
-                
+
               }
-             
+
               if(indiceCarrucel > 0){
                 notifications.forEach(notification =>{
                   notification.classList.add('hidden');
                 });
                 notifications[indiceCarrucel].classList.remove('hidden');
               }
-              
+
               btnsNotifications.forEach(item=>{
                   item.classList.remove('btn-galery-focus');
                 });
@@ -380,9 +380,9 @@
             }, 3500);
           </script>
         </section>
-        <section id="directory" class="animation-action directory-section ">     
-            
-                <div class="carrucel scroll-animation-up prueba">              
+        <section id="directory" class="animation-action directory-section ">
+
+                <div class="carrucel scroll-animation-up prueba">
                     <article class="card card--profile carrusel-item">
                       <div class="person-image">
                         <img class="image-circle" src="https://media.istockphoto.com/id/1339096538/es/foto/retrato-de-estudio-de-un-hombre-cauc%C3%A1sico-confiado-con-una-camisa-azul-sobre-un-fondo-gris.jpg?s=1024x1024&w=is&k=20&c=7bYXTP1SDiM-WveSSob9eIKDmXmkxF4lc9XHeAGacxo=" alt="Person">
@@ -457,10 +457,10 @@
                 </div>
                   <div class="controls">
                       <a class="btn-arrow" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
-                      <h1 class="">Oficiales</h1> 
+                      <h1 class="">Oficiales</h1>
                       <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
                   </div>
-      
+
         </section>
         <section class="antidoping-section " id="antidoping">
             <div class="container-antidoping scroll-animation-up">
@@ -471,17 +471,17 @@
                     <h2 class="article__tittle">WADA</h2>
                     <p>WADA significa Agencia Mundial Antidopaje (World Anti-Doping Agency). Es una organización internacional sin fines de lucro que tiene como objetivo luchar contra el dopaje en el deporte y promover la igualdad de oportunidades para los atletas. Fundada en 1999, la WADA establece los estándares mundiales para la lucha contra el dopaje en el deporte, incluyendo la lista de sustancias y métodos prohibidos y las normas para el control de drogas en los deportes. La WADA también ayuda a coordinar los esfuerzos de los organismos deportivos, gobiernos y otros interesados en la lucha contra el dopaje en el deporte.</p>
                     <p>La WADA ofrece una variedad de cursos en línea sobre el dopaje en el deporte, que incluyen información sobre el sistema de lucha contra el dopaje, la lista de sustancias y métodos prohibidos, los procedimientos de control de drogas y la protección de los derechos de los atletas. Estos cursos están diseñados para ser accesibles y útiles para atletas, entrenadores, árbitros, administradores deportivos, investigadores y otros interesados en la lucha contra el dopaje en el deporte. La mayoría de los cursos son gratuitos y están disponibles en diferentes idiomas. Para obtener más información sobre los cursos de la WADA, puede visitar su  <a href="https://www.wada-ama.org/en" target="_blank">sitio web aquí</a>.</p>
-                    
+
                     <a href="https://www.wada-ama.org/en/resources/world-anti-doping-code-and-international-standards/prohibited-list" class="button button-blue" target="_blank">Consulta aqui las sustancias prohibidas</a>
 
                 </div>
-                
+
             </div>
 
-            
+
 
         </section>
-       
+
 
 
     </main>
@@ -497,7 +497,7 @@
             <img src="./img/galery/LOGO FEDE BLANCO.png" alt="Logo FEMEPASHIDI" href="#home">
           </div>
           <div class="copy-right-footer">
-            <p>Sitio web oficial de la Federación Mexicana de 
+            <p>Sitio web oficial de la Federación Mexicana de
                 Patinaje sobre Hielo y Deportes de Invierno, A.C., Todos los derechos reservados.</p>
         </div>
           <div class="social-icons-footer">
@@ -510,16 +510,16 @@
           </div>
           </div>
         </div>
-        <p>&copy;2024 FEMEPASHIDI, A.C. |  Todos los derechos reservados</p> 
-        
-    </footer>   
-    
-           
-   
+        <p>&copy;2024 FEMEPASHIDI, A.C. |  Todos los derechos reservados</p>
 
-   
+    </footer>
+
+
+
+
+
 <script src="./js/animations.js"></script>
 
-    
+
 </body>
 </html>
