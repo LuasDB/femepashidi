@@ -2,7 +2,7 @@
 galeryANIMACION PARA ELEMENTOS HACIA ARRIBA
 */
 const observerAbout = new IntersectionObserver((entries)=>{
-    
+
     entries.forEach(entry=>{
         if(entry.isIntersecting){
             entry.target.classList.add('show-up');
@@ -17,7 +17,7 @@ elements_animate.forEach((element) => observerAbout.observe(element));
 ANIMACION PARA ELEMENTOS HACIA ABAJO
 */
 const observerAbout2 = new IntersectionObserver((entries)=>{
-    
+
   entries.forEach(entry=>{
       if(entry.isIntersecting){
           entry.target.classList.add('show-down');
@@ -32,14 +32,14 @@ elements_animate2.forEach((element) => observerAbout2.observe(element));
 ANIMACION PARA ELEMENTOS CON SCALE
 */
 const observerScale = new IntersectionObserver((entries)=>{
-    
+
     entries.forEach(entry=>{
         if(entry.isIntersecting){
-            entry.target.classList.add('animation-scale');       
+            entry.target.classList.add('animation-scale');
         }else{
             entry.target.classList.remove('animation-scale');
-           
-            
+
+
         }
     });
   });
@@ -50,7 +50,7 @@ const observerScale = new IntersectionObserver((entries)=>{
 ANIMACION PARA ELEMENTOS CON SCALE
 */
 const observerRight = new IntersectionObserver((entries)=>{
-    
+
     entries.forEach(entry=>{
         if(entry.isIntersecting){
             entry.target.classList.add('animation-right');
@@ -79,23 +79,22 @@ function handleScroll() {
 
     // Verifica si la media query coincide actualmente
     if (mediaQuery.matches) {
-        
+
     }
     else{
         const scrollPosition = window.scrollY;
-        console.log('[Y]:',scrollPosition);
-    
+
        if(scrollPosition > 595 ){
         menu.style.backgroundColor = "rgb(32, 32, 154,0.4)";
-        menu.style.backdropFilter = "blur(15px)"; 
+        menu.style.backdropFilter = "blur(15px)";
         nombre.style.color= "rgb(41 127 144)";
         letras.forEach(a=>{
             a.style.color= "rgb(41 127 144)";
         }) ;
         }
        else{
-       
-        menu.style.backdropFilter = "blur(10px)"; 
+
+        menu.style.backdropFilter = "blur(10px)";
         menu.style.backgroundColor="";
         letras.forEach(a=>{
             a.style.color= "white";
@@ -104,7 +103,7 @@ function handleScroll() {
        }
 
     }
-    
+
 }
 
 
@@ -116,18 +115,18 @@ function handleScroll() {
 //     arrow_down.addEventListener('click',()=>{
 //         const ventana_about = document.querySelector('.section-galery2');
 //         let desplazamientoY = window.scrollY += ventana_about.clientHeight + 100;
-        
+
 //         window.scrollTo({
 //             top:desplazamientoY,
 //             behavior:'smooth'
 //             });
-//             // window.scrollY -= ventana_about.clientHeight + 100;      
+//             // window.scrollY -= ventana_about.clientHeight + 100;
 //     });
 
 const arrow_down = document.querySelector('.down-arrow img');
     arrow_down.addEventListener('click',()=>{
         const ventana_about = document.querySelector('.section-galery2');
-        
+
         // Obtener la posición actual del desplazamiento vertical
         let currentPosition = window.scrollY;
 
@@ -138,7 +137,7 @@ const arrow_down = document.querySelector('.down-arrow img');
         let scrollInterval = setInterval(function() {
         // Desplazar hacia abajo en incrementos pequeños
         window.scrollBy(0, 10);
-        console.log('[NUEVA Y]:',window.scrollY)
+
 
         // Verificar si se alcanzó la posición objetivo
         if (window.scrollY >= targetPosition) {

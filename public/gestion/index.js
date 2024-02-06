@@ -1,4 +1,35 @@
 /****************************************************************************************************************
+ * Llamada a formularios
+ * ***********************************************************************************************************/
+const meses = {
+    0:'ENERO',
+    1:'FEBRERO',
+    2:'MARZO',
+    3:'ABRIL',
+    4:'MAYO',
+    5:'JUNIO',
+    6:'JULIO',
+    7:'AGOSTO',
+    8:'SEPTIEMBRE',
+    9:'OCTUBRE',
+    10:'NOVIEMBRE',
+    11:'DICIEMBRE'
+}
+function fechaLarga(fecha){
+  const e = fecha.split('-');
+  console.log(e)
+  const f = new Date(e[0],e[1]-1,e[2]);
+  console.log(`${f.getDate()} DE ${meses[f.getMonth()]} DE ${f.getFullYear()} `)
+  return `${f.getDate()} DE ${meses[f.getMonth()]} DE ${f.getFullYear()} `;
+}
+function fechaCorta(){
+const hoy = new Date();
+const año = hoy.getFullYear();
+const mes = ('0' + (hoy.getMonth() + 1)).slice(-2);
+const dia = ('0' + hoy.getDate()).slice(-2);
+return `${año}-${mes}-${dia}`;
+}
+/****************************************************************************************************************
  * funciones para facilitar el llamado a elementos del DOM
  * ***********************************************************************************************************/
 const $ = (elemento)=> document.querySelector(elemento);
@@ -19,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /****************************************************************************************************************
  * Variables para la API para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
+const API = 'http://localhost:3000/api/v1/';
 const API_USERS = 'http://localhost:3000/api/v1/users/';
 const API_ASSOCIATIONS = 'http://localhost:3000/api/v1/associations/';
 const API_REGISTERS = 'http://localhost:3000/api/v1/register/';
@@ -276,19 +308,178 @@ function nuevoRegistro(tipo){
   switch (tipo) {
     case 'patinador':
       console.log('nuevo:',tipo);
+      monitor.innerHTML=formNewUser;
+      n('guardar').onclick = ()=> enviarBd('users');
       break;
     case 'asociacion':
       console.log('nuevo:',tipo);
+      monitor.innerHTML = formNewAssociation;
+      n('guardar').onclick = ()=> enviarBd('associations');
+
       break;
     case 'evento':
       console.log('nuevo:',tipo);
+      monitor.innerHTML = formNewEvent;
+      n('guardar').onclick = ()=> enviarBd('events');
       break;
     case 'comunicado':
       console.log('nuevo:',tipo);
+      monitor.innerHTML = formNewCommunication;
+      n('guardar').onclick = ()=> enviarBd('communications');
       break;
-
     default:
       break;
+  }
+}
+/****************************************************************************************************************
+ * Funciones para enviar a Base de datos
+ ***********************************************************************************************************/
+const enviarBd = async(collection)=>{
+  if(collection != 'communications'){
+  Swal.fire({
+    title: "¡Envio a Base de datos!",
+    text: "Revisaste que la información sea correcta?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No,espera",
+    confirmButtonText: "Si,claro"
+  }).then(async(result) => {
+    if (result.isConfirmed){
+      const obj ={}
+      $a('.envioDb').forEach(element =>{
+        if(element.id === 'fecha_corta'){
+          obj['fecha_larga']=fechaLarga(element.value);
+        }
+        obj[element.id]=element.value
+        console.log(element.value)
+      });
+      console.log(obj);
+
+      await fetch(`${API}${collection}`,{
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body:JSON.stringify(obj)
+      })
+      .then(response=>response.json())
+      .then(data=>{
+        if(data.id){
+         monitor.innerHTML=``;
+         Swal.fire({
+          title: `${data.message}`,
+          text: "Tu información se guardo correctamente",
+          icon: "success",
+          showConfirmButton: false,
+          timer:2000
+        });
+        }
+      })
+      .catch(error=> {
+        Swal.fire({
+          title: `Algo salio mal`,
+          text: `${error}`,
+          icon: "error",
+          showConfirmButton: false,
+          timer:2000
+        });
+      });
+    }
+  });
+  }else{
+    Swal.fire({
+      title: "¡Envio a Base de datos!",
+      text: "Revisaste que la información sea correcta?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "No,espera",
+      confirmButtonText: "Si,claro"
+    }).then(async(result) => {
+      if (result.isConfirmed){
+        //PARA LA IMAGEN
+        const archivoInput = document.getElementById('archivoInput');
+        console.log(archivoInput.files[0]);
+        const archivo = archivoInput.files[0];
+        const typeFile = archivo.name.split('.');
+        const nuevoNombre = `${Date.now()}-notification.${typeFile[1]}`;
+
+        if(archivo) {
+          console.log('EXISTE EL ARCHIVO');
+          const formData = new FormData();
+          formData.append('archivo', archivo,nuevoNombre);
+
+          await fetch(`${API}upload`, {
+            method: 'POST',
+            body: formData,
+          })
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Error al subir el archivo:', error);
+          });
+        } else {
+          console.error('Selecciona un archivo antes de hacer clic en "Subir Archivo".');
+        }
+
+        const obj ={}
+        $a('.envioDb').forEach(element =>{
+          if(element.id === 'fecha_corta'){
+            obj['fecha_larga']=fechaLarga(element.value);
+          }
+
+          obj[element.id]=element.value
+          console.log(element.value);
+        });
+        obj['url_img']=nuevoNombre;
+        console.log(obj);
+
+
+        await fetch(`${API}${collection}`,{
+          method:'POST',
+          headers:{
+            'Content-Type': 'application/json',
+          },
+          body:JSON.stringify(obj)
+        })
+        .then(response=>response.json())
+        .then(data=>{
+          if(data.id){
+           monitor.innerHTML=``;
+           Swal.fire({
+            title: `${data.message}`,
+            text: "Tu información se guardo correctamente",
+            icon: "success",
+            showConfirmButton: false,
+            timer:2000
+          });
+          }
+        })
+        .catch(error=> {
+          Swal.fire({
+            title: `Algo salio mal`,
+            text: `${error}`,
+            icon: "error",
+            showConfirmButton: false,
+            timer:2000
+          });
+        });
+
+
+
+
+
+
+
+
+
+      }
+    });
   }
 }
 /****************************************************************************************************************
@@ -299,6 +490,71 @@ const visualizar = (element,collection)=>{
   console.log(collection);
   console.log(element.id);
   console.groupEnd()
+  $('section').classList.add('hidden');
+  n('modal_bg').classList.remove('hidden');
+  let visual = nuevo('section');
+  visual.classList.add('card');
+  visual.classList.add('modal');
+  visual.id = `${element.id}_modal`;
+  if(collection === 'users'){
+  visual.innerHTML=`
+  <div class="header-modal">
+  <h3>${titulos[collection]}</h3>
+  <span class="material-symbols-outlined red" id="close_modal">
+    close_fullscreen
+    </span>
+  </div>
+  <div class="flex-container-input">
+  <label for="">CURP
+    <p>FUBM901026HDFNRR07${element.data.curp}</p>
+  </label>
+</div>
+<div class="flex-container-input">
+  <label for="">NOMBRE
+    <p>${element.data.nombre} ${element.data.apellido_paterno} ${element.data.apellido_materno}</p>
+  </label>
+  <label for="">FECHA DE NACIMIENTO
+    <p>${fechaLarga(element.data.fecha_nacimiento)}</p>
+  </label>
+  <label for="">LUGAR DE NACIMIENTO
+    <p>${element.data.lugar_nacimiento}</p>
+  </label>
+  <label for="">SEXO
+    <p>${element.data.sexo}</p>
+  </label>
+</div>
+<div class="flex-container-input">
+  <label for="">CORREO
+    <p>${element.data.correo}</p>
+  </label>
+  <label for="">TELEFONO/WHATSAPP
+    <p>${element.data.telefono}</p>
+  </label>
+</div>
+<div class="flex-container-input">
+  <label for="">ASOCIACION A LA QUE PERTENECE
+    <p>${element.data.asociacion}</p>
+  </label>
+  <label for="">NIVEL ACTUAL
+    <p>${element.data.nivel_actual}</p>
+  </label>
+</div>
+
+  `;}
+  if(collection === 'register'){
+    visual.innerHTML=`
+    <div class="header-modal">
+    <h3>${titulos[collection]}</h3>
+    <span class="material-symbols-outlined red" id="close_modal">
+      close_fullscreen
+      </span>
+    </div>
+
+    `;
+  }
+  console.log(element);
+  monitor.appendChild(visual);
+  n('close_modal').onclick = () => cerrarModal(visual.id);
 
 }
 const eliminar = (element,collection)=>{
@@ -312,4 +568,9 @@ const editar = (element,collection)=>{
   console.log(collection);
   console.log(element.id);
   console.groupEnd()
+}
+const cerrarModal = (id)=>{
+  n('modal_bg').classList.add('hidden');
+  n(id).remove();
+  $('section').classList.remove('hidden');
 }

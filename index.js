@@ -1,11 +1,14 @@
 //Agregamos express para empezar nuetro servidor ,para intalarlo : npm i express
 const express = require('express');
+
 //Traemos la libreria de cors para evitar estos errores en produccion
 const cors = require('cors');
 //exportamos nuestra funcion de routerApi para nuestra aplicación
 const routerApi = require('./routes');
 //Exportamos los Middlewares que utilizaremos para los errores
 const { logErrors,errorHandler,boomErrorHandler } = require('./middleware/error.handler');
+//Exportamos middleware multer para manejo de archivos
+const { upload } = require('./middleware/multer.Middleware');
 //Variable para llamar las funciones de express
 const app = express();
 //Definimos el puerto a utilizar
@@ -30,6 +33,7 @@ app.use(cors());
 routerApi(app);
 //Manejo de los Middlewares por parte de express, es importante el orden de los mismos
 //Primero mandamos el LogErrors y despues el errorHandler
+
 app.use(boomErrorHandler);
 app.use(logErrors);
 app.use(errorHandler);

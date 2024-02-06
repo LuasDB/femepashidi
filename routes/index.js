@@ -5,6 +5,7 @@ const associationsRouter = require('./associations.router');
 const registerRouter = require('./register.router');
 const eventsRouter = require('./events.router');
 const communicationsRouter = require('./communications.router');
+const uploadsRouter = require('./uploads.router');
 
 function routerApi(app){
   const router = express.Router();
@@ -15,6 +16,8 @@ function routerApi(app){
   router.use('/register',registerRouter);
   router.use('/events',eventsRouter);
   router.use('/communications',communicationsRouter);
+  router.use('/upload',uploadsRouter);
+
 
 
 }

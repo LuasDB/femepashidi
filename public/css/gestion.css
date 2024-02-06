@@ -234,7 +234,7 @@ section{
 section h3{
   color: var(--primary);
 }
-button{
+section button{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -250,7 +250,7 @@ button{
   background: var(--primary);
   box-shadow: 6px 6px 15px rgb(0, 0, 0,0.5);
 }
-button:hover{
+section button:hover{
     background-color: #f3969c;
 }
 
@@ -292,7 +292,7 @@ td span{
     width: 60%;
     height: auto;
     padding-bottom: 0;
-    margin-top: 0;
+    margin-top: 3rem;
 
 }
 .no-scroll{
@@ -357,6 +357,9 @@ form{
 .flex-container-input label select option:hover{
 
   color: var(--contrast-prymary);
+}
+.flex-container-input P{
+  color: black;
 }
 .flex-buttons{
   display: flex;

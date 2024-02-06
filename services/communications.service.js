@@ -11,8 +11,12 @@ class Communication {
 
   }
   async create(data){
+    console.log(data);
     const res = await addDoc(collection(db,'communications'),data);
-    return {message:'Creado',id:res.id}
+    console.log(res)
+    const docRef= doc(collection(db,'communications'),res.id);
+    await setDoc(docRef,data);
+    return {message:'Creado',id:res.id, data:data}
   }
   async findAll(){
     const resfirebase = await getDocs(collection(db,'communications'));
