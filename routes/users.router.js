@@ -6,6 +6,9 @@ const express = require('express');
 const { validationHandler } = require('./../middleware/validator.hanlder');
 //Agregamos es Schema para la creación , edicion y obtencion de ususarios
 
+//Mandamos a llamar el middleware para subida de archivos
+const { uploadUsers } = require('../middleware/multer.Middleware');
+
 //Creamos la variable router para acceder a nuestros endpoints
 const router = express.Router();
 //Llamammos al servicio que corresponde
@@ -31,9 +34,9 @@ router.get('/:id',async(req,res,next)=>{
     next(error);
   }
 });
-router.post('/',async(req,res,next)=>{
+router.post('/',uploadUsers.single('archivo'),async(req,res,next)=>{
   try {
-    const user = await usuario.create(req.body);
+    const user = await usuario.create(req.body,req.file.filename);
     res.status(201).json(user);
   } catch (error) {
     next(error);

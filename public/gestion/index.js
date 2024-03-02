@@ -506,7 +506,7 @@ const visualizar = (element,collection)=>{
   </div>
   <div class="flex-container-input">
   <label for="">CURP
-    <p>FUBM901026HDFNRR07${element.data.curp}</p>
+    <p>${element.data.curp}</p>
   </label>
 </div>
 <div class="flex-container-input">

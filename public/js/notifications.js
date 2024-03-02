@@ -6,11 +6,12 @@ const $a = (elemento)=> document.querySelectorAll(elemento);
 const n = (elemento)=> document.getElementById(elemento);
 const nuevo = (elemento)=> document.createElement(elemento);
 
-const API_COMMUNICATIONS = 'http://localhost:3000/api/v1/communications/'
+const API_COMMUNICATIONS = 'http://localhost:3000/api/v1/communications/';
+const API_EVENTS = 'http://localhost:3000/api/v1/events/';
 
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const firestore = await fetch(API_COMMUNICATIONS)
+  await fetch(API_COMMUNICATIONS)
   .then(response => response.json())
   .then(data=>{
     console.log(data);
@@ -57,7 +58,49 @@ document.addEventListener("DOMContentLoaded", async function () {
   })
   .catch(error=>console.log(error));
 
+  await fetch(API_EVENTS)
+  .then(response => response.json())
+  .then(data=>{
+    console.log(data);
+    const events = n('events_container');
+    events.innerHTML=''
+    data.documents.forEach(element=>{
+      let card = nuevo('div');
+      card.classList.add('carrusel-item');
+      card.innerHTML = `
+      <article class="card">
+        <h1 class="article__tittle_black">${element.data.nombre}</h1>
+        <p><span>Lugar:</span> ${element.data.lugar}</p>
+        <p><span>Fecha:</span>${element.data.fecha_larga}</p>
+        <p><span>Descripción:</span>${element.data.texto}</p>
+        <a href="./registro" class="button button-50 button-blue">Registrarme</a>
+      </article>
+      `;
+      events.appendChild(card);
+    });
+  })
+  .catch(error=>console.log(error));
+
+
 
 
 
 })
+
+
+/****************************************************************************************************************
+ * Funcion para abrir PDF
+ * ***********************************************************************************************************/
+const showPdf = (pdf)=>{
+  if(!isMobileDevice()){
+  console.log(pdf);
+  n('myModalPdf').style.display="block";
+  n('pdfViewer').src=`./notifications/${pdf}`
+  }else{
+    window.open(`./notifications/${pdf}`, "_blank");
+  }
+
+}
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}

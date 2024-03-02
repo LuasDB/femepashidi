@@ -19,41 +19,39 @@ header{
     height: 95vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-evenly;
+    align-items: center;
     border-radius: 10px;
     transition: all 1s;
     background-color:rgb(32,32,154,0.5);
-   
+    z-index: 1000;
+
 }
 header div{
-    position: absolute;
-    top: 10%;
+
     display: flex;
     flex-direction: column;
     text-align: center;
     color: aliceblue;
 
+
 }
-header div div{
-    position: absolute;
-    top:100%;
-}
+
 header div p{
-    
+
     text-align: center;
     color: aliceblue;
 
 }
 header div a{
-    
+
     text-align: center;
     color: aliceblue;
 
 }
 header div img{
-    width: 50%;
-    
+    width: 60%;
+
 }
 .nav-menus{
     display: flex;
@@ -66,7 +64,7 @@ header div img{
     position: fixed;
     top: 5%;
     left: calc(100% - 70px);
-    z-index: 300;
+    z-index: 1002;
     font-size: 3rem;
     font-weight: 700;
     color: rgb(13, 66, 112);
@@ -79,7 +77,7 @@ header div img{
     display: block;
 }
 #menu_button:checked ~ header{
-   
+
      left: calc(100% - 310px);
  }
 #menu_button:checked ~ label #menu_open{
@@ -99,9 +97,9 @@ header div img{
     position: absolute;
     margin: 1rem auto;
     top: 50%;
-    left: 10%; 
+    left: 10%;
     align-items: center;
-    
+
 }
 .welcome-hero .relleno{
     display: none;
@@ -125,14 +123,14 @@ header div img{
 .section-galery2{
    margin-top: 80vh;
 }
-.section-galery2 .container-galery{         
+.section-galery2 .container-galery{
     width: 75%;
     height: 76vh;
 }
 .section-galery2 .carrusel-galery {
     display: flex;
     flex-direction: column;
-    flex-wrap:wrap;   
+    flex-wrap:wrap;
     justify-content: center;
     width: 110%;
     height: 100%;
@@ -147,19 +145,19 @@ header div img{
 }
 /* Sectioon events */
 .events-section{
-   
+
     margin: 0;
     padding:0;
     height: 100vh;
     width: 100%;
-    
+
     z-index: 1;
     background-image: url('../img/images/paisaje.jpg');
-    
+
     background-size: 100% 100vh;
     background-repeat: no-repeat;
     background-position: center;
-   
+
  }
 .controls a svg{
     display: none;
@@ -173,7 +171,7 @@ h1.events__tittle .animation-event-to-rigth{
 
 
 .carrucel{
-   
+
     height: 70vh;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -227,7 +225,7 @@ h1.events__tittle .animation-event-to-rigth{
     height: 100%;
 
 }
-.card--profile-info{    
+.card--profile-info{
     position: relative;
     top:-80px;
     margin: 0;
@@ -242,13 +240,31 @@ h1.events__tittle .animation-event-to-rigth{
 }
 .image-antidoping{
     width: 60%;
-    
+
 }
 .image-antidoping img{
-    
+
     height:40vh;
 }
 
 footer{
     margin-top: 40rem;
+}
+
+
+/* //MODAL */
+
+.close {
+  position: absolute;
+  top:2.5%;
+  left: 5%;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+/* Communications section */
+.communications-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
 }

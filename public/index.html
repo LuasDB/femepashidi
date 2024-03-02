@@ -34,10 +34,11 @@
   </script>
 
     <header id="menu">
-        <div>
+        <div class="logo-nombre">
             <img src="./img/galery/LOGO FEDE BLANCO.png" alt="logo">
             <div>
-                <p>Federación Mexicana de Patinaje sobre Hielo </p>
+                <p>Federación Mexicana de </p>
+                <p>Patinaje sobre Hielo </p>
                 <p> y Deportes de Invierno, A.C.</p>
             </div>
 
@@ -45,6 +46,7 @@
         <nav class="nav-menus">
             <a href="#home" class="active">INICIO</a>
             <a href="#about">NOSOTROS</a>
+            <a href="#gallery">GALERIA</a>
             <a href="#events">EVENTOS</a>
             <a href="#communications">COMUNICADOS</a>
             <a href="#directory">OFICIALES</a>
@@ -139,90 +141,38 @@
                 </div>
 
             </div>
-            <div class="down-arrow" ><img src="./img/images/down-arrow.svg" alt="abajo"></div>
+            <!-- <br class="enter">
             <br class="enter">
-            <br class="enter">
-            <br class="enter">
-            <div class="section-galery2">
-                <div class="container-galery" >
-                    <div id="carrucel_galery" class="carrusel-galery">
-                        <img class="imagen" src="./img/galery/ANDREA1.jpg" alt="uno">
-                        <img class="imagen" src="./img/galery/DONOVAN1.jpg" alt="dos">
-                        <img class="imagen" src="./img/galery/MARIA1.jpg" alt="tres">
-                        <img class="imagen" src="./img/galery/NIÑA1.jpg" alt="uno">
-                        <img class="imagen" src="./img/galery/NIÑA3.jpg" alt="dos">
-                        <img class="imagen" src="./img/galery/NIÑO1.jpg" alt="tres">
-                        <!-- Agrega más imágenes según sea necesario -->
-                    </div>
-                    <div class="barra-progreso-galery">
-                        <div class="btn-galery btn-galery-focus" onclick="nuevoIndice(0)"></div>
-                        <div class="btn-galery" onclick="nuevoIndice(1)"></div>
-                        <div class="btn-galery" onclick="nuevoIndice(2)"></div>
-                        <div class="btn-galery" onclick="nuevoIndice(3)"></div>
-                        <div class="btn-galery" onclick="nuevoIndice(4)"></div>
-                        <div class="btn-galery" onclick="nuevoIndice(5)"></div>
-                    </div>
-                    <button class="botonAnterior" onclick="cambiarImagen(-1)">&#10094;</button>
-                    <button class="botonSiguiente" onclick="cambiarImagen(1)">&#10095;</button>
+            <br class="enter"> -->
+        </section>
+        <section id="gallery" class="gallery-container animation-action">
 
-                </div>
-                <article class="article__about card w-50 h-40">
-                    <h1 class="article__tittle margin-top-0">Contactanos</h1>
-                    <a><span class="material-symbols-outlined">
-                        location_on
-                        </span> Direccion: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum molestias porro  </a>
-                    <a><span class="material-symbols-outlined">
-                        call
-                        </span> Telefono: +525514374912</a>
-                    <a><span class="material-symbols-outlined">
-                        mail
-                        </span>Correo: info@correo.com</a>
-                </article>
-            </div>
-            <!-- <br><br>
-            <br><br> -->
-            <script>
-                var indiceActual = 0;
-                var imagenes = document.querySelectorAll('.imagen');
-                const btn_galery = document.querySelectorAll('.btn-galery');
-                var barraProgreso = document.getElementById('progreso');
-                const carr_galery=document.getElementById('carrucel_galery');
-                var totalImagenes = imagenes.length;
 
-                function cambiarImagen(direccion) {
-                    indiceActual += direccion;
-                    let desplazamiento = imagenes[0].clientWidth;
+          <!-- propuesta de galeria -->
+          <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+          </div>
+          <h2>Galeria</h2>
 
-                    if(direccion > 0){
-                      carr_galery.scrollLeft += desplazamiento;
-                    }
-                      else{
-                        carr_galery.scrollLeft -= desplazamiento;
-                    }
+          <div class="gallery scroll-animation-up">
+            <div class="image "><img src="./img/galery/1.1.jpg" alt="Imagen 1"></div>
+            <div class="image "><img src="./img/galery/ANDREA1.jpg" alt="Imagen 2"></div>
+            <div class="image "><img src="./img/galery/DONOVAN1.jpg" alt="Imagen 3"></div>
+            <div class="image "><img src="./img/galery/MARIA1.jpg" alt="Imagen 1"></div>
+            <div class="image "><img src="./img/galery/DONOVAN1.jpg" alt="Imagen 3"></div>
+            <div class="image "><img src="./img/galery/NIÑA3.jpg" alt="Imagen 3"></div>
 
-                    if (indiceActual < 0) {indiceActual = totalImagenes - 1;}
-                    else if(indiceActual >= totalImagenes) {
-                        indiceActual = 0;
-                        carr_galery.scrollLeft=0;
-                    }
-                    btn_galery.forEach(btn=>{
-                        btn.classList.remove('btn-galery-focus');
-                    });
-                    btn_galery[indiceActual].classList.add('btn-galery-focus')
-                }
-                function nuevoIndice(nuevo){
-                    indiceActual=nuevo;
-                    btn_galery.forEach(btn=>{
-                        btn.classList.remove('btn-galery-focus');
-                    });
-                    btn_galery[nuevo].classList.add('btn-galery-focus');
-                    carr_galery.scrollLeft=0;
-                    let desplazamiento = imagenes[0].clientWidth * nuevo;
-                    carr_galery.scrollLeft=desplazamiento;
-                }
 
-                setInterval(() => { cambiarImagen(1) }, 3000);
-            </script>
+            <div class="image "><img src="./img/galery/NIÑA3.jpg" alt="Imagen 3"></div>
+
+            <div class="image "><img src="./img/galery/NIÑA1.jpg" alt="Imagen 2"></div>
+            <div class="image "><img src="./img/galery/NIÑA3.jpg" alt="Imagen 3"></div>
+            <div class="image "><img src="./img/galery/NIÑO1.jpg" alt="Imagen 1"></div>
+
+          </div>
+
+
         </section>
         <section id="events" class="events-section  border-ice">
             <!-- Botones para demostrar cómo mover el scroll -->
@@ -231,8 +181,22 @@
                 <h1 class="events__tittle  animation-event-to-right"> Conoce los eventos</h1>
                 <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
             </div>
-            <div class="carrucel animation-event-to-scale">
-                <div class="carrusel-item">
+            <div class="carrucel animation-event-to-scale" id="events_container">
+              <div class="carrusel-item">
+                  <article class=" card ">
+                      <h1 class="article__tittle_black">Evento 1</h1>
+                      <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                      <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
+                  </article>
+              </div>
+              <div class="carrusel-item ">
+                  <article class=" card ">
+                      <h1 class="article__tittle">Evento 2</h1>
+                      <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                      <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
+                  </article>
+              </div>
+              <div class="carrusel-item">
                   <article class=" card ">
                       <h1 class="article__tittle">Evento 1</h1>
                       <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
@@ -240,31 +204,12 @@
                   </article>
               </div>
               <div class="carrusel-item ">
-                <article class=" card ">
-                    <h1 class="article__tittle">Evento 2</h1>
-                    <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                    <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
-                </article>
+                  <article class=" card ">
+                      <h1 class="article__tittle">Evento 2</h1>
+                      <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                      <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
+                  </article>
             </div>
-            <div class="carrusel-item">
-              <article class=" card ">
-                  <h1 class="article__tittle">Evento 1</h1>
-                  <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                  <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
-              </article>
-          </div>
-          <div class="carrusel-item ">
-            <article class=" card ">
-                <h1 class="article__tittle">Evento 2</h1>
-                <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
-            </article>
-        </div>
-
-
-
-
-
             <script>
             // Mover el scroll horizontal a la derecha
             function moverScrollDerecha() {
@@ -280,9 +225,16 @@
             }
             </script>
         </section>
-        <section id="communications">
+        <section id="communications" class="communications-section">
+          <div id="myModalPdf" class="modal">
+            <div class="modal-content-pdf">
+              <span class="close closePdf">&times;</span>
+              <embed id="pdfViewer" src="./notifications/EJEMPLO.pdf" type="application/pdf" toolbar="0"/>
+            </div>
+          </div>
+          <h2>Comunicados</h2>
           <div class="communications-container" id="communications_container">
-            <article class="card notifications">
+            <article class="card notifications" onclick="showPdf('CATEGORIAS 2024.pdf')">
               <figure>
                 <img src="./img/notifications/not1.png" alt="Mensaje 1">
               </figure>
@@ -290,15 +242,15 @@
               </p>
               <h2>Aviso 1</h2>
             </article>
-            <article class="card notifications">
+            <article class="card notifications" onclick="showPdf('EJEMPLO.pdf')">
               <figure>
-                <img src="./img/notifications/not2.png" alt="Mensaje 2">
+                <img src="./img/notifications/not2.png" alt="Mensaje 2" >
               </figure>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
               </p>
               <h2>Aviso 2</h2>
             </article>
-            <article class="card notifications">
+            <article class="card notifications" onclick="showPdf('CATEGORIAS 2024.pdf')">
               <figure>
                 <img src="./img/notifications/not3.png" alt="Mensaje 1">
               </figure>
@@ -307,83 +259,14 @@
               <h2>Aviso 3</h2>
             </article>
 
+
           </div>
-          <div class="communications-container2">
-            <div class="notifications2">
-              <div class="container-carrucel" id="container-carrucel">
-                <figure class="card item-notifications ">
-                  <img src="./img/notifications/noti1.png" alt="Notificación 1">
-                </figure>
-                <figure class="card item-notifications ">
-                  <img src="./img/notifications/noti2.png" alt="Notificación2">
-                </figure>
-                <figure class="card item-notifications ">
-                  <img src="./img/notifications/noti3.png" alt="Notificación 1">
-                </figure>
-              </div>
-              <div class="progress-notifications">
-                <div class="btn-galery noti btn-galery-focus" onclick="notification(0)"></div>
-                <div class="btn-galery noti" onclick="notification(1)"></div>
-                <div class="btn-galery noti" onclick="notification(2)"></div>
-              </div>
-
-            </div>
-          </div>
-          <script>
-            const notifications = document.querySelectorAll('.item-notifications');
-            const totalNotifications = notifications.length;
-            const containerCarrucel = document.getElementById('container-carrucel');
-            const btnsNotifications = document.querySelectorAll('.noti');
-            let indiceCarrucel =0;
-            console.log(notifications);
 
 
-            function cambiarNotificacion(direccion){
-              console.log('Se hizo',indiceCarrucel)
-              indiceCarrucel+=direccion;
-              if(indiceCarrucel >= totalNotifications){
-                console.log('Se cumple')
-                indiceCarrucel=0;
-                notifications.forEach(notification =>{
-                  notification.classList.add('hidden');
-                })
-                notifications[indiceCarrucel].classList.remove('hidden');
-
-              }
-
-              if(indiceCarrucel > 0){
-                notifications.forEach(notification =>{
-                  notification.classList.add('hidden');
-                });
-                notifications[indiceCarrucel].classList.remove('hidden');
-              }
-
-              btnsNotifications.forEach(item=>{
-                  item.classList.remove('btn-galery-focus');
-                });
-                btnsNotifications[indiceCarrucel].classList.add('btn-galery-focus');
-
-            }
-            function notification(number){
-              indiceCarrucel = number;
-              notifications.forEach(notification =>{
-                  notification.classList.add('hidden');
-                })
-                notifications[indiceCarrucel].classList.remove('hidden');
-                btnsNotifications.forEach(item=>{
-                  item.classList.remove('btn-galery-focus');
-                });
-                btnsNotifications[indiceCarrucel].classList.add('btn-galery-focus');
-            }
-            setInterval(() => {
-              cambiarNotificacion(1);
-            }, 3500);
-          </script>
         </section>
         <section id="directory" class="animation-action directory-section ">
-
                 <div class="carrucel scroll-animation-up prueba">
-                    <article class="card card--profile carrusel-item">
+                    <article class="card card--profile carrusel-item card-person-mobile">
                       <div class="person-image">
                         <img class="image-circle" src="https://media.istockphoto.com/id/1339096538/es/foto/retrato-de-estudio-de-un-hombre-cauc%C3%A1sico-confiado-con-una-camisa-azul-sobre-un-fondo-gris.jpg?s=1024x1024&w=is&k=20&c=7bYXTP1SDiM-WveSSob9eIKDmXmkxF4lc9XHeAGacxo=" alt="Person">
                       </div>
@@ -397,7 +280,7 @@
                       </div>
                     </div>
                     </article>
-                    <article class="card card--profile carrusel-item">
+                    <article class="card card--profile carrusel-item card-person-mobile">
                       <div class="person-image">
                         <img class="image-circle" src="https://media.istockphoto.com/id/1171524282/es/foto/mujer-feliz.jpg?s=1024x1024&w=is&k=20&c=jy6ktSUlbUZYjdBegeLoUItPv_hgHXeNRjXat4t1Ao4=" alt="Person">
                       </div>
@@ -411,7 +294,7 @@
                       </div>
                     </div>
                     </article>
-                    <article class="card card--profile carrusel-item">
+                    <article class="card card--profile carrusel-item card-person-mobile">
                       <div class="person-image">
                         <img class="image-circle" src="https://media.istockphoto.com/id/688944736/es/foto/confianza-no-est%C3%A1-definida-por-mi-edad.jpg?s=1024x1024&w=is&k=20&c=cd5-ef66jf6a5P9VHamBh4liE2uHJh7oZbIiFw-VMGI=" alt="Person">
                       </div>
@@ -425,7 +308,7 @@
                       </div>
                     </div>
                     </article>
-                    <article class="card card--profile carrusel-item">
+                    <article class="card card--profile carrusel-item card-person-mobile">
                       <div class="person-image">
                         <img class="image-circle" src="https://media.istockphoto.com/id/1484597994/es/foto/retrato-de-un-joven-cauc%C3%A1sico-adolescente-de-18-o-19-a%C3%B1os-al-aire-libre.jpg?s=1024x1024&w=is&k=20&c=KtA99YfIE2OUZc9MXQhdRUA2jDbz3Dchiy9G-hq7kuI=" alt="Person">
                       </div>
@@ -439,7 +322,7 @@
                       </div>
                     </div>
                     </article>
-                    <article class="card card--profile carrusel-item">
+                    <article class="card card--profile carrusel-item card-person-mobile">
                       <div class="person-image">
                         <img class="image-circle" src="https://media.istockphoto.com/id/1005922956/es/foto/estudiante-pasado-el-examen-encantado-de-aprender.jpg?s=1024x1024&w=is&k=20&c=qwMP9PRaJsKbtb74uvVxE2akeNjhup7uzuD5avVLUX4=" alt="Person">
 

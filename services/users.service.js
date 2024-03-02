@@ -10,9 +10,10 @@ class User {
   constructor(){
 
   }
-  async create(data){
+  async create(data,img_name){
+    data['img']=img_name;
     const res = await addDoc(collection(db,'users'),data);
-    return {message:'Creado',id:res.id}
+    return {message:'Creado',id:res.id,data:data}
   }
   async findAll(){
     const resfirebase = await getDocs(collection(db,'users'));

@@ -1,4 +1,4 @@
-/* 
+/*
 Para el proyecto utilizaremos la metodología BEM (BLOQUE-ELEMENTO-MODIFICADOR):
 BLOQUE:
 .card{}
@@ -51,7 +51,8 @@ font-family: 'Rubik Maps', system-ui; */
     --secundary-color:#4fc3da;
     --purple-color:#4e4ef8;
     --nav-color:rgb(32,32,154);
-    
+    --footer-color:rgb(112, 171, 247);
+
 }
 /* General styles */
 body{
@@ -64,13 +65,13 @@ width: 100%;
 
 }
 section{
-   
-    
-   
+
+
+
     scroll-behavior: smooth;
-    
-    
-    
+
+
+
 }
 #menu_button{
     display: none;
@@ -95,9 +96,9 @@ header{
     height: 11vh;
 
     backdrop-filter:blur(10px);
-    
+
     border-bottom: 1px solid rgba(248, 244, 244, 0.5);
-    
+
     z-index: 200;
 }
 header div{
@@ -115,7 +116,7 @@ header div div p{
 }
 header img{
     width: 15%;
-    padding: 0;  
+    padding: 0;
     margin: 10px;
 }
 #menu_open{
@@ -128,10 +129,13 @@ header img{
 }
 .nav-menus a{
     color: white;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
     text-decoration: none;
-    
+
+}
+.nav-menus a:hover{
+  border-bottom:2px solid #4fc3da;
 }
 .nav-menus a:last-child{
     margin-right: 5rem;
@@ -139,9 +143,11 @@ header img{
 .nav-menus a.active{
     color: var(--primary-color);
 }
-
+.logo-nombre{
+  min-width: 300px;
+}
 /* ELEMENTS */
-.card{           
+.card{
     display: flex;
     flex-direction: column;
     /* background: linear-gradient(
@@ -155,7 +161,7 @@ header img{
     box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.5);
     justify-content: space-between;
     backdrop-filter:blur(10px);
-    
+
 }
 .card h1,.car p{
     opacity: 1;
@@ -205,18 +211,21 @@ article{
 }
 .button:hover{
     transform: translateY(-10px);
-    background: #0000ff;
-    
+    background: rgb(255, 255, 255,0.5);
+    border:2px solid #0000ff;
+    color: #0000ff;
+
 }
 .button-blue{
-    background-color:var(--purple-color);
-    color: white;  
+    background-color:#0000ff;
+
+    color: white;
 }
 .button-50{
-    width: 50%; 
+    width: 50%;
 }
 .button-25{
-    width: 25%; 
+    width: 25%;
 }
 
 .col-2{
@@ -224,7 +233,7 @@ article{
     grid-template-columns: repeat(2,1fr);
     place-items: center;
     align-items: center;
-    
+
 
 }
 .col-2 img{
@@ -259,10 +268,10 @@ article{
 .h-80{
     height: 80vh;
 }
-.margin-bar{
+/* .margin-bar{
     margin-top: 13vh;
-   
-}
+
+} */
 .text-center{
     text-align: center;
 }
@@ -284,20 +293,20 @@ article{
 .hero .bg{
     position: relative;
     width: 100%;
-    height: 100vh;    
-    overflow: hidden; 
+    height: 100vh;
+    overflow: hidden;
     background-image: url(./../img/images/patines.jpg);
     background-position: 1000px;
     background-size: 150% 100vh;
     background-repeat: no-repeat;
     background-position: center;
-    
-   
+
+
 }
 .hero .bg img{
     width: 100%;
     height: 100vh;
-   
+
 }
 #logo_tablet{
     display: block;
@@ -314,15 +323,15 @@ article{
     width: 100%;
     height: 100%;
     /* background: #2828f7; */
-    background: #2828f7;
+    background: var(--footer-color);
     opacity: 0.5;
     z-index: 10;
-    
-    
+
+
 }
 .bubbles{
     position: absolute;
-    display: flex; 
+    display: flex;
 }
 .bubbles span{
     position: relative;
@@ -343,7 +352,7 @@ article{
     box-shadow: 0 0 0 10px  #4fc3dc44,
     0 0 50px  #4fc3da,
     0 0 100px  #4fc3da;
-   
+
 }
 .info{
     position: relative;
@@ -378,7 +387,7 @@ article{
 @keyframes slideUp{
     from{
         transform: translateY(200px);
-        
+
     }
     to{
         transform: translateY(0);
@@ -387,7 +396,7 @@ article{
 @keyframes slideDown{
     from{
         transform: translateY(-500px);
-        
+
     }
     to{
         transform: translateY(0);
@@ -395,10 +404,10 @@ article{
 }
 .scroll-animation-up{
     opacity: 0;
-    filter: blur(1px);   
+    filter: blur(1px);
     transform: scaleY(100px);
     transition:  1.5s;
-    
+
 }
 .scroll-animation-down{
     opacity: 0;
@@ -411,25 +420,25 @@ article{
     opacity: 1;
     filter: blur(0px);
     animation: slideUp 2s;
-    
+
 }
 .show-down{
     opacity: 1;
     filter: blur(0px);
     animation: slideDown 1s;
-    
+
 }
 .animation-avent-to-scale{
     opacity: 0;
     transition-delay: 1s;
-    
+
 }
 .animation-scale{
-    
+
     animation: scaleUp 1s linear;
     transition-delay: 0.5s;
-    
-    
+
+
 }
 @keyframes scaleUp{
     from{
@@ -442,7 +451,7 @@ article{
     }
 }
 .animation-event-to-right{
-            
+
     opacity: 0;
 }
 .animation-right{
@@ -461,22 +470,24 @@ article{
 }
 /* About Section */
 .about-section{
-    display: grid;   
+    display: grid;
     place-items: center;
     align-items: center;
     width: 100%;
-    
-    
-    
-    
+    padding:13vh 0;
+
+
+
+
+
     /* background-color: rgb(79, 195, 218,0.1); */
-    
+
     /* background: linear-gradient(360deg, rgba(4,72,122,0.5) 2%, rgba(237,222,222,1) 50%, rgba(208,232,237,1) 96%);
     background: linear-gradient(
                 to left top,
                 rgba(39, 152, 233, 0.8),rgba(255, 255, 255, 0.8)); */
-            
-    box-shadow: 1px 2px 20px 5px rgba(39, 152, 233, 0.8); 
+
+    box-shadow: 1px 2px 20px 5px rgba(39, 152, 233, 0.8);
 }
 .about-section .img-about{
     width: 35%;
@@ -490,6 +501,97 @@ article{
     color: var(--purple-color);
     /* margin: 0; */
 }
+.article__tittle_black{
+  color: black;
+  margin: 0;
+  font-size: 1.4rem;
+
+}
+/* Gallery */
+.gallery-container{
+  display: grid;
+  align-items: center;
+  place-items: center;
+  padding: 12vh;
+  margin-bottom: 30vh;
+
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 2fr));
+  gap: 20px;
+}
+
+.image {
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 6px 6px 10px var(--secundary-color);
+}
+
+.image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+
+
+}
+.image img:hover{
+  transform: scale(1.05);
+  transition: transform 0.5s;
+
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 200;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+
+  position: fixed;
+  top: calc(50% + 2vh);
+  left: 50%;
+  height: 90vh;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+
+
+
+
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+/***************************************************************/
 .section-galery{
     display: flex;
     flex-direction: column;
@@ -503,7 +605,7 @@ article{
 .logo-1{
     width: 100%;
     display: flex;
-    
+
 }
 .logo-2{
     display: grid;
@@ -516,7 +618,7 @@ article{
 }
 /* Galery Caurocel */
 
-.section-galery2 .container-galery{         
+.section-galery2 .container-galery{
     width: 75%;
     height: 71vh;
     margin-bottom: 4rem;
@@ -524,17 +626,17 @@ article{
 .section-galery2 .carrusel-galery {
     display: flex;
     flex-direction: column;
-    flex-wrap:wrap;   
+    flex-wrap:wrap;
     justify-content: center;
     width: 100%;
     height: 100%;
     overflow-x: scroll;
     overflow: hidden;
-    
+
 }
 
 
-.section-galery2 .imagen { 
+.section-galery2 .imagen {
     margin: 0;
     width: 100%;
     height: auto;
@@ -548,10 +650,10 @@ article{
     bottom: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: center;       
+    justify-content: center;
     width: 100%;
     margin-bottom: 2rem;
-    
+
 }
 .btn-galery{
     width: 15px;
@@ -578,7 +680,7 @@ article{
     border: none;
     padding: 10px;
     cursor: pointer;
-    
+
 }
 .botonAnterior {
     left:1%;
@@ -594,7 +696,7 @@ article{
     align-items: center;
     place-items: center;
     margin: 1.2rem;
-    
+
 }
 .section-galery2 .carrusel-galery{
     border-radius: 10px;
@@ -625,21 +727,22 @@ article{
 
 /* events section  */
 .events-section{
-   
-  
+
+
    margin: 0;
    padding:0;
    height: 100vh;
    width: 100%;
-   
+
    z-index: 1;
    background-image: url('../img/images/paisaje.jpg');
-   
+
+
    background-size: 100% 100vh;
    background-repeat: no-repeat;
    background-position: center;
-   
-  
+
+
 }
 .info-events{
  margin: 100px;
@@ -658,8 +761,8 @@ article{
     overflow-x: hidden;
     overflow: hidden;
     overflow-x: auto;
-    
-    
+
+
     /* position: absolute;  */
     /* Permite que la barra de desplazamiento se coloque sobre el contenido */
 }
@@ -675,12 +778,12 @@ article{
     background-color: #f1f1f1; /* Color de la pista del scrollbar */
     border-radius: 6px; /* Bordes redondeados de la pista */
 }
-.btn-arrow{ 
+.btn-arrow{
     cursor: pointer;
     text-decoration: none; /* Quitar subrayado */
-    color: inherit; 
+    color: inherit;
     opacity: 0.5;
-    
+
 }
 
 .carrusel-item{
@@ -710,7 +813,7 @@ article{
     display: flex;
     flex-direction: column;
 
-    
+
 }
 
 .card--profile{
@@ -733,23 +836,23 @@ article{
     height: 150px;
     border-radius: 50%;
     box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.5);
-    
+
 }
-.card--profile-info{    
+.card--profile-info{
     position: relative;
     top:-80px;
     margin: 0;
     text-align: center;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
-    
-    
+
+
 }
 .card--profile-info span{
 
-    
+
     color: blue;
-    
+
 }
 .card--profile-info p{
     color: gray;
@@ -767,11 +870,11 @@ article{
     font-size: 0.8rem;
     margin-top: 15px;
     cursor: pointer;
-    
+
 }
 .social-cards a img{
     width: 100%;
-    
+
 }
 /* Utilidades importantes */
 .margin-top-0{
@@ -784,6 +887,9 @@ article{
     margin-bottom:  0;
 
 }
+.selectedMenu{
+  border-bottom:2px solid #4fc3da;
+}
 /* Antidoping section */
 .antidoping-section{
     padding-top: 11vh;
@@ -791,7 +897,7 @@ article{
 
 }
 .container-antidoping{
-    
+
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
@@ -839,7 +945,7 @@ footer a svg  {
     height: 40px;
 }
 footer a svg path {
-    fill: #fff; 
+    fill: #fff;
 }
 footer .wave{
     position: absolute;
@@ -856,7 +962,7 @@ footer .wave#wave1{
     width: 100%;
     bottom: 0;
     opacity: 1;
-    z-index: 1000;
+    z-index: 200;
     animation: animateWave1 4s linear infinite;
 }
 footer .wave#wave2{
@@ -915,10 +1021,18 @@ animation: animateWave4 3s linear infinite;
 }
 
 /* Seccion de notificaciones */
+.communications-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 13vh 0;
+  margin-bottom: 100vh;
 
+}
 .communications-container{
     display: grid;
-    padding: 15vh 0;
+
     gap: 15px;
     grid-template-columns: repeat(3,1fr);
 
@@ -933,7 +1047,7 @@ animation: animateWave4 3s linear infinite;
     transition: 0.5s;
     cursor: pointer;
     font-size: 0.8rem;
-    
+
 }
 
 .notifications figure{
@@ -944,39 +1058,52 @@ animation: animateWave4 3s linear infinite;
     transition: 0.5s;
 }
 .notifications p{
-    opacity: 0;
+    opacity: 1;
 }
 
-.notifications figure:hover{
-    inset: -10% 15% 70% 15% ;
+.modal-content-pdf{
+  position: fixed;
+  top: calc(50% + 2vh);
+  left: 50%;
+  height: 90vh;
+  width: 80%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+
 }
+.modal-content-pdf embed{
+width: 100%;
+height: 100%;
+}
+
+/* .notifications figure:hover{
+    inset: -10% 15% 70% 15% ;
+} */
+
 .notifications:hover{
     height: 50vh;
     padding-top: 20%;
 
 }
+.notifications:hover figure{
+  inset: -10% 15% 70% 15% ;
 
-.notifications figure:hover ~ p{
+}
+
+.notifications figure:hover .notifications p{
     opacity: 1;
 }
+
+
 
 .notifications figure img{
     width: 100%;
     height: 100%;
     border-radius: 1rem;
 }
-/* Segunda opcion de notificaciones */
-.communications-container2{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom:6rem;
 
-}
-.notifications2{
-    width: 100%;
-    height: 60vh
-}
 .container-carrucel{
     display: flex;
     justify-content: center;
@@ -998,26 +1125,26 @@ animation: animateWave4 3s linear infinite;
     scroll-behavior: smooth;
     scroll-snap-align: center;
     transition: 2s;
-    
+
 }
 .item-notifications img{
-    
+
     width: 100%;
     height: 100%;
 }
 .progress-notifications{
-    
+
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
+
 }
 .hidden{
     display: none;
 }
 
 
-  
+
 
 
 

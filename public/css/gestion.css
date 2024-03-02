@@ -197,6 +197,9 @@ ul li:hover{
 .orange{
     color: orange;
 }
+.capitalizar{
+  text-transform: capitalize;
+}
 .activo p{
     padding: 0.5rem;
     color: var(--contrast-prymary);
@@ -224,8 +227,8 @@ main{
   height: 100vh;
 }
 section{
-  margin: 5% auto;
-  height: 80vh;
+  margin: 2% auto;
+  height: 85vh;
   width: 90%;
   position:relative;
   overflow-y: auto;

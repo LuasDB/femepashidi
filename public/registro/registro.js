@@ -1,0 +1,360 @@
+/****************************************************************************************************************
+ * funciones para facilitar el llamado a elementos del DOM
+ * ***********************************************************************************************************/
+const $ = (elemento)=> document.querySelector(elemento);
+const $a = (elemento)=> document.querySelectorAll(elemento);
+const n = (elemento)=> document.getElementById(elemento);
+const nuevo = (elemento)=> document.createElement(elemento);
+
+
+const btn_curp = document.getElementById('buscar_curp');
+btn_curp.onclick = ()=> buscarCurp();
+const nuevo_registro = document.getElementById('nuevo_registro');
+nuevo_registro.onclick= ()=> nuevoRegistro();
+const monitor = document.getElementById('monitor');
+
+const inicio = ` <section class="card">
+<div class="search-curp  area-form">
+  <label for="curp">CURP</label>
+  <input type="text" placeholder="Tu CURP" id="curp">
+  <button class="btn-form item-center" id="buscar_curp">Buscar</button>
+  <a id="nuevo_registro" class="link">Registrarme</a>
+</div>
+<div class="toggle-container area-description ">
+  <div class="toogle-left ">
+    <img src="../img/galery/LOGO FEDE BLANCO.png" alt="LOGO FEMEPASHIDI">
+    <h2>Bienvenido</h2>
+    <p>Si ya te has registrado antes </p>
+    <p>ingresa tu CURP</p>
+  </div>
+  <div class="toogle-right hidden">
+    <div class="container-right">
+      <h2>Completa el siguiente formulario</h2>
+      <p>Para registrarte te pedimos que llenes el siguiente formuario.</p>
+      <p>Debes tener a la mano tu <span>CURP</span> y una fotografia no mayor a 10MB</p>
+    </div>
+  </div>
+</div>
+</section>`;
+
+const area_right = document.querySelector('.toogle-right');
+const area_left = document.querySelector('.toogle-left');
+$('.area-form').style.fontSize="10px"
+/***************************************************************************************************************************************
+ * VARIABLES API
+ *******************************************************************************************************************************************/
+const API_USERS = 'http://localhost:3000/api/v1/users/';
+
+/***************************************************************************************************************************************
+ * FUNCIONES DECLARATIVAS PARA LA APLICACIÓN
+ *******************************************************************************************************************************************/
+//Funcion para el efecto de cambio de formulario
+const activar = ()=>{
+
+  const area_form = document.querySelector('.area-form');
+  const area_descripcion = document.querySelector('.area-description');
+
+  console.log('Empezar')
+  area_form.classList.add('active-form');
+  area_descripcion.classList.add('active');
+  area_right.classList.remove('hidden');
+  area_left.classList.add('hidden');
+  area_form.classList.remove('search-curp');
+  area_form.classList.add('search-curp-active');
+}
+//
+const nuevoRegistro = ()=>{
+  activar();
+  $('.area-form').innerHTML=`
+  <form id="form_nuevo">
+  <input type="file" style="display: none;" id="file_input" name="archivo" class="envioDb">
+  <span id="nombre_archivo" style="display: none;"></span>
+    <div class="col-2">
+      <label for="curp">CURP
+        <input type="text" placeholder="TU CURP" name="curp">
+      </label>
+      <figure>
+        <div>
+        <label for="curp" id="foto" id="nombre_archivo">Haz click aqui para subir tu foto
+          <img src="./user.png" class="img-user" id="img_user"></div>
+        </label>
+      </figure>
+
+    </div>
+    <div class="col-3">
+      <label for="nombre">NOMBRE(S)
+        <input type="text" placeholder="TU NOMBRE" id="nombre" name="nombre" class="envioDb">
+      </label>
+      <label for="apellido_paterno">APELLIDO PATERNO
+        <input type="text" placeholder="APELLIDO PATERNO" id="apellido_paterno" name="apellido_paterno" class="envioDb" >
+      </label>
+      <label for="apellido_materno">APELLIDO MATERNO
+        <input type="text" placeholder="APELLIDO MATERNO" id="apellido_materno" name="apellido_materno" class="envioDb" >
+      </label>
+    </div>
+    <div class="col-3">
+      <label for="fecha_nacimiento">FECHA DE NACIMIENTO
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="envioDb" >
+      </label>
+      <label for="sexo">SEXO
+        <select id="sexo" name="sexo" class="envioDb">
+          <option value="MASCULINO">MASCULINO</option>
+          <option value="FEMENINO">FEMENINO</option>
+        </select>
+      </label>
+      <label for="lugar_nacimiento">LUGAR DE NACIMIENTO
+        <select id="lugar_nacimiento" name="lugar_nacimiento" class="envioDb">
+          <option value="CDMX">CDMX</option>
+          <option value="EDO.DE MÉXICO">EDO.DE MÉXICO</option>
+        </select>
+      </label>
+    </div>
+    <div class="col-3">
+      <label for="telefono">TELEFONO
+       <input type="phone" id="telefono" name="telefono" class="envioDb">
+      </label>
+      <label for="correo">CORREO
+        <input type="email" id="correo" name="correo" class="envioDb">
+      </label>
+      <label for="nivel_actual">NIVEL ACTUAL
+        <select id="nivel_actual" name="nivel_actual" class="envioDb">
+          <option value="NIVEL 1">NIVEL 1</option>
+          <option value="NIVEL 2">NIVEL 2</option>
+        </select>
+      </label>
+
+
+
+    </div>
+    <div class="col-3">
+
+      <label for="asociacion">ASOCIACIÓN
+        <select id="asociacion" name="asociacion" class="envioDb">
+          <option value="ASOCIACIÓN 1">ASOCIACIÓN 1</option>
+          <option value="ASOCIACIÓN 2">ASOCIACIÓN 2</option>
+        </select>
+      </label>
+      <label></label>
+      <a class="btn-form" id="enviar">Enviar</a>
+
+    </div>
+
+
+
+
+  </form>`;
+  n('enviar').onclick = ()=> envioNuevoRegistro();
+
+  $('.area-description').innerHTML=`
+  <div class="toogle-left ">
+    <div class="container-right">
+      <h4>Registro</h4>
+      <p>Completa el siguiente formulario</p>
+      <p>Debes tener a la mano:</p>
+      <p>* CURP</p>
+      <p>* Fotografia de frente con fondo</p>
+      <p> blanco en formato .png o .jpg</p>
+      <p> no mayor a 10MB</p>
+      <br>
+      <p>Al registrarte se te enviara </p>
+        <p>un correo deconfirmación </p>
+        <p>para posteriormente poder acceder al</p>
+        <p>registro de competencias</p>
+
+
+    </div>
+  </div>`;
+  const btn_foto = document.getElementById('foto');
+  btn_foto.onclick = (e)=>{
+    e.preventDefault()
+    document.getElementById('file_input').click();
+  }
+  document.getElementById('file_input').addEventListener('change',function(){
+    document.getElementById('nombre_archivo').textContent= this.files[0].name;
+    const archivo = this.files[0];
+    if (archivo) {
+      const lector = new FileReader();
+      lector.addEventListener('load', function() {
+          document.getElementById('img_user').src = lector.result;
+      });
+      lector.readAsDataURL(archivo);
+  }
+  });
+}
+const buscarCurp=async()=>{
+  if(n('curp').value.trim() === ''){
+    return;
+  }
+  //traemos la información de la Base de datos
+  await fetch(`${API_USERS}/${n('curp').value}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    if(data.message==='Usuario no encontrado'){
+      Swal.fire({
+        title: `${data.message}`,
+        text: `Si aun no te has registrado registrate en el boton "Registrarme"`,
+        icon: "error",
+        showConfirmButton: true,
+      });
+      return
+    }
+    const usuario = data.documents[0].data;
+
+  activar();
+  $('.area-form').innerHTML=`
+  <form >
+    <div class="col-2">
+      <label for="curp">CURP
+        <input type="text" placeholder="Tu nombre" value="${usuario.curp}" disabled>
+      </label>
+      <figure>
+        <img src="./user.png" class="img-user">
+      </figure>
+    </div>
+
+    <div class="col-3">
+      <label for="curp">NOMBRE(S)
+        <input type="text" placeholder="Tu nombre" value="${usuario.nombre}" disabled>
+      </label>
+      <label for="curp">APELLIDO PATERNO
+        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.apellido_paterno}" disabled>
+      </label>
+      <label for="curp">APELLIDO MATERNO
+        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.apellido_materno}" disabled>
+      </label>
+    </div>
+    <div class="col-3">
+      <label for="curp">FECHA DE NACIMIENTO
+        <input type="date" value="${usuario.fecha_nacimiento}" disabled>
+      </label>
+      <label for="curp">SEXO
+        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.sexo}" disabled>
+      </label>
+      <label for="curp">LUGAR DE NACIMIENTO
+        <input type="text" value="${usuario.lugar_nacimiento}" disabled>
+      </label>
+    </div>
+    <div class="col-3">
+      <label for="curp">NIVEL ACTUAL
+        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.nivel_actual}" disabled>
+      </label>
+      <label for="curp">ASOCIACIÓN
+        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.asociacion}" disabled>
+      </label>
+      <label for="curp">TELEFONO
+        <input type="phone" value="${usuario.telefono}" disabled>
+       </label>
+    </div>
+    <div class="col-3">
+      <label for="curp">CORREO
+        <input type="email" value="${usuario.correo}" disabled>
+      </label>
+    </div>
+    <label for="competencia">COMPETENCIA A LA QUE TE INSCRIBES
+      <select name="competencia" competencia" id="competencia">
+        <option value="MASCULINO">CDMX COMPETENCIA 1</option>
+        <option value="FEMENINO">MTY COMPETENCIA 2</option>
+      </select>
+    </label>
+    <div class="col-3">
+
+    <label for="curp">
+    </label>
+    <label for="curp">
+
+    </label>
+    <a class="btn-form">Enviar</a>
+  </div>
+
+
+  </form>
+  `;
+  $('.area-description').innerHTML=`
+  <div class="toogle-left ">
+    <div class="container-right">
+      <p><span>Bienvenido<span></p>
+      <p><span>Carlos Antonio<span></p>
+      <br>
+      <p>Selecciona la competencia</p>
+      <p>a la que deseas inscribirte</p>
+      <br>
+      <p>Se te enviara un correo de </p>
+      <p>notificación cuando tu solicitud</p>
+      <p>haya sido aprobada.</p>
+      <br>
+      <p>Te sugerimos estar atento</p>
+    </div>
+  </div>
+  `;})
+  .catch((error)=>{
+    console.log(error)
+
+  });
+
+
+
+}
+
+/***************************************************************************************************************************************
+ * FUNCIONES DECLARATIVAS PARA ENVIO A BASE DE DATOS
+ *******************************************************************************************************************************************/
+const envioNuevoRegistro=async ()=>{
+  //Convertimos el correo a minusculas
+  const emailInput = n('correo');
+  email=emailInput.value;
+  email=email.toLowerCase();
+  emailInput.value=email;
+
+  Swal.fire({
+    title: "¡Estas a punto de registrarte!",
+    text: "¿Revisaste que la información sea correcta?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No,espera",
+    confirmButtonText: "Si,claro"
+  }).then(async(result) => {
+    if (result.isConfirmed){
+      const form = n('form_nuevo');
+      const formData = new FormData(form);
+      await fetch(API_USERS,{
+        method:'POST',
+        body:formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        monitor.innerHTML=inicio;
+
+        if(data.id){
+          Swal.fire({
+           title: `${data.message}`,
+           text: "Tu información se guardo correctamente, te enviamos un correo para confirmar tu registro",
+           icon: "success",
+           showConfirmButton: true,
+         });
+        }
+        const btn_curp2 = document.getElementById('buscar_curp');
+        btn_curp2.onclick = ()=> buscarCurp();
+        const nuevo_registro2 = document.getElementById('nuevo_registro');
+        nuevo_registro2.onclick= ()=> nuevoRegistro();
+      })
+      .catch((error )=> {
+        Swal.fire({
+          title: `Algo salio mal`,
+          text: "Tu información no se pudo guargar",
+          icon: "error",
+          showConfirmButton: true,
+        });
+      });
+    }
+  });
+}
+
+// nuevo_registro.addEventListener('click',nuevoRegistro)
+// btn_curp.addEventListener('click',buscarCurp);
+
+
+
+

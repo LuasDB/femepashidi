@@ -1,3 +1,20 @@
+
+
+/****************************************************************************************************************
+ * Barra de navegación
+ * ******************************************************************************************************************/
+function selectedMenu(){
+  document.querySelectorAll('.nav-menus a').forEach(element => {
+    element.classList.remove('selectedMenu');
+  })
+  this.classList.add('selectedMenu');
+}
+document.querySelectorAll('.nav-menus a').forEach(element => {
+  element.addEventListener('click',selectedMenu);
+})
+
+
+
 /*
 galeryANIMACION PARA ELEMENTOS HACIA ARRIBA
 */
@@ -85,7 +102,12 @@ function handleScroll() {
         const scrollPosition = window.scrollY;
 
        if(scrollPosition > 595 ){
-        menu.style.backgroundColor = "rgb(32, 32, 154,0.4)";
+        // menu.style.backgroundColor = "rgb(32, 32, 154,0.4)";
+        // menu.style.backdropFilter = "blur(15px)";
+        // nombre.style.color= "rgb(41 127 144)";
+        // letras.forEach(a=>{
+        //     a.style.color= "rgb(41 127 144)";
+        menu.style.backgroundColor = "rgb(112, 171, 247,0.4)";
         menu.style.backdropFilter = "blur(15px)";
         nombre.style.color= "rgb(41 127 144)";
         letras.forEach(a=>{
@@ -123,29 +145,7 @@ function handleScroll() {
 //             // window.scrollY -= ventana_about.clientHeight + 100;
 //     });
 
-const arrow_down = document.querySelector('.down-arrow img');
-    arrow_down.addEventListener('click',()=>{
-        const ventana_about = document.querySelector('.section-galery2');
 
-        // Obtener la posición actual del desplazamiento vertical
-        let currentPosition = window.scrollY;
-
-        // Calcular la nueva posición del desplazamiento hacia abajo (agregar 800px)
-        let targetPosition = currentPosition + ventana_about.clientHeight + 50;
-
-        // Realizar el desplazamiento suave utilizando setInterval
-        let scrollInterval = setInterval(function() {
-        // Desplazar hacia abajo en incrementos pequeños
-        window.scrollBy(0, 10);
-
-
-        // Verificar si se alcanzó la posición objetivo
-        if (window.scrollY >= targetPosition) {
-            // Detener el intervalo cuando se alcanza la posición objetivo
-            clearInterval(scrollInterval);
-        }
-        }, 16.67); // Aproximadamente 60 fps
-    });
 
 // Agrega un event listener para el evento de scroll
 window.addEventListener("scroll", handleScroll);
@@ -153,6 +153,43 @@ window.addEventListener("scroll", handleScroll);
 
 });
 
+/* Para modal de galeria */
+ // Obtener el modal
+ const modal = document.getElementById("myModal");
+ const modalPdf =document.getElementById("myModalPdf");
+
+ // Obtener la imagen y añadir el modal
+ const images = document.querySelectorAll(".image");
+ const modalImg = document.getElementById("img01");
+ images.forEach(function(image) {
+   const img = image.querySelector("img");
+   img.onclick = function() {
+     modal.style.display = "block";
+     modalImg.src = this.src;
+   }
+ });
+
+ // Obtener el span que cierra el modal
+  const span = document.getElementsByClassName("close")[0];
+  const spanPdf = document.getElementsByClassName("closePdf")[0];
+
+ // Cerrar el modal al hacer clic en el span
+ span.onclick = function() {
+   modal.style.display = "none";
+   modalPdf.style.display = "none";
+ }
+ spanPdf.onclick = function() {
+
+  modalPdf.style.display = "none";
+}
+
+ // Cerrar el modal al hacer clic fuera de la imagen
+ window.onclick = function(event) {
+   if (event.target == modal || event.target == modalPdf ) {
+     modal.style.display = "none";
+     modalPdf.style.display = "none";
+   }
+ }
 
 
 
