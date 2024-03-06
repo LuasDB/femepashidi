@@ -43,7 +43,13 @@ $('.area-form').style.fontSize="10px"
 /***************************************************************************************************************************************
  * VARIABLES API
  *******************************************************************************************************************************************/
-const API_USERS = 'http://localhost:3000/api/v1/users/';
+const server = 'http://localhost:3000/api/v1/'
+const API_USERS = `${server}users/`;
+const API_EVENTS = `${server}events/`;
+const API_ASSOCIATIONS =`${server}associations/`;
+const API_REGISTER =`${server}register/`;
+
+
 
 /***************************************************************************************************************************************
  * FUNCIONES DECLARATIVAS PARA LA APLICACIÓN
@@ -53,7 +59,7 @@ const activar = ()=>{
 
   const area_form = document.querySelector('.area-form');
   const area_descripcion = document.querySelector('.area-description');
-
+  $('.image-skating').classList.add('hidden')
   console.log('Empezar')
   area_form.classList.add('active-form');
   area_descripcion.classList.add('active');
@@ -63,7 +69,7 @@ const activar = ()=>{
   area_form.classList.add('search-curp-active');
 }
 //
-const nuevoRegistro = ()=>{
+const nuevoRegistro = async()=>{
   activar();
   $('.area-form').innerHTML=`
   <form id="form_nuevo">
@@ -71,7 +77,7 @@ const nuevoRegistro = ()=>{
   <span id="nombre_archivo" style="display: none;"></span>
     <div class="col-2">
       <label for="curp">CURP
-        <input type="text" placeholder="TU CURP" name="curp">
+        <input type="text" placeholder="TU CURP" name="curp" id="curp">
       </label>
       <figure>
         <div>
@@ -79,7 +85,6 @@ const nuevoRegistro = ()=>{
           <img src="./user.png" class="img-user" id="img_user"></div>
         </label>
       </figure>
-
     </div>
     <div class="col-3">
       <label for="nombre">NOMBRE(S)
@@ -118,31 +123,55 @@ const nuevoRegistro = ()=>{
       </label>
       <label for="nivel_actual">NIVEL ACTUAL
         <select id="nivel_actual" name="nivel_actual" class="envioDb">
-          <option value="NIVEL 1">NIVEL 1</option>
-          <option value="NIVEL 2">NIVEL 2</option>
+          <option value="Debutantes 1">Debutantes 1</option>
+          <option value="Debutantes 2">Debutantes 2</option>
+          <option value="Pre-Básicos">Pre-Básicos</option>
+          <option value="Básicos">Básicos</option>
+          <option value="Pre-preliminar">Pre-preliminar</option>
+          <option value="Preliminar">Preliminar</option>
+          <option value="Intermedios 1">Intermedios 1</option>
+          <option value="Intermedios 2">Intermedios 2</option>
+          <option value="Novicios">Novicios</option>
+          <option value="Avanzados 1">Avanzados 1</option>
+          <option value="Avanzados 2">Avanzados 2</option>
+          <option value="Adulto Bronce">Adulto Bronce</option>
+          <option value="Adulto Plata">Adulto Plata</option>
+          <option value="Adulto Oro">Adulto Oro</option>
+          <option value="Adulto Master">Adulto Master</option>
+          <option value="Adulto Master Elite">Adulto Master Elite</option>
+          <option value="ADULTO PAREJAS">ADULTO PAREJAS</option>
+          <option value="ADULTO PAREJAS INTERMEDIATE">ADULTO PAREJAS INTERMEDIATE</option>
+          <option value="ADULTO PAREJAS MASTER">ADULTO PAREJAS MASTER</option>
+          <option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
         </select>
       </label>
-
-
-
     </div>
     <div class="col-3">
 
       <label for="asociacion">ASOCIACIÓN
-        <select id="asociacion" name="asociacion" class="envioDb">
-          <option value="ASOCIACIÓN 1">ASOCIACIÓN 1</option>
-          <option value="ASOCIACIÓN 2">ASOCIACIÓN 2</option>
+        <select id="asociacion" name="id_asociacion" class="envioDb">
         </select>
       </label>
       <label></label>
       <a class="btn-form" id="enviar">Enviar</a>
-
     </div>
-
-
-
-
   </form>`;
+
+  //Buscamos las asociaciones vigentes
+  const res = await fetch(API_ASSOCIATIONS);
+  const data_associations=await res.json();
+  const associations = data_associations.documents;
+  if(data_associations.message != "TODOS"){
+    return;
+  }
+  const asociaciones = n('asociacion');
+  associations.forEach(association =>{
+    const option = document.createElement('option');
+    option.innerHTML=association.data.nombre;
+    option.value=association.id;
+    asociaciones.appendChild(option);
+  })
+
   n('enviar').onclick = ()=> envioNuevoRegistro();
 
   $('.area-description').innerHTML=`
@@ -188,7 +217,8 @@ const buscarCurp=async()=>{
   //traemos la información de la Base de datos
   await fetch(`${API_USERS}/${n('curp').value}`)
   .then(response => response.json())
-  .then(data => {
+  .then(async(data )=> {
+
     console.log(data);
     if(data.message==='Usuario no encontrado'){
       Swal.fire({
@@ -200,100 +230,129 @@ const buscarCurp=async()=>{
       return
     }
     const usuario = data.documents[0].data;
+    if(usuario.verificacion === false){
+      Swal.fire({
+        title: `NO ENCONTRADO`,
+        text: `Necesitas verificar tu cuenta, al registrarte te enviamos un correo`,
+        icon: "error",
+        showConfirmButton: true,
+      });
+      console.log('ESTO ES LA VERIFICACION:',usuario.verificacion)
+      return;
+    }
 
-  activar();
-  $('.area-form').innerHTML=`
-  <form >
-    <div class="col-2">
-      <label for="curp">CURP
-        <input type="text" placeholder="Tu nombre" value="${usuario.curp}" disabled>
-      </label>
-      <figure>
-        <img src="./user.png" class="img-user">
-      </figure>
-    </div>
+    activar();
+    $('.area-form').innerHTML=`
+    <form id="nuevo_form">
+    <input type="text" placeholder="Tu nombre" value="${data.documents[0].id}" style="display:none;" name="id_user" >
+    <input type="text" placeholder="Tu nombre" value="${usuario.id_asociacion}" style="display:none;" name="id_association" >
 
-    <div class="col-3">
-      <label for="curp">NOMBRE(S)
-        <input type="text" placeholder="Tu nombre" value="${usuario.nombre}" disabled>
-      </label>
-      <label for="curp">APELLIDO PATERNO
-        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.apellido_paterno}" disabled>
-      </label>
-      <label for="curp">APELLIDO MATERNO
-        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.apellido_materno}" disabled>
-      </label>
-    </div>
-    <div class="col-3">
-      <label for="curp">FECHA DE NACIMIENTO
-        <input type="date" value="${usuario.fecha_nacimiento}" disabled>
-      </label>
-      <label for="curp">SEXO
-        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.sexo}" disabled>
-      </label>
-      <label for="curp">LUGAR DE NACIMIENTO
-        <input type="text" value="${usuario.lugar_nacimiento}" disabled>
-      </label>
-    </div>
-    <div class="col-3">
-      <label for="curp">NIVEL ACTUAL
-        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.nivel_actual}" disabled>
-      </label>
-      <label for="curp">ASOCIACIÓN
-        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.asociacion}" disabled>
-      </label>
+
+
+      <div class="col-2">
+        <label for="curp">CURP
+          <input type="text" placeholder="Tu nombre" value="${usuario.curp}" disabled>
+        </label>
+        <figure>
+          <img src="./user.png" class="img-user">
+        </figure>
+      </div>
+
+      <div class="col-3">
+        <label for="curp">NOMBRE(S)
+          <input type="text" placeholder="Tu nombre" value="${usuario.nombre}" disabled>
+        </label>
+        <label for="curp">APELLIDO PATERNO
+          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.apellido_paterno}" disabled>
+        </label>
+        <label for="curp">APELLIDO MATERNO
+          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.apellido_materno}" disabled>
+        </label>
+      </div>
+      <div class="col-3">
+        <label for="curp">FECHA DE NACIMIENTO
+          <input type="date" value="${usuario.fecha_nacimiento}" disabled>
+        </label>
+        <label for="curp">SEXO
+          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.sexo}" disabled>
+        </label>
+        <label for="curp">LUGAR DE NACIMIENTO
+          <input type="text" value="${usuario.lugar_nacimiento}" disabled>
+        </label>
+      </div>
+      <div class="col-3">
+        <label for="curp">CATEGORIA
+          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.categoria}" disabled>
+        </label>
+        <label for="curp">NIVEL ACTUAL
+          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.nivel_actual}" disabled>
+        </label>
+        <label for="curp">ASOCIACIÓN
+          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.asociacion.nombre}" disabled>
+        </label>
+
+      </div>
+      <div class="col-3">
       <label for="curp">TELEFONO
-        <input type="phone" value="${usuario.telefono}" disabled>
-       </label>
-    </div>
-    <div class="col-3">
-      <label for="curp">CORREO
-        <input type="email" value="${usuario.correo}" disabled>
+          <input type="phone" value="${usuario.telefono}" disabled>
+        </label>
+        <label for="curp">CORREO
+          <input type="email" value="${usuario.correo}" disabled>
+        </label>
+      </div>
+      <label for="competencia">COMPETENCIA A LA QUE TE INSCRIBES
+        <select name="id_events" competencia" id="competencia">
+
+        </select>
       </label>
+      <div class="col-3">
+
+      <label for="curp">
+      </label>
+      <label for="curp">
+
+      </label>
+      <a class="btn-form" id="enviar_registro">Enviar</a>
     </div>
-    <label for="competencia">COMPETENCIA A LA QUE TE INSCRIBES
-      <select name="competencia" competencia" id="competencia">
-        <option value="MASCULINO">CDMX COMPETENCIA 1</option>
-        <option value="FEMENINO">MTY COMPETENCIA 2</option>
-      </select>
-    </label>
-    <div class="col-3">
-
-    <label for="curp">
-    </label>
-    <label for="curp">
-
-    </label>
-    <a class="btn-form">Enviar</a>
-  </div>
 
 
-  </form>
-  `;
-  $('.area-description').innerHTML=`
-  <div class="toogle-left ">
-    <div class="container-right">
-      <p><span>Bienvenido<span></p>
-      <p><span>Carlos Antonio<span></p>
-      <br>
-      <p>Selecciona la competencia</p>
-      <p>a la que deseas inscribirte</p>
-      <br>
-      <p>Se te enviara un correo de </p>
-      <p>notificación cuando tu solicitud</p>
-      <p>haya sido aprobada.</p>
-      <br>
-      <p>Te sugerimos estar atento</p>
+    </form>
+    `;
+    n('enviar_registro').onclick= ()=> envioRegistroCompetencia();
+
+    //Buscamos los eventos para cargarlos
+    const res = await fetch(API_EVENTS);
+    const data_events = await res.json();
+    const events = data_events.documents;
+    const competencias = n('competencia');
+    events.forEach(event => {
+      const option = document.createElement('option');
+      option.innerHTML=`${event.data.nombre}`;
+      option.value=event.id;
+      competencias.appendChild(option);
+    });
+    $('.area-description').innerHTML=`
+    <div class="toogle-left ">
+      <div class="container-right">
+        <p><span>Bienvenido<span></p>
+        <p><span>${usuario.nombre.toUpperCase()}<span></p>
+        <br>
+        <p>Selecciona la competencia</p>
+        <p>a la que deseas inscribirte</p>
+        <br>
+        <p>Se te enviara un correo de </p>
+        <p>notificación cuando tu solicitud</p>
+        <p>haya sido aprobada.</p>
+        <br>
+        <p>Te sugerimos estar atento</p>
+      </div>
     </div>
-  </div>
-  `;})
-  .catch((error)=>{
+    `;
+    $('.img-user').src=data.img;
+  }).catch((error)=>{
     console.log(error)
 
   });
-
-
-
 }
 
 /***************************************************************************************************************************************
@@ -302,10 +361,9 @@ const buscarCurp=async()=>{
 const envioNuevoRegistro=async ()=>{
   //Convertimos el correo a minusculas
   const emailInput = n('correo');
-  email=emailInput.value;
+  let email=emailInput.value;
   email=email.toLowerCase();
   emailInput.value=email;
-
   Swal.fire({
     title: "¡Estas a punto de registrarte!",
     text: "¿Revisaste que la información sea correcta?",
@@ -317,40 +375,108 @@ const envioNuevoRegistro=async ()=>{
     confirmButtonText: "Si,claro"
   }).then(async(result) => {
     if (result.isConfirmed){
-      const form = n('form_nuevo');
-      const formData = new FormData(form);
-      await fetch(API_USERS,{
-        method:'POST',
-        body:formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        monitor.innerHTML=inicio;
+      //Validacion de curp existente
+      let curp =n('curp').value;
+      const curpVal = curp.toUpperCase();
+      await fetch(`${API_USERS}validate/${curpVal}`)
+      .then(response => response.json() )
+      .then(async(result) =>{
 
-        if(data.id){
+        if(result.resultado){
           Swal.fire({
-           title: `${data.message}`,
-           text: "Tu información se guardo correctamente, te enviamos un correo para confirmar tu registro",
-           icon: "success",
-           showConfirmButton: true,
-         });
+            title: `Este usuario ya ha sido dado de alta`,
+            text: "Revisa tu correo de confirmación",
+            icon: "error",
+            showConfirmButton: true,
+          });
+          }else{
+          const form = n('form_nuevo');
+          const formData = new FormData(form);
+          await fetch(API_USERS,{
+            method:'POST',
+            body:formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              if(data.id){
+                Swal.fire({
+                  title: `${data.message}`,
+                  text: "Tu información se guardo correctamente, te enviamos un correo para confirmar tu registro",
+                  icon: "success",
+                  showConfirmButton: true,
+                })
+                .then(res=>{
+                  if(res.isConfirmed){
+                    window.location.reload();
+                  }
+                });
+              }
+          });
         }
-        const btn_curp2 = document.getElementById('buscar_curp');
-        btn_curp2.onclick = ()=> buscarCurp();
-        const nuevo_registro2 = document.getElementById('nuevo_registro');
-        nuevo_registro2.onclick= ()=> nuevoRegistro();
-      })
-      .catch((error )=> {
-        Swal.fire({
-          title: `Algo salio mal`,
-          text: "Tu información no se pudo guargar",
-          icon: "error",
-          showConfirmButton: true,
-        });
       });
     }
   });
 }
+
+const envioRegistroCompetencia = ()=>{
+
+  Swal.fire({
+    title: "¡Estas a punto de registrarte!",
+    text: "¿Revisaste que la información sea correcta?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No,espera",
+    confirmButtonText: "Si,claro"
+  }).then(async(result) => {
+    if(result.isConfirmed){
+      const form = n('nuevo_form');
+      let formData = new FormData(form);
+      formData.append('status','Inscrito');
+      formData.append('fecha_solicitud','2024-03-03');
+      for (let entry of formData.entries()) {
+        console.log(entry[0] + ': ' + entry[1]);
+    }
+
+      // Crear un nuevo FormData y agregar algunos datos
+
+
+    // Enviar el FormData al servidor
+    fetch(API_REGISTER, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+      if(data.id){
+        Swal.fire({
+          title: `${data.message}`,
+          text: "Tu información se guardo correctamente, te enviamos un correo para confirmar tu registro",
+          icon: "success",
+          showConfirmButton: true,
+        })
+        .then(res=>{
+          if(res.isConfirmed){
+            window.location.reload();
+          }
+        });
+
+    }})
+    .catch(error => {
+      console.error('Error:', error);
+    });
+    }
+  });
+
+
+}
+
 
 // nuevo_registro.addEventListener('click',nuevoRegistro)
 // btn_curp.addEventListener('click',buscarCurp);

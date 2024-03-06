@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="../css/gestion.css">
 
   <style>
+    :root{
+      --primary-color-r:#268dee;
+      --background-input:#f0f0f0;
+      --font-input:#333;
+    }
     span,p{
       font-weight: bold;
     }
@@ -46,7 +51,7 @@
       font-weight: 600;
     }
     .search-curp-active label{
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 600;
     }
     .search-curp input{
@@ -59,12 +64,13 @@
       padding: 0.5rem;
     }
     .search-curp-active input{
-      width: 70%;
+      width: 80%;
 
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       border-radius: 10px;
       border: none;
-      background-color:rgb(112, 171, 247,0.3);
+      /* background-color:rgb(112, 171, 247,0.3); */
+      background-color:var(--background-input);
       padding: 0.5rem;
     }
     .search-curp-active form{
@@ -79,16 +85,17 @@
       position: absolute;
       top: 0;
       left: 50%;
-      background-color: rgb(59, 140, 247);
+      background-color: var(--primary-color-r);
       height: 100%;
       width: 50%;
       border-radius: 10rem 0rem 0 10rem;
       overflow: hidden;
       color: white;
-      transition: all 0.6s ease-in-out;
+      transition: all 0.5s ease-in-out;
       z-index: 100;
     }
     .toogle-left{
+      width: 90%;
       position: relative;
       top: 10%;
       left: 5%;
@@ -96,6 +103,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+
+    }
+    .toogle-left p{
+      margin: 10px;
+      text-align: center;
     }
     .toogle-left img{
       width: 30%;
@@ -129,10 +141,11 @@
       justify-content: center;
       align-items: start;
 
-      padding-left: 20%;
+      padding-left: 35%;
     }
     .container-right p{
       margin: 0;
+      text-align: left;
 
     }
     /* formulario de registro */
@@ -169,16 +182,29 @@
      label{
       display: flex;
       flex-direction: column;
-      color: rgb(72, 147, 247);
+      color: var(--primary-color-r);
+
     }
     select{
       width: 70%;
       font-size: 0.7rem;
       padding: 0.5rem;
       border: none;
-      background-color:rgb(112, 171, 247,0.3);
+      background-color:var(--background-input);
       border-radius: 1rem;
     }
+    option {
+      /* Estilos para los option */
+      padding: 10px; /* Padding para los option */
+      font-size: 14px; /* Tamaño de fuente para los option */
+      color: #333; /* Color de texto para los option */
+      background-color: #fff; /* Color de fondo para los option */
+        }
+    /* Estilo para el option seleccionado */
+    option:checked {
+      background-color: var(--primary-color-r) /* Color de fondo para el option seleccionado */
+    }
+
     .search-curp form{
       width: 100%;
 
@@ -210,8 +236,15 @@
     .img-user{
       border-radius: 50%;
       width: 100%;
-      max-width: 100px;
-      max-height: 100px;
+      max-width: 80px;
+      max-height: 80px;
+    }
+    .image-skating{
+      position: absolute;
+      bottom:5%;
+      left: 2%;
+      width: 20%;
+      z-index: 100;
     }
 
 
@@ -398,33 +431,30 @@
    </section> -->
 
 
-   <section class="card">
-    <div class="search-curp  area-form">
-      <label for="curp">CURP</label>
-      <input type="text" placeholder="Tu CURP" id="curp">
-      <button class="btn-form item-center" id="buscar_curp">Buscar</button>
-      <a id="nuevo_registro" class="link">Registrarme</a>
-    </div>
-    <div class="toggle-container area-description ">
-      <div class="toogle-left ">
-        <img src="../img/galery/LOGO FEDE BLANCO.png" alt="LOGO FEMEPASHIDI">
-        <h2>Bienvenido</h2>
-        <p>Si ya te has registrado antes </p>
-        <p>ingresa tu CURP</p>
+    <section class="card">
+      <div class="search-curp  area-form">
+        <label for="curp">CURP</label>
+        <input type="text" placeholder="Tu CURP" id="curp">
+        <button class="btn-form item-center" id="buscar_curp">Buscar</button>
+        <a id="nuevo_registro" class="link">Registrarme</a>
       </div>
-      <div class="toogle-right hidden">
-        <div class="container-right">
-          <h2>Completa el siguiente formulario</h2>
-          <p>Para registrarte te pedimos que llenes el siguiente formuario.</p>
-          <p>Debes tener a la mano tu <span>CURP</span> y una fotografia no mayor a 10MB</p>
+      <div class="toggle-container area-description ">
+        <div class="toogle-left ">
+          <img src="../img/galery/LOGO FEDE BLANCO.png" alt="LOGO FEMEPASHIDI">
+          <h2>Bienvenido</h2>
+          <p>Si ya te has registrado antes ingresa tu CURP </p>
+          <p>para poder inscribirte a  las competencias vigentes</p>
+        </div>
+        <div class="toogle-right hidden">
+          <div class="container-right">
+            <h2>Completa el siguiente formulario</h2>
+            <p>Para registrarte te pedimos que llenes el siguiente formuario.</p>
+            <p>Debes tener a la mano tu <span>CURP</span> y una fotografia no mayor a 10MB</p>
+          </div>
         </div>
       </div>
-    </div>
-
-
-
-
-   </section>
+      <img src="../img/icon/patinadores.svg" alt="Patinadores" class="image-skating">
+    </section>
   </main>
   <script src="./registro.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

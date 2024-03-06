@@ -93,7 +93,7 @@ header{
     align-items: center;
 
     width: 100%;
-    height: 11vh;
+    height: 12.5vh;
 
     backdrop-filter:blur(10px);
 
@@ -116,7 +116,7 @@ header div div p{
 }
 header img{
     width: 15%;
-    padding: 0;
+    padding-top: 10;
     margin: 10px;
 }
 #menu_open{
@@ -268,10 +268,10 @@ article{
 .h-80{
     height: 80vh;
 }
-/* .margin-bar{
-    margin-top: 13vh;
+.margin-bar{
+    margin-top: 14vh;
 
-} */
+}
 .text-center{
     text-align: center;
 }
@@ -285,6 +285,14 @@ article{
 /* Modificators */
 .align-center{
     align-self: center;
+}
+.center-flex{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+
 }
 .border-ice{
     box-shadow: 1px 2px 20px 5px var(--secundary-color);
@@ -323,7 +331,9 @@ article{
     width: 100%;
     height: 100%;
     /* background: #2828f7; */
-    background: var(--footer-color);
+    /* background: var(--footer-color); */
+    background-color: #437592;
+
     opacity: 0.5;
     z-index: 10;
 
@@ -332,6 +342,7 @@ article{
 .bubbles{
     position: absolute;
     display: flex;
+    z-index: 50;
 }
 .bubbles span{
     position: relative;
@@ -373,9 +384,27 @@ article{
 .info p{
     margin: 20px;
     font-size: large;
-    text-align: center;
+    text-align: justify;
 }
+.arrow-up img{
+  height: 50px;
+  animation: jump 2s infinite;
+
+}
+
 /* Animations */
+@keyframes jump{
+  0%{
+    transform: translateY(0px);
+
+  }
+  50%{
+    transform: translateY(-20px);
+  }
+  100%{
+    transform: translateY(0px);
+  }
+}
 @keyframes animate{
     0%{
         transform: translateY(-10vh) scale(0);

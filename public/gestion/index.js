@@ -50,12 +50,13 @@ document.addEventListener("DOMContentLoaded", function () {
 /****************************************************************************************************************
  * Variables para la API para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
-const API = 'http://localhost:3000/api/v1/';
-const API_USERS = 'http://localhost:3000/api/v1/users/';
-const API_ASSOCIATIONS = 'http://localhost:3000/api/v1/associations/';
-const API_REGISTERS = 'http://localhost:3000/api/v1/register/';
-const API_EVENTS = 'http://localhost:3000/api/v1/events/';
-const API_COMUNICATIONS = 'http://localhost:3000/api/v1/communications/';
+const server = 'http://localhost:3000/api/v1/';
+const API_USERS = `${server}users/`;
+const API_ASSOCIATIONS = `${server}associations/`;
+const API_REGISTERS = `${server}register/`;
+const API_EVENTS = `${server}events/`;
+const API_COMUNICATIONS = `${server}communications/`;
+const API_IMAGE = `${server}images/users/`;
 /****************************************************************************************************************
  * Funciones para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
@@ -95,7 +96,7 @@ const callPatinadoresList = async()=>{
         <td>${element.data.nombre} ${element.data.apellido_paterno} ${element.data.apellido_materno}</td>
         <td>${element.data.nivel_actual}</td>
         <td>${element.data.fecha_nacimiento}</td>
-        <td>${element.data.asociacion}</td>
+        <td>${element.data.asociacion.nombre}</td>
         <td id="${element.id}" class="blue"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
         <td id="${element.id}_delete" class="red"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>`;
 
@@ -486,10 +487,7 @@ const enviarBd = async(collection)=>{
  * Funciones para mandar a llamar alguna accion
  ***********************************************************************************************************/
 const visualizar = (element,collection)=>{
-  console.group('Visualizar');
-  console.log(collection);
-  console.log(element.id);
-  console.groupEnd()
+
   $('section').classList.add('hidden');
   n('modal_bg').classList.remove('hidden');
   let visual = nuevo('section');
@@ -497,50 +495,56 @@ const visualizar = (element,collection)=>{
   visual.classList.add('modal');
   visual.id = `${element.id}_modal`;
   if(collection === 'users'){
-  visual.innerHTML=`
-  <div class="header-modal">
-  <h3>${titulos[collection]}</h3>
-  <span class="material-symbols-outlined red" id="close_modal">
-    close_fullscreen
-    </span>
+
+
+    visual.innerHTML=`
+    <div class="header-modal">
+    <h3>${titulos[collection]}</h3>
+    <span class="material-symbols-outlined red" id="close_modal">
+      close_fullscreen
+      </span>
+    </div>
+    <div class="flex-container-input">
+    <img class="foto" src="../registro/user.png" alt="Imagen deportista">
+    <label for="">CURP
+      <p>${element.data.curp}</p>
+    </label>
   </div>
   <div class="flex-container-input">
-  <label for="">CURP
-    <p>${element.data.curp}</p>
-  </label>
-</div>
-<div class="flex-container-input">
-  <label for="">NOMBRE
-    <p>${element.data.nombre} ${element.data.apellido_paterno} ${element.data.apellido_materno}</p>
-  </label>
-  <label for="">FECHA DE NACIMIENTO
-    <p>${fechaLarga(element.data.fecha_nacimiento)}</p>
-  </label>
-  <label for="">LUGAR DE NACIMIENTO
-    <p>${element.data.lugar_nacimiento}</p>
-  </label>
-  <label for="">SEXO
-    <p>${element.data.sexo}</p>
-  </label>
-</div>
-<div class="flex-container-input">
-  <label for="">CORREO
-    <p>${element.data.correo}</p>
-  </label>
-  <label for="">TELEFONO/WHATSAPP
-    <p>${element.data.telefono}</p>
-  </label>
-</div>
-<div class="flex-container-input">
-  <label for="">ASOCIACION A LA QUE PERTENECE
-    <p>${element.data.asociacion}</p>
-  </label>
-  <label for="">NIVEL ACTUAL
-    <p>${element.data.nivel_actual}</p>
-  </label>
-</div>
+    <label for="">NOMBRE
+      <p>${element.data.nombre} ${element.data.apellido_paterno} ${element.data.apellido_materno}</p>
+    </label>
+    <label for="">FECHA DE NACIMIENTO
+      <p>${fechaLarga(element.data.fecha_nacimiento)}</p>
+    </label>
+    <label for="">LUGAR DE NACIMIENTO
+      <p>${element.data.lugar_nacimiento}</p>
+    </label>
+    <label for="">SEXO
+      <p>${element.data.sexo}</p>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="">CORREO
+      <p>${element.data.correo}</p>
+    </label>
+    <label for="">TELEFONO/WHATSAPP
+      <p>${element.data.telefono}</p>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="">ASOCIACION A LA QUE PERTENECE
+      <p>${element.data.asociacion.nombre}</p>
+    </label>
+    <label for="">NIVEL ACTUAL
+      <p>${element.data.nivel_actual}</p>
+    </label>
+  </div>
 
-  `;}
+    `;
+
+
+  }
   if(collection === 'register'){
     visual.innerHTML=`
     <div class="header-modal">
@@ -554,6 +558,10 @@ const visualizar = (element,collection)=>{
   }
   console.log(element);
   monitor.appendChild(visual);
+  if($('.foto')){
+    $('foto').src=`${API_IMAGE}${element.data.img}`
+  }
+
   n('close_modal').onclick = () => cerrarModal(visual.id);
 
 }

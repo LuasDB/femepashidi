@@ -1,11 +1,17 @@
 // Mandamos a llamar express para poder utilizar el metodo Router
 const express = require('express');
-//Mandamos a llamar el servicio de Usuarios
+// Llamamos a multer para gestionar el uso de Formularios en el POTS
+const multer = require('multer');
+const upload = multer();
 
 //Agregamos el middleware Validation Handler
 const { validationHandler } = require('../middleware/validator.hanlder');
 //Agregamos es Schema para la creación , edicion y obtencion de ususarios
 
+
+//Verificacion de archivos
+
+const { uploadUsers } = require('../middleware/multer.Middleware')
 //Creamos la variable router para acceder a nuestros endpoints
 const router = express.Router();
 //Llamammos al servicio que corresponde
@@ -31,10 +37,28 @@ router.get('/:id',async(req,res,next)=>{
     next(error);
   }
 });
-router.post('/',async(req,res,next)=>{
+router.post('/',upload.none(),async(req,res,next)=>{
   try {
-    const user = await registro.create(req.body);
-    res.status(201).json(user);
+    const register = await registro.create(req.body);
+    res.status(201).json(register);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get('/confirmation/:id',async(req,res,next)=>{
+  const { id } = req.params
+  try {
+    const register = await registro.confirmate(id);
+    res.status(201).json(register);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get('/approval/:id/:status',async(req,res,next)=>{
+
+  try {
+    const register = await registro.approval(req.params);
+    res.status(201).json(register);
   } catch (error) {
     next(error);
   }

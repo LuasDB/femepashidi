@@ -34,6 +34,27 @@ router.get('/:id',async(req,res,next)=>{
     next(error);
   }
 });
+router.get('/validate/:curp',async(req,res,next)=>{
+  const { curp }=req.params;
+  try {
+    const users = await usuario.validateExist(curp);
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get('/verification/:curp/:status',async(req,res,next)=>{
+  const { curp,status }=req.params;
+  try {
+    const verification = await usuario.verification(curp,status);
+    if(verification.message === 'verificado'){
+      res.redirect('http://localhost:3000/app/registro/');
+    }
+
+  } catch (error) {
+    next(error);
+  }
+});
 router.post('/',uploadUsers.single('archivo'),async(req,res,next)=>{
   try {
     const user = await usuario.create(req.body,req.file.filename);
