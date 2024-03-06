@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+    :root{
+      --primary-color-r:#268dee;
+      --background-input:#f0f0f0;
+      --font-input:#333;
+    }
+    body{
+      font-family: 'Nunito', sans-serif;
+    }
+
+      </style>
+</head>
+<body>
+  <div class="container"
+  style="
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;">
+    <h2 style="
+    color:#268dee;">Hola ${data.nombre}</h2>
+
+  <p style="
+  color:#333;">Recibimos tu solicitud de registro en nuestra plataforma</p>
+  <p style="
+  color:#333;">Haz click en el siguiente boton para verificar tu cuenta</p>
+  <div >
+    <a class="green" href="http://localhost:3000/aceptacion/123456789/true" target="_self"
+    style="
+    width: 50%;
+    padding: 10px;
+    background-color:#268dee;
+    border-radius: 1rem;
+    color: #f0f0f0;
+    text-decoration: none;
+    text-align: center;
+">
+      VERIFICAR REGISTRO
+    </a>
+  </div>
+
+  </div>
+
+
+</body>
+</html>
