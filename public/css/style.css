@@ -166,7 +166,9 @@ header img{
 .card h1,.car p{
     opacity: 1;
 }
-
+.primary-color{
+  color: var(--primary-color);
+}
 
 
 /* Blocks */
@@ -367,11 +369,11 @@ article{
 }
 .info{
     position: relative;
-    top: 20%;
+    top: 10%;
     left: 10%;
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 90%;
     color: white;
     z-index: 100;
 }
@@ -469,6 +471,42 @@ article{
 
 
 }
+article{
+  transition: all 0.7s;
+}
+.contact-element{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: #0000ff;
+
+}
+
+.contact-element a{
+  text-decoration: none;
+
+}
+
+.contact-element p{
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: gray;
+}
+.contact-element div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  cursor: pointer;
+}
+.touch-icon{
+  position: relative;
+  top: 1rem;
+  left: -1rem;
+}
+
+
 @keyframes scaleUp{
     from{
         transform: scale(0);
@@ -840,18 +878,37 @@ article{
 /* Directory section  */
 .directory-section{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    padding-top: 18vh;
 
 
 }
+.element-directory{
+  width: 50%;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+}
+
+.message-president{
+  width: 90%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+ text-align: justify;
+ justify-content: center;
+ padding-right: 3rem;
+
+}
+.firma{
+  align-self: flex-end;
+  width: 150px;
+}
 
 .card--profile{
-    width: 20%;
-    min-width: 200px;
-    height: 35vh;
-    margin:0 1rem;
-    margin-top: 25vh;
-    display: flex;
+  margin: 5vh;
+    width: 50%;
+    height: 40vh;
     align-items: center;
 }
 .person-image{
@@ -881,10 +938,13 @@ article{
 
 
     color: blue;
+    font-size: 2rem;
 
 }
 .card--profile-info p{
     color: gray;
+    font-size: 1.4rem;
+    margin: 0;
 }
 .social-cards{
     width: 100%;
@@ -896,7 +956,7 @@ article{
 
     width:30px;
     padding: 0;
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-top: 15px;
     cursor: pointer;
 
@@ -1056,7 +1116,7 @@ animation: animateWave4 3s linear infinite;
   align-items: center;
   height: 100vh;
   padding: 13vh 0;
-  margin-bottom: 100vh;
+  margin-bottom: auto;
 
 }
 .communications-container{
