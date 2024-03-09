@@ -1,3 +1,11 @@
+#menu_open, #menu_close {
+  top: 1%;
+  left: 85%;
+  font-size: 2rem;
+}
+header{
+  top:0.4rem;
+}
 
 main{
   width: 100%;
@@ -10,15 +18,30 @@ main{
 
 .hero{
   top: 0;
-  max-height: 250px;
+  max-height: 300px;
  }
  .hero .bg{
-  background-size: 100% 250px;
-  max-height: 250px;
+  background-size: 100% 300px;
+  max-height: 300px;
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 90%;
+  padding: 0 10px;
+  text-align: center;
+}
+.info h2{
+  text-align: center;
+  align-self: center;
 }
 .info p{
   width: 100%;
+  margin: 0 20px;
+  text-align: center;
 }
+
 #logo_tablet{
   position: absolute;
   top: 120px;
@@ -43,10 +66,15 @@ main{
 }
 
 .about-section{
-  padding: 200px 0;
+  padding: 100px 0;
+  width: 100%;
 }
 .col-2 .article__about{
   padding: 0.8rem;
+}
+.article__about{
+  width: 80%;
+
 }
 .contact-element{
   font-size: 0.4rem;
@@ -85,6 +113,22 @@ main{
 .img{
   width: 35%;
 }
+
+/*  EVENTS  */
+#conoce{
+  display: block;
+}
+.carrucel-item:first-child{
+  margin-left: 10px;
+}
+.carrucel .carrusel-item {
+  width: 100%;
+  margin: 0;
+}
+
+
+
+
 .directory-section{
  margin-top: 20vh;
  width: 100%;
@@ -94,8 +138,12 @@ main{
 }
 .card--profile{
     width: 100%;
-
+    height: 250px;
+    margin: 20px;
     align-items: center;
+}
+.card--profile-info span{
+  font-size: 1.2rem;
 }
 
 .person-image{
@@ -133,7 +181,20 @@ main{
 .social-cards a{
  margin: 0 10px;
 }
+.antidoping-section{
+height: auto;
+max-height: none;
 
+}
+.antidoping{
+  padding: 1rem;
+  width: 90%;
+}
+
+
+footer{
+  margin-top: 15rem;
+}
 
 
 

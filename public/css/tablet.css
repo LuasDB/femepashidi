@@ -142,6 +142,7 @@ header div img{
 }
 .article__about{
     width: 70%;
+  text-align: justify;
 }
 .about-section .col-2{
     display: flex;
@@ -160,6 +161,7 @@ header div img{
 
 .center-flex,.center-flex img{
   margin: 2rem auto;
+  text-align: ;
 }
 #history{
     display:none;

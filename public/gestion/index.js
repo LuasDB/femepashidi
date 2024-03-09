@@ -358,7 +358,7 @@ const enviarBd = async(collection)=>{
       });
       console.log(obj);
 
-      await fetch(`${API}${collection}`,{
+      await fetch(`${server}${collection}`,{
         method:'POST',
         headers:{
           'Content-Type': 'application/json',
@@ -413,7 +413,7 @@ const enviarBd = async(collection)=>{
           const formData = new FormData();
           formData.append('archivo', archivo,nuevoNombre);
 
-          await fetch(`${API}upload`, {
+          await fetch(`${server}upload`, {
             method: 'POST',
             body: formData,
           })
@@ -441,7 +441,7 @@ const enviarBd = async(collection)=>{
         console.log(obj);
 
 
-        await fetch(`${API}${collection}`,{
+        await fetch(`${server}${collection}`,{
           method:'POST',
           headers:{
             'Content-Type': 'application/json',
