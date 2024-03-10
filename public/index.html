@@ -16,7 +16,8 @@
   <img src="./img/galery/LOGO FEDE BLANCO.png" alt="logo" id="logo_tablet">
   </div>
   <input type="checkbox" name="menu" id="menu_button">
-  <label for="menu_button" class="elements-menu"><span class="material-symbols-outlined" id="menu_open">
+  <label for="menu_button" class="elements-menu">
+    <span class="material-symbols-outlined" id="menu_open">
     menu
     </span>
     <span class="material-symbols-outlined" id="menu_close">
@@ -24,6 +25,7 @@
       </span>
   </label>
   <script>
+    /* FUNCION PARA EL MENU */
     const menu_button=document.getElementById('menu_button');
     menu_button.addEventListener('change',()=>{
      if(menu_button.checked){
@@ -33,110 +35,117 @@
     })
   </script>
 
-    <header id="menu">
-        <div class="logo-nombre">
-            <img src="./img/galery/LOGO FEDE BLANCO.png" alt="logo">
-            <div>
-                <p>Federación Mexicana de </p>
-                <p>Patinaje sobre Hielo </p>
-                <p> y Deportes de Invierno, A.C.</p>
-            </div>
+  <header id="menu">
+    <div class="logo-nombre">
+      <figure>
+        <img src="./img/galery/LOGO FEDE BLANCO.png" alt="logo">
+      </figure>
+
+        <div>
+            <p>Federación Mexicana de Patinaje</p>
+            <p> sobre Hielo y Deportes de Invierno, A.C.</p>
 
         </div>
-        <nav class="nav-menus">
-            <a href="#home" class="selectedMenu">INICIO</a>
-            <a href="#about">NOSOTROS</a>
-            <a href="#gallery">GALERIA</a>
-            <a href="#events">EVENTOS</a>
-            <a href="#communications">COMUNICADOS</a>
-            <a href="#directory">PRESIDENCIA</a>
-            <a href="#antidoping">ANTIDOPAJE</a>
-        </nav>
-    </header>
-    <main>
-      <section class="animation-action hero " id="home" >
-          <div class="bg border-ice">
-              <div class="bubbles">
-                  <span style="--i:11;"></span>
-                  <span style="--i:12;"></span>
-                  <span style="--i:24;"></span>
-                  <span style="--i:10;"></span>
-                  <span style="--i:14;"></span>
-                  <span style="--i:23;"></span>
-                  <span style="--i:18;"></span>
-                  <span style="--i:16;"></span>
-                  <span style="--i:19;"></span>
-                  <span style="--i:20;"></span>
-                  <span style="--i:22;"></span>
-                  <span style="--i:25;"></span>
-                  <span style="--i:18;"></span>
-                  <span style="--i:21;"></span>
-                  <span style="--i:13;"></span>
-                  <span style="--i:15;"></span>
-                  <span style="--i:26;"></span>
-                  <span style="--i:17;"></span>
-                  <span style="--i:13;"></span>
-                  <span style="--i:28;"></span>
-                  <span style="--i:11;"></span>
-                  <span style="--i:12;"></span>
-                  <span style="--i:24;"></span>
-                  <span style="--i:10;"></span>
-                  <span style="--i:14;"></span>
-                  <span style="--i:23;"></span>
-                  <span style="--i:18;"></span>
-                  <span style="--i:16;"></span>
-                  <span style="--i:19;"></span>
-                  <span style="--i:20;"></span>
-                  <span style="--i:22;"></span>
-                  <span style="--i:25;"></span>
-                  <span style="--i:18;"></span>
-                  <span style="--i:21;"></span>
-                  <span style="--i:13;"></span>
-                  <span style="--i:15;"></span>
-                  <span style="--i:26;"></span>
-                  <span style="--i:17;"></span>
-                  <span style="--i:13;"></span>
-                  <span style="--i:28;"></span>
+    </div>
+    <nav class="nav-menus">
+        <a href="#home" class="selectedMenu">INICIO</a>
+        <a href="#about">NOSOTROS</a>
+        <a href="#gallery">GALERIA</a>
+        <a href="#events">EVENTOS</a>
+        <a href="#communications">COMUNICADOS</a>
+        <a href="#directory">PRESIDENCIA</a>
+        <a href="#antidoping">ANTIDOPAJE</a>
+    </nav>
+  </header>
+  <main>
+    <section class="animation-action hero " id="home" >
+      <div class="">
+        <div class="bg border-ice">
+          <div class="bubbles">
+            <span style="--i:11;"></span>
+            <span style="--i:12;"></span>
+            <span style="--i:24;"></span>
+            <span style="--i:10;"></span>
+            <span style="--i:14;"></span>
+            <span style="--i:23;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:16;"></span>
+            <span style="--i:19;"></span>
+            <span style="--i:20;"></span>
+            <span style="--i:22;"></span>
+            <span style="--i:25;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:21;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:15;"></span>
+            <span style="--i:26;"></span>
+            <span style="--i:17;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:28;"></span>
+            <span style="--i:11;"></span>
+            <span style="--i:12;"></span>
+            <span style="--i:24;"></span>
+            <span style="--i:10;"></span>
+            <span style="--i:14;"></span>
+            <span style="--i:23;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:16;"></span>
+            <span style="--i:19;"></span>
+            <span style="--i:20;"></span>
+            <span style="--i:22;"></span>
+            <span style="--i:25;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:21;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:15;"></span>
+            <span style="--i:26;"></span>
+            <span style="--i:17;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:28;"></span>
 
           </div>
-              <div class="col-2 welcome-hero">
-                  <article class="info">
-                      <h2>¡Bienvenidos a tu federación de Patinaje Sobre Hielo y Deportes de Invierno, A.C.  </h2>
-                      <h2><span class="">FEMEPASHIDI</span></h2>
-                      <p>La FEMEPASHDI, fundada en 1985 es una organización encargada de promover este hermoso deporte a nivel nacional e internacional, apoyando a nuestros deportistas y atletas, con la certeza de que es reconocida por la International Skating Union ´ISU´ y el Comité Olímpico Mexicano ´COM´.
-                        Desliza con nosotros en la magia del patinaje artístico sobre hielo, en donde celebramos la pasión, destreza y la emoción de los deportes invernales.
-                        </p>
-                      <a href="#events" class="button button-blue align-center button-50">Ver competencias</a>
-                  </article>
-                  <div class="relleno"></div>
-              </div>
-              <div class="transparent"></div>
-          </div>
-      </section>
-      <section id="about" class="animation-action about-section border-ice">
-        <div class="scroll-animation-up col-2  h-80">
-              <article class="article__about card w-70 ">
-                  <h1 class="article__tittle no-margin">Nosotros</h1>
-                  <p>El objetivo de la FEMEPASHIDI, A.C. es regular, gestionar y promover el deporte en México, bajo las bases de ´El juego limpio´, la amistad y el amor al deporte, con la participación y apoyo de las Asociaciones Estatales y apoyando a otras Federaciones Nacionales a través de la cooperación internacional para el deporte del patinaje sobre hielo. </p>
-                  <p>Asimismo, la FEMEPASHIDI tiene como guía los reglamentos en armonización con la <a href="https://www.isu.org/" target="_blank">ISU</a>, sus interpretaciones y sus políticas</p>
-                  <div class="social-cards">
-                      <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
-                      <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
-                      <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
-                      <a class=""><img src="./img/icon/tiktok.svg" alt="X-twiter"></a>
-                      <a class=""><img src="./img/icon/youtube.svg" alt="X-twiter"></a>
-                  </div>
-
+          <div class="col-2 welcome-hero">
+              <article class="info">
+                  <h2>¡Bienvenidos a tu federación de Patinaje Sobre Hielo y Deportes de Invierno, A.C.  </h2>
+                  <h2><span class="">FEMEPASHIDI</span></h2>
+                  <p>La FEMEPASHDI, fundada en 1985 es una organización encargada de promover este hermoso deporte a nivel nacional e internacional, apoyando a nuestros deportistas y atletas, con la certeza de que es reconocida por la International Skating Union ´ISU´ y el Comité Olímpico Mexicano ´COM´.
+                    Desliza con nosotros en la magia del patinaje artístico sobre hielo, en donde celebramos la pasión, destreza y la emoción de los deportes invernales.
+                    </p>
+                  <a href="#events" class="button button-blue align-center button-50">Ver competencias</a>
               </article>
-              <div class="images-logos scroll-animation-down ">
-                  <div class="logo-1">
-                      <img  class="article__about--image  img-about grid-center" src="./img/images/logo_fede.png" alt="Logo FEDE">
-                  </div>
-                  <div class="logo-2 grid-center">
-                      <img  class="article__about--image  img-about" src="./img/images/comite.png" alt="Logo COMITE">
-                      <img  class="article__about--image  img-about" src="./img/images/isu.png" alt="Logo ISU">
-                  </div>
+              <div class="relleno"></div>
+          </div>
+          <div class="transparent"></div>
+      </div>
+      </div>
+    </section>
+    <section id="about" class="animation-action about-section border-ice">
+      <div class="">
+        <div class="scroll-animation-up col-2  h-80">
+          <article class="article__about card w-70 ">
+              <h1 class="article__tittle ">Nosotros</h1>
+              <p>El objetivo de la FEMEPASHIDI, A.C. es regular, gestionar y promover el deporte en México, bajo las bases de <span class="primary-color">El juego limpio</span>, la amistad y el amor al deporte, con la participación y apoyo de las Asociaciones Estatales y apoyando a otras Federaciones Nacionales a través de la cooperación internacional para el deporte del patinaje sobre hielo. </p>
+              <p>Asimismo, la FEMEPASHIDI tiene como guía los reglamentos en armonización con la <a href="https://www.isu.org/" target="_blank" class="primary-color">ISU</a> sus interpretaciones y sus políticas asi como los lineamientos del <a href="https://soycom.org/index.html" target="_blank" class="primary-color">COM</a> </p>
+
+
+              <div class="social-cards">
+                  <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
+                  <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                  <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+                  <a class=""><img src="./img/icon/tiktok.svg" alt="X-twiter"></a>
+                  <a class=""><img src="./img/icon/youtube.svg" alt="X-twiter"></a>
               </div>
+
+          </article>
+          <div class="images-logos scroll-animation-down ">
+              <div class="logo-1">
+                  <img  class="article__about--image  img-about grid-center" src="./img/images/logo_fede.png" alt="Logo FEDE">
+              </div>
+              <div class="logo-2 grid-center">
+                  <img  class="article__about--image  img-about" src="./img/images/comite.png" alt="Logo COMITE">
+                  <img  class="article__about--image  img-about" src="./img/images/isu.png" alt="Logo ISU">
+              </div>
+          </div>
         </div>
         <a href="#history" class="arrow-up"><img src="./img/images/down-arrow.svg" alt="Arrow" id="history"></a>
         <div class="scroll-animation-up col-2 "  >
@@ -147,14 +156,13 @@
               </div>
           </div>
             <article class="article__about card w-70 center-flex ">
-                <h1 class="article__tittle no-margin">Historia</h1>
-                <p>ELa FEMEPASHDI entró en funcionamiento desde 1980 y después de mucho trabajo se institucionalizó en 1985, siendo la más antigua de Latinoamérica.
-
-                  Realizó el primer campeonato nacional de patinaje sobre hielo en 1985 en el estado de Jalisco. Durante 39 años gestionó alrededor de 1000 eventos entre los cuáles se encuentran competencias internacionales, nacionales, estatales regionales y copas avaladas, es así como la comunidad de patinaje artístico creció rápidamente, por lo que esta federación focalizó sus objetivos en su desarrollo.
-                  </p>
-                <p>La modernización de la federación continuo constantemente y en 2021, México fue uno de los primeros países en el mundo en implementar tecnología de vanguardia internacional con el sistema avalado por la ISU y con equipo de última generación, así como la transmisión en vivo totalmente gratuita abierta al público nacional e internacional.</p>
-                <p> Siendo FEMEPASHIDI durante varios años sede de competencias de la serie ISU JUNIOR GRAND PRIX, organizó en 2023 la primer competencia internacional avalada y reconocida por la ISU, la cual es de vital importancia y un legado para el deporte nacional porque los atletas entran en ranking mundial por la composición de las delegaciones participantes, panel de jueces y panel técnico, teniendo la oportunidad de clasificar al Campeonato Mundial Junior y Senior y a Cuatro Continentes, los cuales son los tres eventos más importantes a nivel mundial que dan paso a la preparación para los Juegos Olímpicos de Invierno.  </p>
-                <p class="text-center"> ¡Te invitamos a seguir a los atletas nacionales e internacionales en nuestras competencias y a descubrir la emoción del patinaje sobre hielo y los deportes de invierno junto a una comunidad apasionada y vibrante!</p>
+                <h1 class="article__tittle">Historia</h1>
+                <p>La <span class="primary-color">FEMEPASHDI</span> entró en funcionamiento desde 1980 y después de mucho trabajo se institucionalizó en 1985, siendo la más antigua de Latinoamérica. Realizó el  <span class="primary-color">Primer Campeonato Nacional de Patinaje Artístico Sobre Hielo</span> en 1985 en el estado de Jalisco. Durante 39 años gestionó alrededor de 1000 eventos entre los cuáles se encuentran competencias Internacionales, Nacionales, Estatales Regionales y Copas Avaladas, es así como la comunidad de patinaje artístico creció rápidamente, por lo que esta Federación focalizó sus objetivos en su desarrollo.
+                </p>
+                <p>La modernización de la federación continuo constantemente y en 2021, México fue uno de los primeros países en parte del mundo en implementar tecnología de vanguardia internacional con el sistema avalado por la <span class="primary-color">ISU</span> y con equipo de última generación, así como la transmisión en vivo totalmente gratuita abierta al público nacional e internacional.</p>
+                <p>Siendo <span class="primary-color">FEMEPASHIDI</span> durante varios años sede de competencias de la serie ISU JUNIOR GRAND PRIX, organizó en 2023 la primer competencia internacional avalada y reconocida por la <span class="primary-color">ISU</span>, la cual es de vital importancia y un legado para el deporte nacional porque los atletas entran en ranking mundial por la composición de las delegaciones participantes, panel de jueces y panel técnico, teniendo la oportunidad de clasificar al Campeonato Mundial Junior y Senior y a Cuatro Continentes, los cuales son los tres eventos más importantes a nivel mundial que dan paso a la preparación para los Juegos Olímpicos de Invierno.
+                </p>
+                <p class="text-center"> ¡Te invitamos a seguir a los atletas nacionales e internacionales en nuestras competencias y a descubrir la emoción del patinaje sobre hielo y los deportes de invierno junto a una comunidad apasionada y vibrante!</p>
 
             </article>
 
@@ -163,7 +171,7 @@
         <div class="scroll-animation-up col-2 " id="contact" >
           <article class="article__about card w-70 center-flex ">
             <h1 class="article__tittle no-margin">Contactanos</h1>
-           <div class="contact-element">
+            <div class="contact-element">
               <a href="mailto:contacto@femepashidi.com.mx">
                 <div>
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
@@ -171,11 +179,8 @@
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" class="touch-icon"><path d="M419-80q-28 0-52.5-12T325-126L107-403l19-20q20-21 48-25t52 11l74 45v-328q0-17 11.5-28.5T340-760q17 0 29 11.5t12 28.5v472l-97-60 104 133q6 7 14 11t17 4h221q33 0 56.5-23.5T720-240v-160q0-17-11.5-28.5T680-440H461v-80h219q50 0 85 35t35 85v160q0 66-47 113T640-80H419ZM167-620q-13-22-20-47.5t-7-52.5q0-83 58.5-141.5T340-920q83 0 141.5 58.5T540-720q0 27-7 52.5T513-620l-69-40q8-14 12-28.5t4-31.5q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 17 4 31.5t12 28.5l-69 40Zm335 280Z"/></svg>
                 </div>
             </a>
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"><path d="M798-120q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/></svg>
-                <p>55-55-55-55-55</p>
-              </div>
-           </div>
+
+            </div>
 
 
         </article>
@@ -186,11 +191,12 @@
               </div>
           </div>
         </div>
-      </section>
-      <section id="gallery" class="gallery-container animation-action">
 
-
-        <!-- propuesta de galeria -->
+      </div>
+    </section>
+    <section id="gallery" class="gallery-container animation-action">
+      <div class="">
+         <!-- propuesta de galeria -->
         <div id="myModal" class="modal">
           <span class="close">&times;</span>
           <img class="modal-content" id="img01">
@@ -215,59 +221,64 @@
         </div>
 
 
-      </section>
-      <section id="events" class="events-section  border-ice">
-          <!-- Botones para demostrar cómo mover el scroll -->
-          <div class="controls padding-header animation-event-to-right">
-              <a class="btn-arrow" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
-              <h1 class="events__tittle  animation-event-to-right" id="conoce"> Conoce los eventos</h1>
-              <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
+      </div>
+    </section>
+    <section id="events" class="events-section  border-ice">
+      <div class="container-section">
+        <!-- Botones para demostrar cómo mover el scroll -->
+        <div class="controls padding-header animation-event-to-right">
+          <a class="btn-arrow" onclick="moverScrollIzquierda()"><svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" fill="blue"><path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z"/></svg></a>
+          <h1 class="events__tittle  animation-event-to-right" id="conoce"> Conoce los eventos</h1>
+          <a class="btn-arrow" onclick="moverScrollDerecha()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -960 960 960" fill="blue"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg></a>
+        </div>
+        <div class="carrucel animation-event-to-scale" id="events_container">
+          <div class="carrusel-item">
+              <article class=" card ">
+                  <h1 class="article__tittle_black">Evento 1</h1>
+                  <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                  <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
+              </article>
           </div>
-          <div class="carrucel animation-event-to-scale" id="events_container">
-            <div class="carrusel-item">
-                <article class=" card ">
-                    <h1 class="article__tittle_black">Evento 1</h1>
-                    <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                    <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
-                </article>
-            </div>
-            <div class="carrusel-item ">
-                <article class=" card ">
-                    <h1 class="article__tittle">Evento 2</h1>
-                    <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                    <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
-                </article>
-            </div>
-            <div class="carrusel-item">
-                <article class=" card ">
-                    <h1 class="article__tittle">Evento 1</h1>
-                    <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                    <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
-                </article>
-            </div>
-            <div class="carrusel-item ">
-                <article class=" card ">
-                    <h1 class="article__tittle">Evento 2</h1>
-                    <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
-                    <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
-                </article>
+          <div class="carrusel-item ">
+              <article class=" card ">
+                  <h1 class="article__tittle">Evento 2</h1>
+                  <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                  <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
+              </article>
           </div>
-          <script>
-          // Mover el scroll horizontal a la derecha
-          function moverScrollDerecha() {
-              var contenedor = document.querySelectorAll('.carrucel');
-              contenedor.forEach(cont=>cont.scrollLeft += 150);
-          }
+          <div class="carrusel-item">
+              <article class=" card ">
+                  <h1 class="article__tittle">Evento 1</h1>
+                  <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                  <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
+              </article>
+          </div>
+          <div class="carrusel-item ">
+              <article class=" card ">
+                  <h1 class="article__tittle">Evento 2</h1>
+                  <p>Somos ....Eum totam est perferendis laboriosam, impedit fuga. Impedit, explicabo exercitationem. Nam rem harum sapiente ut provident autem ipsum accusantium non, libero aperiam?</p>
+                  <a href="registro.html" class="button button-50 button-blue">Registrarme</a>
+              </article>
+        </div>
+        <script>
+        // Mover el scroll horizontal a la derecha
+        function moverScrollDerecha() {
+            var contenedor = document.querySelectorAll('.carrucel');
+            contenedor.forEach(cont=>cont.scrollLeft += 150);
+        }
 
-          // Mover el scroll horizontal a la izquierda
-          function moverScrollIzquierda() {
-              var contenedor = document.querySelectorAll('.carrucel');
-              contenedor.forEach(cont=>cont.scrollLeft -= 150);
-                  // Ajusta la cantidad según sea necesario
-          }
-          </script>
-      </section>
-      <section id="communications" class="communications-section">
+        // Mover el scroll horizontal a la izquierda
+        function moverScrollIzquierda() {
+            var contenedor = document.querySelectorAll('.carrucel');
+            contenedor.forEach(cont=>cont.scrollLeft -= 150);
+                // Ajusta la cantidad según sea necesario
+        }
+        </script>
+        </div>
+      </div>
+    </section>
+    <section id="communications" class="communications-section">
+      <div class="section-container">
         <div id="myModalPdf" class="modal">
           <div class="modal-content-pdf">
             <span class="close closePdf">&times;</span>
@@ -276,121 +287,166 @@
         </div>
         <h2>Comunicados</h2>
         <div class="communications-container" id="communications_container">
-          <article class="card notifications" onclick="showPdf('CATEGORIAS 2024.pdf')">
+          <article class="card notifications" ">
             <figure>
               <img src="./img/notifications/not1.png" alt="Mensaje 1">
             </figure>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
             </p>
-            <h2>Aviso 1</h2>
+            <h2 class="button button-blue" onclick="showPdf('CATEGORIAS 2024.pdf')">VER AVISO 1</h2>
           </article>
-          <article class="card notifications" onclick="showPdf('EJEMPLO.pdf')">
+          <article class="card notifications" ">
             <figure>
-              <img src="./img/notifications/not2.png" alt="Mensaje 2" >
+              <img src="./img/notifications/not1.png" alt="Mensaje 1">
             </figure>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
             </p>
-            <h2>Aviso 2</h2>
+            <h2 class="button button-blue" onclick="showPdf('CATEGORIAS 2024.pdf')">VER AVISO 1</h2>
           </article>
-          <article class="card notifications" onclick="showPdf('CATEGORIAS 2024.pdf')">
+          <article class="card notifications" ">
             <figure>
-              <img src="./img/notifications/not3.png" alt="Mensaje 1">
+              <img src="./img/notifications/not1.png" alt="Mensaje 1">
             </figure>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
             </p>
-            <h2>Aviso 3</h2>
+            <h2 class="button button-blue" onclick="showPdf('CATEGORIAS 2024.pdf')">VER AVISO 1</h2>
           </article>
+          <article class="card notifications" ">
+            <figure>
+              <img src="./img/notifications/not1.png" alt="Mensaje 1">
+            </figure>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
+            </p>
+            <h2 class="button button-blue" onclick="showPdf('CATEGORIAS 2024.pdf')">VER AVISO 1</h2>
+          </article>
+          <article class="card notifications" ">
+            <figure>
+              <img src="./img/notifications/not1.png" alt="Mensaje 1">
+            </figure>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
+            </p>
+            <h2 class="button button-blue" onclick="showPdf('CATEGORIAS 2024.pdf')">VER AVISO 1</h2>
+          </article>
+          <article class="card notifications" ">
+            <figure>
+              <img src="./img/notifications/not1.png" alt="Mensaje 1">
+            </figure>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
+            </p>
+            <h2 class="button button-blue" onclick="showPdf('CATEGORIAS 2024.pdf')">VER AVISO 1</h2>
+          </article>
+          <article class="card notifications" ">
+            <figure>
+              <img src="./img/notifications/not1.png" alt="Mensaje 1">
+            </figure>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ut nesciunt atque, eos ratione voluptate non eligendi, ab aspernatur velit obcaecati! Fuga sunt veritatis deleniti maxime! Autem modi corporis veritatis?
+            </p>
+            <h2 class="button button-blue" onclick="showPdf('CATEGORIAS 2024.pdf')">VER AVISO 1</h2>
+          </article>
+
 
 
         </div>
+      </div>
+    </section>
+    <section id="directory" class="animation-action directory-section animation-event-to-right">
 
-
-      </section>
-      <section id="directory" class="animation-action directory-section animation-event-to-right">
         <div class="element-directory ">
           <article class="card card--profile element-directory">
             <div class="person-image">
               <img class="image-circle" src="https://media.istockphoto.com/id/1005922956/es/foto/estudiante-pasado-el-examen-encantado-de-aprender.jpg?s=1024x1024&w=is&k=20&c=qwMP9PRaJsKbtb74uvVxE2akeNjhup7uzuD5avVLUX4=" alt="Person">
             </div>
             <div class="card--profile-info">
-              <span>Ana Luisa Aguilar</span>
+              <span>Lic. Ana Luisa Aguilar Gamero</span>
               <p>Presidenta</p>
-            <div class="social-cards">
-              <a class=""><img src="./img/icon/square-facebook.svg" alt="square-facebook"></a>
-              <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
-              <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+              <div class="social-cards">
+                <a class=""><img src="./img/icon/square-instagram.svg" alt="Instagram"></a>
+                <a class=""><img src="./img/icon/square-x-twitter.svg" alt="X-twiter"></a>
+              </div>
             </div>
-          </div>
           </article>
         </div>
         <div class="element-directory ">
           <div class="message-president element-directory">
-            <h3>Mensaje inicial</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur a dicta obcaecati nesciunt eos excepturi modi quibusdam voluptatibus ex, quod necessitatibus molestias cum enim ab amet quia aperiam minus velit?
-            Esse, deleniti blanditiis distinctio ullam natus delectus perspiciatis optio consectetur asperiores corporis dicta ex, impedit temporibus cum et earum perferendis possimus ab autem magni eligendi porro maxime. Doloremque, deleniti reprehenderit!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur a dicta obcaecati nesciunt eos excepturi modi quibusdam voluptatibus ex, quod necessitatibus molestias cum enim ab amet quia aperiam minus velit?
-              Esse, deleniti blanditiis distinctio ullam natus delectus perspiciatis optio consectetur asperiores corporis dicta ex, impedit temporibus cum et earum perferendis possimus ab autem magni eligendi porro maxime. Doloremque, deleniti reprehenderit!</p>
-            <img src="./img/images/firma.png" alt="Firma Presidenta" class="firma">
-          </div>
-        </div>
+            <h3 class="text-center">Te damos la bienvenida a la página oficial de la Federación Mexicana de Patinaje Sobre Hielo y deportes de Invierno, A.C. </h3>
+            <h2 class="primary-color">FEMEPASHIDI</h2>
+
+              <p>Aquí encontrarás los comunicados oficiales y formatos de inscripción para nuestras competencias nacionales e internacionales, así como las cartas permiso para nuestros atletas que representan con gran pasión a nuestro país.</p>
+              <p>También nos llena de orgullo compartir nuestras competencias totalmente gratis en formato streaming para que puedas seguir a nuestros deportistas nacionales, nos encanta que mamás, papás y abuelitos vean a sus nietos a distancia y apoyen con entusiasmo en cada momento.</p>
+              <p>Nos alegra que estés aquí, tu gran comunidad apasionada de patinaje sobre hielo en México, ¿estás listo para celebrar nuestro gran deporte?, acompáñanos!!!</p>
+              <div class="firma">
+                <img src="./img/images/firma.png" alt="Firma Presidenta" >
+                <p class="primary-color">Ana Luisa Aguilar Gamero</p>
+                <p class="gray-color">PRESIDENTE FEMEPASHIDI</p>
 
 
-      </section>
-      <section class="antidoping-section " id="antidoping">
-          <div class="container-antidoping scroll-animation-up">
-              <div class="image-antidoping ">
-                  <img src="./img/images/WhatsApp Image 2024-01-14 at 5.58.27 PM.jpeg" alt="Imagen antidoping">
-              </div>
-              <div class="card article__about animation-left antidoping">
-                  <h2 class="article__tittle">WADA</h2>
-                  <p>WADA significa Agencia Mundial Antidopaje (World Anti-Doping Agency). Es una organización internacional sin fines de lucro que tiene como objetivo luchar contra el dopaje en el deporte y promover la igualdad de oportunidades para los atletas. Fundada en 1999, la WADA establece los estándares mundiales para la lucha contra el dopaje en el deporte, incluyendo la lista de sustancias y métodos prohibidos y las normas para el control de drogas en los deportes. La WADA también ayuda a coordinar los esfuerzos de los organismos deportivos, gobiernos y otros interesados en la lucha contra el dopaje en el deporte.</p>
-                  <p>La WADA ofrece una variedad de cursos en línea sobre el dopaje en el deporte, que incluyen información sobre el sistema de lucha contra el dopaje, la lista de sustancias y métodos prohibidos, los procedimientos de control de drogas y la protección de los derechos de los atletas. Estos cursos están diseñados para ser accesibles y útiles para atletas, entrenadores, árbitros, administradores deportivos, investigadores y otros interesados en la lucha contra el dopaje en el deporte. La mayoría de los cursos son gratuitos y están disponibles en diferentes idiomas. Para obtener más información sobre los cursos de la WADA, puede visitar su  <a href="https://www.wada-ama.org/en" target="_blank">sitio web aquí</a>.</p>
 
-                  <a href="https://www.wada-ama.org/en/resources/world-anti-doping-code-and-international-standards/prohibited-list" class="button button-blue" target="_blank">Consulta aqui las sustancias prohibidas</a>
 
               </div>
 
-          </div>
 
 
 
-      </section>
-    </main>
-    <footer>
-        <div class="waves">
-          <div class="wave" id="wave1"></div>
-          <div class="wave" id="wave2"></div>
-          <div class="wave" id="wave3"></div>
-          <div class="wave" id="wave4"></div>
-        </div>
-        <div class="container-footer">
-          <div class="logo-footer">
-            <img src="./img/galery/LOGO FEDE BLANCO.png" alt="Logo FEMEPASHIDI" href="#home">
-          </div>
-          <div class="copy-right-footer">
-            <p>Sitio web oficial de la Federación Mexicana de
-                Patinaje sobre Hielo y Deportes de Invierno, A.C., Todos los derechos reservados.</p>
-        </div>
-          <div class="social-icons-footer">
-            <div class="social-cards">
-              <a class="scale"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1"  d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"/></svg></a>
-              <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M194.4 211.7a53.3 53.3 0 1 0 59.3 88.7 53.3 53.3 0 1 0 -59.3-88.7zm142.3-68.4c-5.2-5.2-11.5-9.3-18.4-12c-18.1-7.1-57.6-6.8-83.1-6.5c-4.1 0-7.9 .1-11.2 .1c-3.3 0-7.2 0-11.4-.1c-25.5-.3-64.8-.7-82.9 6.5c-6.9 2.7-13.1 6.8-18.4 12s-9.3 11.5-12 18.4c-7.1 18.1-6.7 57.7-6.5 83.2c0 4.1 .1 7.9 .1 11.1s0 7-.1 11.1c-.2 25.5-.6 65.1 6.5 83.2c2.7 6.9 6.8 13.1 12 18.4s11.5 9.3 18.4 12c18.1 7.1 57.6 6.8 83.1 6.5c4.1 0 7.9-.1 11.2-.1c3.3 0 7.2 0 11.4 .1c25.5 .3 64.8 .7 82.9-6.5c6.9-2.7 13.1-6.8 18.4-12s9.3-11.5 12-18.4c7.2-18 6.8-57.4 6.5-83c0-4.2-.1-8.1-.1-11.4s0-7.1 .1-11.4c.3-25.5 .7-64.9-6.5-83l0 0c-2.7-6.9-6.8-13.1-12-18.4zm-67.1 44.5A82 82 0 1 1 178.4 324.2a82 82 0 1 1 91.1-136.4zm29.2-1.3c-3.1-2.1-5.6-5.1-7.1-8.6s-1.8-7.3-1.1-11.1s2.6-7.1 5.2-9.8s6.1-4.5 9.8-5.2s7.6-.4 11.1 1.1s6.5 3.9 8.6 7s3.2 6.8 3.2 10.6c0 2.5-.5 5-1.4 7.3s-2.4 4.4-4.1 6.2s-3.9 3.2-6.2 4.2s-4.8 1.5-7.3 1.5l0 0c-3.8 0-7.5-1.1-10.6-3.2zM448 96c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96zM357 389c-18.7 18.7-41.4 24.6-67 25.9c-26.4 1.5-105.6 1.5-132 0c-25.6-1.3-48.3-7.2-67-25.9s-24.6-41.4-25.8-67c-1.5-26.4-1.5-105.6 0-132c1.3-25.6 7.1-48.3 25.8-67s41.5-24.6 67-25.8c26.4-1.5 105.6-1.5 132 0c25.6 1.3 48.3 7.1 67 25.8s24.6 41.4 25.8 67c1.5 26.3 1.5 105.4 0 131.9c-1.3 25.6-7.1 48.3-25.8 67z"/></svg></a>
-              <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"/></svg></a>
-              <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a>
-              <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a>
-          </div>
           </div>
         </div>
-        <p>&copy;2024 FEMEPASHIDI, A.C. |  Todos los derechos reservados</p>
-
-    </footer>
 
 
 
+    </section>
+    <section class="antidoping-section " id="antidoping">
+      <div class="">
+        <div class="container-antidoping scroll-animation-up">
+          <div class="image-antidoping ">
+              <img src="./img/images/WhatsApp Image 2024-01-14 at 5.58.27 PM.jpeg" alt="Imagen antidoping">
+          </div>
+          <div class="card article__about animation-left antidoping">
+              <h2 class="article__tittle">WADA</h2>
+              <p>WADA significa Agencia Mundial Antidopaje (World Anti-Doping Agency). Es una organización internacional sin fines de lucro que tiene como objetivo luchar contra el dopaje en el deporte y promover la igualdad de oportunidades para los atletas. Fundada en 1999, la WADA establece los estándares mundiales para la lucha contra el dopaje en el deporte, incluyendo la lista de sustancias y métodos prohibidos y las normas para el control de drogas en los deportes. La WADA también ayuda a coordinar los esfuerzos de los organismos deportivos, gobiernos y otros interesados en la lucha contra el dopaje en el deporte.</p>
+              <p>La WADA ofrece una variedad de cursos en línea sobre el dopaje en el deporte, que incluyen información sobre el sistema de lucha contra el dopaje, la lista de sustancias y métodos prohibidos, los procedimientos de control de drogas y la protección de los derechos de los atletas. Estos cursos están diseñados para ser accesibles y útiles para atletas, entrenadores, árbitros, administradores deportivos, investigadores y otros interesados en la lucha contra el dopaje en el deporte. La mayoría de los cursos son gratuitos y están disponibles en diferentes idiomas. Para obtener más información sobre los cursos de la WADA, puede visitar su  <a href="https://www.wada-ama.org/en" target="_blank">sitio web aquí</a>.</p>
+
+              <a href="https://www.wada-ama.org/en/resources/world-anti-doping-code-and-international-standards/prohibited-list" class="button button-blue" target="_blank">Consulta aqui las sustancias prohibidas</a>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+      <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+        <div class="wave" id="wave3"></div>
+        <div class="wave" id="wave4"></div>
+      </div>
+      <div class="container-footer">
+        <div class="logo-footer">
+          <img src="./img/galery/LOGO FEDE BLANCO.png" alt="Logo FEMEPASHIDI" href="#home">
+        </div>
+        <div class="copy-right-footer">
+          <p>Sitio web oficial de la Federación Mexicana de
+              Patinaje sobre Hielo y Deportes de Invierno, A.C., Todos los derechos reservados.</p>
+      </div>
+        <div class="social-icons-footer">
+          <div class="social-cards">
+            <a class="scale"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1"  d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"/></svg></a>
+            <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M194.4 211.7a53.3 53.3 0 1 0 59.3 88.7 53.3 53.3 0 1 0 -59.3-88.7zm142.3-68.4c-5.2-5.2-11.5-9.3-18.4-12c-18.1-7.1-57.6-6.8-83.1-6.5c-4.1 0-7.9 .1-11.2 .1c-3.3 0-7.2 0-11.4-.1c-25.5-.3-64.8-.7-82.9 6.5c-6.9 2.7-13.1 6.8-18.4 12s-9.3 11.5-12 18.4c-7.1 18.1-6.7 57.7-6.5 83.2c0 4.1 .1 7.9 .1 11.1s0 7-.1 11.1c-.2 25.5-.6 65.1 6.5 83.2c2.7 6.9 6.8 13.1 12 18.4s11.5 9.3 18.4 12c18.1 7.1 57.6 6.8 83.1 6.5c4.1 0 7.9-.1 11.2-.1c3.3 0 7.2 0 11.4 .1c25.5 .3 64.8 .7 82.9-6.5c6.9-2.7 13.1-6.8 18.4-12s9.3-11.5 12-18.4c7.2-18 6.8-57.4 6.5-83c0-4.2-.1-8.1-.1-11.4s0-7.1 .1-11.4c.3-25.5 .7-64.9-6.5-83l0 0c-2.7-6.9-6.8-13.1-12-18.4zm-67.1 44.5A82 82 0 1 1 178.4 324.2a82 82 0 1 1 91.1-136.4zm29.2-1.3c-3.1-2.1-5.6-5.1-7.1-8.6s-1.8-7.3-1.1-11.1s2.6-7.1 5.2-9.8s6.1-4.5 9.8-5.2s7.6-.4 11.1 1.1s6.5 3.9 8.6 7s3.2 6.8 3.2 10.6c0 2.5-.5 5-1.4 7.3s-2.4 4.4-4.1 6.2s-3.9 3.2-6.2 4.2s-4.8 1.5-7.3 1.5l0 0c-3.8 0-7.5-1.1-10.6-3.2zM448 96c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96zM357 389c-18.7 18.7-41.4 24.6-67 25.9c-26.4 1.5-105.6 1.5-132 0c-25.6-1.3-48.3-7.2-67-25.9s-24.6-41.4-25.8-67c-1.5-26.4-1.5-105.6 0-132c1.3-25.6 7.1-48.3 25.8-67s41.5-24.6 67-25.8c26.4-1.5 105.6-1.5 132 0c25.6 1.3 48.3 7.1 67 25.8s24.6 41.4 25.8 67c1.5 26.3 1.5 105.4 0 131.9c-1.3 25.6-7.1 48.3-25.8 67z"/></svg></a>
+            <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"/></svg></a>
+            <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a>
+            <a class=""><svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path opacity="1" fill="#1E3050" d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a>
+        </div>
+        </div>
+      </div>
+      <p>&copy;2024 FEMEPASHIDI, A.C. |  Todos los derechos reservados</p>
+
+  </footer>
 
 
-<script src="./js/animations.js"></script>
-<script src="./js/notifications.js"></script>
+
+
+
+  <script src="./js/animations.js"></script>
+  <script src="./js/notifications.js"></script>
 
 
 </body>

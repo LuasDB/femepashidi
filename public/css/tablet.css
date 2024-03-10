@@ -21,36 +21,20 @@ header{
     z-index: 1000;
 
 }
-header div{
-
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    color: aliceblue;
-
-
+.logo-nombre{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: aliceblue;
+  margin: 0;
+  font-size: medium;
 }
 
-header div p{
-
-    text-align: center;
-    color: aliceblue;
-
-}
-header div a{
-
-    text-align: center;
-    color: aliceblue;
-
-}
-header div img{
-    width: 60%;
-
-}
 .nav-menus{
     display: flex;
     flex-direction: column;
-    margin-top: 0px;
+    margin: 0;
+    padding: 0;
     color: aliceblue;
 }
 
@@ -97,7 +81,7 @@ header div img{
  }
  .welcome-hero{
   position: absolute;
-    top: 0;
+    top: 10%;
     display: flex;
     width: 100%;
     padding: 0;
@@ -120,10 +104,11 @@ header div img{
   left: 0;
 }
 .info p{
-  font-size: 0.7rem;
+  font-size: 1rem;
   width: 60%;
 }
 .info a{
+  align-self: center;
   font-size: 0.7rem;
   width: 20%;
 }
@@ -238,12 +223,18 @@ header div img{
 }
 .directory-section{
     display: flex;
-    flex-direction:column;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+
     place-items: center;
 
 }
+.firma{
+  width: 50%;
+}
 .element-directory {
   width: 80%;
+  margin-top: 15%;
 }
 
 .person-image{
