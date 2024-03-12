@@ -43,20 +43,12 @@ $('.area-form').style.fontSize="10px"
 /***************************************************************************************************************************************
  * VARIABLES API
  *******************************************************************************************************************************************/
-<<<<<<< HEAD
-const server = 'http://localhost:3000/api/v1/'
+// const server = 'http://localhost:3000/api/v1/'
+const server = 'https://femepashidiapi.onrender.com/api/v1/'
 const API_USERS = `${server}users`;
 const API_EVENTS = `${server}events`;
 const API_ASSOCIATIONS =`${server}associations`;
 const API_REGISTER =`${server}register`;
-=======
-//const server = 'http://localhost:3000/api/v1/'
-const server = 'https://femepashidiapi.onrender.com/api/v1/'
-const API_USERS = `${server}users/`;
-const API_EVENTS = `${server}events/`;
-const API_ASSOCIATIONS =`${server}associations/`;
-const API_REGISTER =`${server}register/`;
->>>>>>> 408aeb930898de2304ed0fe63516a57278c1ff8e
 
 
 
