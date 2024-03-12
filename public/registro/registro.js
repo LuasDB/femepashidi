@@ -44,23 +44,26 @@ $('.area-form').style.fontSize="10px"
  * VARIABLES API
  *******************************************************************************************************************************************/
 const server = 'http://localhost:3000/api/v1/'
-const API_USERS = `${server}users/`;
-const API_EVENTS = `${server}events/`;
-const API_ASSOCIATIONS =`${server}associations/`;
-const API_REGISTER =`${server}register/`;
+const API_USERS = `${server}users`;
+const API_EVENTS = `${server}events`;
+const API_ASSOCIATIONS =`${server}associations`;
+const API_REGISTER =`${server}register`;
 
 
 
 /***************************************************************************************************************************************
  * FUNCIONES DECLARATIVAS PARA LA APLICACIÓN
  *******************************************************************************************************************************************/
+
+
+
 //Funcion para el efecto de cambio de formulario
 const activar = ()=>{
 
   const area_form = document.querySelector('.area-form');
   const area_descripcion = document.querySelector('.area-description');
   $('.image-skating').classList.add('hidden')
-  console.log('Empezar')
+
   area_form.classList.add('active-form');
   area_descripcion.classList.add('active');
   area_right.classList.remove('hidden');
@@ -73,15 +76,14 @@ const nuevoRegistro = async()=>{
   activar();
   $('.area-form').innerHTML=`
   <form id="form_nuevo">
-  <input type="file" style="display: none;" id="file_input" name="archivo" class="envioDb">
-  <span id="nombre_archivo" style="display: none;"></span>
     <div class="col-2">
       <label for="curp">CURP
         <input type="text" placeholder="TU CURP" name="curp" id="curp">
       </label>
       <figure>
         <div>
-        <label for="curp" id="foto" id="nombre_archivo">Haz click aqui para subir tu foto
+        <label for="file_input" id="nombre_archivo">Haz click aqui para subir tu foto
+        <input type="file" style="display:none" id="file_input" name="archivo" class="envioDb fotoNueva" >
           <img src="./user.png" class="img-user" id="img_user"></div>
         </label>
       </figure>
@@ -193,22 +195,30 @@ const nuevoRegistro = async()=>{
 
     </div>
   </div>`;
-  const btn_foto = document.getElementById('foto');
-  btn_foto.onclick = (e)=>{
-    e.preventDefault()
-    document.getElementById('file_input').click();
+
+  let img = n('img_user');
+  //Funcionalidad para las imagenes
+  n('file_input').addEventListener('change', (event) => {
+    console.log(img)
+    // n('nombre_archivo').textContent= event.target.files[0].name;
+
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          img.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
   }
-  document.getElementById('file_input').addEventListener('change',function(){
-    document.getElementById('nombre_archivo').textContent= this.files[0].name;
-    const archivo = this.files[0];
-    if (archivo) {
-      const lector = new FileReader();
-      lector.addEventListener('load', function() {
-          document.getElementById('img_user').src = lector.result;
-      });
-      lector.readAsDataURL(archivo);
-  }
-  });
+  );
+
+
+
 }
 const buscarCurp=async()=>{
   if(n('curp').value.trim() === ''){
@@ -353,6 +363,22 @@ const buscarCurp=async()=>{
     console.log(error)
 
   });
+}
+
+const cambiarFoto = ()=>{
+  const file = $('.fotoNueva');
+  console.log(file)
+  let reader = new FileReader();
+
+  reader.onload = (e)=>{
+    console.log('Se entro al onload')
+    let img = document.getElementById('img_user');
+
+    console.log(e.target.result)
+    console.log(img)
+
+  }
+  reader.readAsDataURL(file);
 }
 
 /***************************************************************************************************************************************
