@@ -1165,7 +1165,7 @@ animation: animateWave4 3s linear infinite;
 .notifications figure{
     position: absolute;
     inset: 2% 2% 0% 0% ;
-    background-color: red;
+    background-color: white;
     border-radius: 1rem;
     transition: 0.5s;
 }
