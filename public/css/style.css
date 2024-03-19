@@ -265,7 +265,7 @@ header{
   align-items: center;
   justify-content: start;
   margin-top: 1rem;
-  margin-left:5rem;
+
   color: white;
 }
 .logo-nombre p{
@@ -292,7 +292,7 @@ header{
   border-bottom:2px solid #4fc3da;
 }
 .nav-menus a:last-child{
-    margin-right: 5rem;
+    margin-right: 0rem;
 }
 .nav-menus a.active{
     color: var(--primary-color);
@@ -388,7 +388,7 @@ header{
 .info p{
     margin: 20px;
     font-size: large;
-    text-align: center;
+    text-align: justify;
 }
 .info a{
   font-size: large;
@@ -1138,6 +1138,7 @@ animation: animateWave4 3s linear infinite;
 
   margin-bottom: auto;
   font-size: medium;
+  min-height: 100vh;
 
 }
 .communications-container{
@@ -1160,6 +1161,7 @@ animation: animateWave4 3s linear infinite;
 
 }
 
+
 .notifications figure{
     position: absolute;
     inset: 2% 2% 0% 0% ;
@@ -1168,9 +1170,15 @@ animation: animateWave4 3s linear infinite;
     transition: 0.5s;
 }
 .notifications p{
-    opacity: 1;
+    opacity: 0;
+}
+.notifications p.negro{
+  margin-top: 50%;
 }
 
+.notifications a.button{
+  opacity: 0;
+}
 .modal-content-pdf{
   position: fixed;
   top: calc(50% + 2vh);
@@ -1193,7 +1201,7 @@ height: 100%;
 } */
 
 .notifications:hover{
-    height: 50vh;
+    height: auto;
     padding-top: 20%;
 
 }
@@ -1202,12 +1210,24 @@ height: 100%;
 
 }
 
-.notifications figure:hover .notifications p{
+.notifications figure:hover > p{
     opacity: 1;
 }
+.negro{
+  font-weight: bold;
+}
+
 .notifications figure:hover .directory-section{
   margin-top: 500px;
 }
+.notifications:hover > a.button{
+  opacity: 1;
+}
+.notifications:hover > p{
+  opacity: 1;
+}
+
+
 
 
 

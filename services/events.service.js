@@ -54,7 +54,7 @@ class Event {
         ...data
       }
       const actualizar = await updateDoc(doc(db,'events',id),obj.data);
-      return {actualizar}
+      return {message:'Actualizado'}
 
     }else{
       throw boom.notFound('No se encontro la asociacion');

@@ -1,6 +1,7 @@
 // Mandamos a llamar express para poder utilizar el metodo Router
 const express = require('express');
-//Mandamos a llamar el servicio de Usuarios
+const multer = require('multer');
+const upload = multer();
 
 //Agregamos el middleware Validation Handler
 const { validationHandler } = require('../middleware/validator.hanlder');
@@ -31,7 +32,7 @@ router.get('/:id',async(req,res,next)=>{
     next(error);
   }
 });
-router.post('/',async(req,res,next)=>{
+router.post('/',upload.none(),async(req,res,next)=>{
   try {
     const user = await evento.create(req.body);
     res.status(201).json(user);
@@ -39,7 +40,7 @@ router.post('/',async(req,res,next)=>{
     next(error);
   }
 });
-router.patch('/:id',async(req,res,next)=>{
+router.patch('/:id',upload.none(),async(req,res,next)=>{
   try {
     const user = await evento.update(req.params.id,req.body);
     res.status(201).json(user);

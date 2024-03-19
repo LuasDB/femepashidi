@@ -50,13 +50,15 @@ document.addEventListener("DOMContentLoaded", function () {
 /****************************************************************************************************************
  * Variables para la API para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
-const server = 'http://localhost:3000/api/v1/';
-const API_USERS = `${server}users/`;
-const API_ASSOCIATIONS = `${server}associations/`;
-const API_REGISTERS = `${server}register/`;
-const API_EVENTS = `${server}events/`;
-const API_COMUNICATIONS = `${server}communications/`;
+// const server = 'http://localhost:3000/';
+const server = 'https://femepashidiapi.onrender.com/'
+const API_USERS = `${server}api/v1/users/`;
+const API_ASSOCIATIONS = `${server}api/v1/associations/`;
+const API_REGISTERS = `${server}api/v1/register/`;
+const API_EVENTS = `${server}api/v1/events/`;
+const API_COMUNICATIONS = `${server}api/v1/communications/`;
 const API_IMAGE = `${server}images/users/`;
+const API_DOCUMENTS =  `${server}images/communications/`;
 /****************************************************************************************************************
  * Funciones para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
@@ -64,8 +66,6 @@ const callPatinadoresList = async()=>{
   try {
     const resApi =await fetch(API_USERS);
     const data = await resApi.json();
-    console.log(data);
-
     monitor.innerHTML=`
     <section class="card bg-blue-100">
         <h3>Patinadores</h3>
@@ -107,11 +107,9 @@ const callPatinadoresList = async()=>{
 
 
     });
-
     n('nuevo-patinador').onclick = ()=> nuevoRegistro('patinador');
-
   } catch (error) {
-    console.log('ERROR',error)
+    console.log('ERROR',error);
   }
 
 }
@@ -269,7 +267,6 @@ const callComunicadosList = async()=>{
           <thead>
             <tr>
               <th>TITULO</th>
-              <th>IMAGEN</th>
               <th>DESCRIPCIÓN</th>
               <th>STATUS</th>
               <th>EDITAR</th>
@@ -285,8 +282,7 @@ const callComunicadosList = async()=>{
       let fila = nuevo('tr');
       fila.innerHTML = `
       <td>${element.data.titulo.toUpperCase()}</td>
-      <td>${element.data.url_img}</td>
-      <td>${element.data.descripcion}</td>
+      <td>${element.data.texto1} ${element.data.texto2} ${element.data.texto3}...</td>
       <td class="${element.data.status.toLowerCase()}"><p>${element.data.status}</p></td>
       <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">edit</span></td>
       <td class="red" id="${element.id}_delete"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>
@@ -305,12 +301,46 @@ const callComunicadosList = async()=>{
 /****************************************************************************************************************
  * Funciones para mandar a llamar a construir formularios
  ***********************************************************************************************************/
-function nuevoRegistro(tipo){
+async function nuevoRegistro(tipo){
   switch (tipo) {
     case 'patinador':
       console.log('nuevo:',tipo);
       monitor.innerHTML=formNewUser;
+
+      //Buscamos las asociaciones vigentes
+      const res = await fetch(API_ASSOCIATIONS);
+      const data_associations=await res.json();
+      const associations = data_associations.documents;
+      if(data_associations.message != "TODOS"){
+        return;
+      }
+      const asociaciones = n('asociacion');
+    associations.forEach(association =>{
+    const option = document.createElement('option');
+    option.innerHTML=association.data.nombre;
+    option.value=association.id;
+    asociaciones.appendChild(option);
+  })
+
+
       n('guardar').onclick = ()=> enviarBd('users');
+      let img = n('img_user');
+      //Funcionalidad para las imagenes
+      n('file_input').addEventListener('change', (event) => {
+
+        // n('nombre_archivo').textContent= event.target.files[0].name;
+
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+              img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+          }});
       break;
     case 'asociacion':
       console.log('nuevo:',tipo);
@@ -327,6 +357,24 @@ function nuevoRegistro(tipo){
       console.log('nuevo:',tipo);
       monitor.innerHTML = formNewCommunication;
       n('guardar').onclick = ()=> enviarBd('communications');
+      let imgCom = n('img_user');
+      //Funcionalidad para las imagenes
+      n('file_input').addEventListener('change', (event) => {
+
+        // n('nombre_archivo').textContent= event.target.files[0].name;
+
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+              imgCom.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+          }});
+
       break;
     default:
       break;
@@ -336,10 +384,10 @@ function nuevoRegistro(tipo){
  * Funciones para enviar a Base de datos
  ***********************************************************************************************************/
 const enviarBd = async(collection)=>{
-  if(collection != 'communications'){
+
   Swal.fire({
-    title: "¡Envio a Base de datos!",
-    text: "Revisaste que la información sea correcta?",
+    title: "¡Estas a punto de registrarte!",
+    text: "¿Revisaste que la información sea correcta?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -348,140 +396,54 @@ const enviarBd = async(collection)=>{
     confirmButtonText: "Si,claro"
   }).then(async(result) => {
     if (result.isConfirmed){
-      const obj ={}
-      $a('.envioDb').forEach(element =>{
-        if(element.id === 'fecha_corta'){
-          obj['fecha_larga']=fechaLarga(element.value);
-        }
-        obj[element.id]=element.value
-        console.log(element.value)
-      });
-      console.log(obj);
+      switch (collection) {
+        case 'users': envioUsuario()
+          break;
 
-      await fetch(`${server}${collection}`,{
-        method:'POST',
-        headers:{
-          'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(obj)
-      })
-      .then(response=>response.json())
-      .then(data=>{
-        if(data.id){
-         monitor.innerHTML=``;
-         Swal.fire({
-          title: `${data.message}`,
-          text: "Tu información se guardo correctamente",
-          icon: "success",
-          showConfirmButton: false,
-          timer:2000
-        });
-        }
-      })
-      .catch(error=> {
-        Swal.fire({
-          title: `Algo salio mal`,
-          text: `${error}`,
-          icon: "error",
-          showConfirmButton: false,
-          timer:2000
-        });
-      });
+        case 'associations': envioAsociaciones()
+          break;
+        case 'events': envioEventos();
+          break;
+        case 'communications': envioComunicados();
+          break;
+
+
+        default:
+          break;
+      }
     }
   });
-  }else{
-    Swal.fire({
-      title: "¡Envio a Base de datos!",
-      text: "Revisaste que la información sea correcta?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      cancelButtonText: "No,espera",
-      confirmButtonText: "Si,claro"
-    }).then(async(result) => {
-      if (result.isConfirmed){
-        //PARA LA IMAGEN
-        const archivoInput = document.getElementById('archivoInput');
-        console.log(archivoInput.files[0]);
-        const archivo = archivoInput.files[0];
-        const typeFile = archivo.name.split('.');
-        const nuevoNombre = `${Date.now()}-notification.${typeFile[1]}`;
+}
 
-        if(archivo) {
-          console.log('EXISTE EL ARCHIVO');
-          const formData = new FormData();
-          formData.append('archivo', archivo,nuevoNombre);
+const actualizarBd= (collection,id)=>{
+  Swal.fire({
+    title: "¡Estas a punto de actualizar este registro!",
+    text: "¿Revisaste que la información sea correcta?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No,espera",
+    confirmButtonText: "Si,claro"
+  }).then((result) => {
+    if (result.isConfirmed){
+      switch (collection) {
+        // case 'users': envioActualizarUsuario()
+        //   break;
 
-          await fetch(`${server}upload`, {
-            method: 'POST',
-            body: formData,
-          })
-          .then(response => response.text())
-          .then(data => {
-            console.log(data);
-          })
-          .catch(error => {
-            console.error('Error al subir el archivo:', error);
-          });
-        } else {
-          console.error('Selecciona un archivo antes de hacer clic en "Subir Archivo".');
-        }
-
-        const obj ={}
-        $a('.envioDb').forEach(element =>{
-          if(element.id === 'fecha_corta'){
-            obj['fecha_larga']=fechaLarga(element.value);
-          }
-
-          obj[element.id]=element.value
-          console.log(element.value);
-        });
-        obj['url_img']=nuevoNombre;
-        console.log(obj);
+        case 'associations': envioActualizarAsociaciones(id);
+          break;
+        case 'events': envioActualizarEventos(id);
+          break;
+        case 'communications': envioActualizarComunicados(id);
+          break;
 
 
-        await fetch(`${server}${collection}`,{
-          method:'POST',
-          headers:{
-            'Content-Type': 'application/json',
-          },
-          body:JSON.stringify(obj)
-        })
-        .then(response=>response.json())
-        .then(data=>{
-          if(data.id){
-           monitor.innerHTML=``;
-           Swal.fire({
-            title: `${data.message}`,
-            text: "Tu información se guardo correctamente",
-            icon: "success",
-            showConfirmButton: false,
-            timer:2000
-          });
-          }
-        })
-        .catch(error=> {
-          Swal.fire({
-            title: `Algo salio mal`,
-            text: `${error}`,
-            icon: "error",
-            showConfirmButton: false,
-            timer:2000
-          });
-        });
-
-
-
-
-
-
-
-
-
+        default:
+          break;
       }
-    });
-  }
+    }
+  });
 }
 /****************************************************************************************************************
  * Funciones para mandar a llamar alguna accion
@@ -495,8 +457,6 @@ const visualizar = (element,collection)=>{
   visual.classList.add('modal');
   visual.id = `${element.id}_modal`;
   if(collection === 'users'){
-
-
     visual.innerHTML=`
     <div class="header-modal">
     <h3>${titulos[collection]}</h3>
@@ -505,7 +465,7 @@ const visualizar = (element,collection)=>{
       </span>
     </div>
     <div class="flex-container-input">
-    <img class="foto" src="../registro/user.png" alt="Imagen deportista">
+    <img class="foto" src="${API_IMAGE}${element.data.img}" alt="Imagen deportista">
     <label for="">CURP
       <p>${element.data.curp}</p>
     </label>
@@ -539,7 +499,11 @@ const visualizar = (element,collection)=>{
     <label for="">NIVEL ACTUAL
       <p>${element.data.nivel_actual}</p>
     </label>
+    <label for="">CATEGORIA
+    <p>${element.data.categoria}</p>
+  </label>
   </div>
+
 
     `;
 
@@ -553,14 +517,71 @@ const visualizar = (element,collection)=>{
       close_fullscreen
       </span>
     </div>
+    <div class="flex-container-input">
+    <img class="foto" src="${API_IMAGE}${element.data.user.img}" alt="Imagen deportista">
+    <label for="">CURP
+      <p>${element.data.user.curp}</p>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="">NOMBRE
+      <p>${element.data.user.nombre} ${element.data.user.apellido_paterno} ${element.data.user.apellido_materno}</p>
+    </label>
+    <label for="">FECHA DE NACIMIENTO
+      <p>${fechaLarga(element.data.user.fecha_nacimiento)}</p>
+    </label>
+    <label for="">LUGAR DE NACIMIENTO
+      <p>${element.data.user.lugar_nacimiento}</p>
+    </label>
+    <label for="">SEXO
+      <p>${element.data.user.sexo}</p>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="">CORREO
+      <p>${element.data.user.correo}</p>
+    </label>
+    <label for="">TELEFONO/WHATSAPP
+      <p>${element.data.user.telefono}</p>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="">ASOCIACION A LA QUE PERTENECE
+      <p>${element.data.user.asociacion.nombre}</p>
+    </label>
+    <label for="">NIVEL ACTUAL
+      <p>${element.data.user.nivel_actual}</p>
+    </label>
+    <label for="">CATEGORIA
+    <p>${element.data.user.categoria}</p>
+  </label>
+  </div>
+
+  <div class="flex-container-input">
+    <label for="">COMPETENCIA
+      <p>${element.data.event.nombre}</p>
+    </label>
+    <label for="">LUGAR
+      <p>${element.data.event.lugar}</p>
+    </label>
+    <label for="">FECHA DE COMPETENCIA
+    <p>${element.data.event.fecha_larga}</p>
+  </label>
+  </div>
+  <div class="flex-container-input">
+  <label for="">FECHA DE COMPETENCIA
+      <p>${fechaLarga(element.data.fecha_solicitud)}</p>
+    </label>
+    <label for="">ESTATUS
+      <p>${element.data.status.toUpperCase()}</p>
+    </label>
+  </div>
 
     `;
   }
   console.log(element);
   monitor.appendChild(visual);
-  if($('.foto')){
-    $('foto').src=`${API_IMAGE}${element.data.img}`
-  }
+
 
   n('close_modal').onclick = () => cerrarModal(visual.id);
 
@@ -570,15 +591,471 @@ const eliminar = (element,collection)=>{
   console.log(collection);
   console.log(element.id);
   console.groupEnd()
+  Swal.fire({
+    title: "¡Estas a punto de eliminar este registro!",
+    text: "¿Deseas continuar?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No,espera",
+    confirmButtonText: "Si,claro"
+  }).then(async(result) => {
+    if (result.isConfirmed){
+      switch (collection) {
+        case 'associations':
+          const borrar = await fetch(`${API_ASSOCIATIONS}${element.id}`,{
+            method:'DELETE'
+          });
+          const res = await borrar.json();
+          if(res.message){
+            Swal.fire({
+              title: `${res.message}`,
+              text: "El registro se ha BORRADO correctamente",
+              icon: "success",
+              showConfirmButton: true,
+            })
+            .then(res=>{
+              if(res.isConfirmed){
+                window.location.reload();
+              }
+            });
+          }
+          break;
+
+        case 'events':
+          const borrarEvent = await fetch(`${API_EVENTS}${element.id}`,{
+            method:'DELETE'
+          });
+          const resEvent = await borrarEvent.json();
+          if(resEvent.message){
+            Swal.fire({
+              title: `${resEvent.message}`,
+              text: "El registro se ha BORRADO correctamente",
+              icon: "success",
+              showConfirmButton: true,
+            })
+            .then(res=>{
+              if(res.isConfirmed){
+                window.location.reload();
+              }
+            });
+          }
+        break;
+
+        case 'communications':
+          const borrarCom = await fetch(`${API_COMUNICATIONS}${element.id}`,{
+            method:'DELETE'
+          });
+          const resCom = await borrarCom.json();
+          if(resCom.message){
+            Swal.fire({
+              title: `${resCom.message}`,
+              text: "El registro se ha BORRADO correctamente",
+              icon: "success",
+              showConfirmButton: true,
+            })
+            .then(res=>{
+              if(res.isConfirmed){
+                window.location.reload();
+              }
+            });
+          }
+          break;
+
+
+        default:
+          break;
+      }
+
+    }
+  });
+
+
+
+
 }
 const editar = (element,collection)=>{
   console.group('Editar');
   console.log(collection);
   console.log(element.id);
-  console.groupEnd()
+  console.groupEnd();
+
+  if(collection==='associations'){
+    monitor.innerHTML = `
+    <form id="form_nuevo">
+      <section class="card container-form">
+      <h3>Datos de la asociación</h3>
+        <div class="flex-container-input">
+          <label for="nombre">
+            Nombre
+            <input type="text" id="nombre" name="nombre" class="envioDb" value="${element.data.nombre}">
+          </label>
+        </div>
+        <div class="flex-container-input">
+          <label for="representante">
+            Representante
+            <input type="text" id="representante"  name="representante" class="envioDb" value="${element.data.representante}">
+          </label>
+        </div>
+        <div class="flex-container-input">
+          <label for="correo">
+            Correo
+            <input type="text" id="correo" name="correo" class="envioDb" value="${element.data.correo}">
+          </label>
+        </div>
+        <div class="flex-container-input">
+          <label for="status">
+            Status
+            <select name="status" id="status" name="status" class="envioDb" value="${element.data.status}">
+              <option value="Activo">Activo</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </label>
+        </div>
+        <button id="guardar" type="button">Guardar</button>
+      </section>
+    </form>
+    `;
+
+  }
+  else if(collection==='events'){
+    monitor.innerHTML= `
+    <form id="form_nuevo">
+    <section class="card container-form">
+          <h3>Datos de la competencia</h3>
+
+            <div class="flex-container-input">
+              <label for="nombre">
+                Nombre
+                <input type="text" id="nombre" name="nombre" class="envioDb" value="${element.data.nombre}">
+              </label>
+            </div>
+            <div class="flex-container-input">
+              <label for="lugar">
+                Lugar
+                <input type="text" name="lugar" class="envioDb" value="${element.data.lugar}">
+              </label>
+            </div>
+            <div class="flex-container-input">
+              <label for="fecha_corta">
+                Fecha
+                <input type="date" name="fecha_corta" class="envioDb" value="${element.data.fecha_corta}">
+              </label>
+            </div>
+            <div class="flex-container-input">
+              <label for="texto">
+                Descripción
+                <input type="text" name="texto" class="envioDb" value="${element.data.texto}">
+              </label>
+            </div>
+            <div class="flex-container-input">
+              <label for="status">
+                Status
+                <select name="status" id="status" class="envioDb" value="${element.data.status}">
+                  <option value="Activo">Activo</option>
+                  <option value="Baja">Baja</option>
+                </select>
+              </label>
+            </div>
+            <button id="guardar" type="button">Guardar</button>
+        </section>
+      </form>
+    `;
+
+  }
+  else if(collection==='communications'){
+    monitor.innerHTML = `
+    <form id="form_nuevo" enctype="multipart/form-data">
+<section class="card container-form">
+<h3>Datos del comunicado</h3>
+
+  <div class="flex-container-input">
+    <label for="titulo">
+      Titulo
+      <input type="text" name="titulo" class="envioDb" value="${element.data.titulo}">
+    </label>
+  </div>
+<h3>Descripcion del comunicado</h3>
+  <div class="flex-container-input">
+    <label for="texto1">
+      Texto 1
+      <input type="text" name="texto1" class="envioDb" value="${element.data.texto1}"></textarea>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="texto2">
+      Texto 2
+      <input type="text" name="texto2" class="envioDb" value="${element.data.texto2}"></textarea>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="texto3">
+      Texto 3
+      <input type="text" name="texto3" class="envioDb" value="${element.data.texto3}"></textarea>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="texto4">
+      Texto 4
+      <input type="text" name="texto4" class="envioDb" value="${element.data.texto4}"></textarea>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="texto5">
+      Texto 5
+      <input type="text" name="texto5" class="envioDb" value="${element.data.texto5}"></textarea>
+    </label>
+  </div>
+  <div class="flex-container-input">
+    <label for="documento">
+      Documento de comunicado
+      <input type="file" name="documento" id="documento" class="envioDb" value="${API_DOCUMENTS}${element.data.doc}"></textarea>
+    </label>
+  </div>
+  <div class="flex-container-input">
+  <figure class="img-update">
+  <div>
+    <label for="file_input" id="nombre_archivo">Haz click aqui para subir una foto
+      <input type="file" style="display:none" id="file_input" name="file_input" class="envioDb fotoNueva" value="${API_DOCUMENTS}${element.data.img}">
+      <img src="./user.png" class="img-user" id="img_user">
+    </label>
+  </div>
+</figure>
+  </div>
+  <div class="flex-container-input">
+    <label for="status">
+      Status
+      <select name="status" id="status" class="envioDb" value="${element.data.status}">
+        <option value="Activo">Activo</option>
+        <option value="Baja">Baja</option>
+      </select>
+    </label>
+  </div>
+  <button id="guardar" type="button">Guardar</button>
+</section>
+</form>`;
+
+  }
+
+
+  n('guardar').onclick = ()=> actualizarBd(collection,element.id);
+
 }
+
 const cerrarModal = (id)=>{
+  console.log('CERRANDO')
   n('modal_bg').classList.add('hidden');
   n(id).remove();
   $('section').classList.remove('hidden');
+}
+
+
+/****************************************************************************************************************
+ * Funciones de envios
+ ***********************************************************************************************************/
+async function envioUsuario(){
+  console.log('enviando usuarios')
+  let curp =n('curp').value;
+      const curpVal = curp.toUpperCase();
+      await fetch(`${API_USERS}validate/${curpVal}`)
+      .then(response => response.json() )
+      .then(async(result) =>{
+
+        if(result.resultado){
+          Swal.fire({
+            title: `Este usuario ya ha sido dado de alta`,
+            text: "Esta CURP ya se encuentra registrada",
+            icon: "error",
+            showConfirmButton: true,
+          });
+          }else{
+          const form = n('form_nuevo');
+          const formData = new FormData(form);
+          await fetch(API_USERS,{
+            method:'POST',
+            body:formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              if(data.id){
+                Swal.fire({
+                  title: `${data.message}`,
+                  text: "Tu información se guardo correctamente, te enviamos un correo para confirmar tu registro",
+                  icon: "success",
+                  showConfirmButton: true,
+                })
+                .then(res=>{
+                  if(res.isConfirmed){
+                    window.location.reload();
+                  }
+                });
+              }
+          });
+        }
+      });
+
+}
+
+async function envioAsociaciones(){
+  console.log('ENVIANDO ASOCIACIONES')
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+
+  const envio = await fetch(`${API_ASSOCIATIONS}`,{
+  method:'POST',
+  body:formData
+  })
+  const res = await envio.json();
+  if(res.id){
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El nuevo registro se ha guardado correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+
+
+}
+
+async function envioEventos(){
+  console.log('ENVIANDO eventos')
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+
+  const envio = await fetch(`${API_EVENTS}`,{
+  method:'POST',
+  body:formData
+  })
+  const res = await envio.json();
+  if(res.id){
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El nuevo registro se ha guardado correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+
+
+}
+
+async function envioComunicados(){
+  console.log('ENVIANDO comunicados')
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+
+  const envio = await fetch(`${API_COMUNICATIONS}`,{
+  method:'POST',
+  body:formData
+  })
+  const res = await envio.json();
+  console.log(res)
+  if(res.id){
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El nuevo registro se ha guardado correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+
+
+}
+
+async function envioActualizarAsociaciones(id){
+
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+
+  const envio = await fetch(`${API_ASSOCIATIONS}/${id}`,{
+  method:'PATCH',
+  body:formData
+  })
+  const res = await envio.json();
+  if(res.message){
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El registro se ha ACTUALIZADO correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+
+
+}
+
+async function envioActualizarEventos(id){
+
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+
+  const envio = await fetch(`${API_EVENTS}/${id}`,{
+  method:'PATCH',
+  body:formData
+  })
+  const res = await envio.json();
+  if(res.message){
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El registro se ha ACTUALIZADO correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+
+
+}
+
+async function envioActualizarComunicados(id){
+
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+
+  const envio = await fetch(`${API_COMUNICATIONS}/${id}`,{
+  method:'PATCH',
+  body:formData
+  })
+  const res = await envio.json();
+  if(res.message){
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El registro se ha ACTUALIZADO correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+
+
 }

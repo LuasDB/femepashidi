@@ -6,6 +6,10 @@ const express = require('express');
 const { validationHandler } = require('../middleware/validator.hanlder');
 //Agregamos es Schema para la creación , edicion y obtencion de ususarios
 
+const { uploadComImg,uploadComDoc } = require('../middleware/multer.Middleware');
+
+
+
 //Creamos la variable router para acceder a nuestros endpoints
 const router = express.Router();
 //Llamammos al servicio que corresponde
@@ -31,15 +35,16 @@ router.get('/:id',async(req,res,next)=>{
     next(error);
   }
 });
-router.post('/',async(req,res,next)=>{
+router.post('/',uploadComImg.fields([{name: 'documento', maxCount: 1},{name: 'file_input', maxCount: 1}]),async(req,res,next)=>{
   try {
-    const user = await comunicado.create(req.body);
+
+    const user = await comunicado.create(req.body,req.files);
     res.status(201).json(user);
   } catch (error) {
     next(error);
   }
 });
-router.patch('/:id',async(req,res,next)=>{
+router.patch('/:id',uploadComImg.fields([{name: 'documento', maxCount: 1},{name: 'file_input', maxCount: 1}]),async(req,res,next)=>{
   try {
     const user = await comunicado.update(req.params.id,req.body);
     res.status(201).json(user);

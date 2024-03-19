@@ -1,7 +1,7 @@
 //Boom nos ayuda a manejar los status code de una mejor manera y mas controlada
 const boom = require('@hapi/boom');
 //Traemos la credencial para la base de datos de firestore
-const { db }= require('../db/firebase');
+const { db,server }= require('../db/firebase');
 //agregamos las funciones para el manejo en la base de datos de Firestore
 const {  doc,addDoc, getDocs,getDoc,setDoc,deleteDoc,updateDoc, arrayUnion,query, where, collection} = require("firebase/firestore");
 const nodemailer = require('nodemailer');
@@ -72,7 +72,7 @@ class Register {
         <p style="
         color:#333;">Haz click en el siguiente boton para confirmar tu registro y continuar con tu proceso</p>
 
-          <a href="http://localhost:3000/api/v1/register/confirmation/${res.id}" target="_self"
+          <a href="${server}api/v1/register/confirmation/${res.id}" target="_self"
           style="
           width: 50%;
           padding: 10px;
@@ -219,7 +219,7 @@ class Register {
         <p style="
         color:#333;">Es necesario que dé su Visto Bueno para que esta solicitud sea enviada al presidente de FEMEPASHIDI:</p>
 
-        <a href="http://localhost:3000/api/v1/register/approval/${id}/aprobado" target="_self"
+        <a href="${server}api/v1/register/approval/${id}/aprobado" target="_self"
           style="
           width: 50%;
           padding: 10px;
@@ -231,7 +231,7 @@ class Register {
             ACEPTAR
           </a>
           <br>
-          <a href="http://localhost:3000/api/v1/register/approval/${id}/rechazado" target="_self"
+          <a href="${server}api/v1/register/approval/${id}/rechazado" target="_self"
           style="
           width: 50%;
           padding: 10px;

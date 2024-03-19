@@ -11,8 +11,10 @@ class Association {
 
   }
   async create(data){
+    console.log(data)
     const res = await addDoc(collection(db,'associations'),data);
     return {message:'Creado',id:res.id}
+
   }
   async findAll(){
     const resfirebase = await getDocs(collection(db,'associations'));
@@ -54,14 +56,11 @@ class Association {
         ...data
       }
       const actualizarUsuario = await updateDoc(doc(db,'associations',id),obj.data);
-      return {actualizarUsuario}
+      return { message:'Actualizado'}
 
     }else{
       throw boom.notFound('No se encontro la asociacion');
     }
-
-
-
   }
   async delete(id){
     const q = doc(db,'associations',id);

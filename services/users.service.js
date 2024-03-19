@@ -1,12 +1,16 @@
 //Boom nos ayuda a manejar los status code de una mejor manera y mas controlada
 const boom = require('@hapi/boom');
 //Traemos la credencial para la base de datos de firestore
-const { db }= require('../db/firebase');
+const { db,server }= require('../db/firebase');
 //agregamos las funciones para el manejo en la base de datos de Firestore
 const {  doc,addDoc, getDocs,getDoc,setDoc,deleteDoc,updateDoc, arrayUnion,query, where, collection} = require("firebase/firestore");
 //Traemos nodemailer para los correos automaticos
 const nodemailer = require('nodemailer');
 const { string } = require('joi');
+
+//Funcion para envio de mails
+
+
 
 const categories = {
   4:`PRE-INFANTIL 'A'`,
@@ -61,10 +65,13 @@ class User {
     const asociacion = await getDoc(doc(db,'associations',id_association));
     data['asociacion']=asociacion.data();
     data['verificacion']=false;
+    const categoria = verifyCategory(data.fecha_nacimiento);
+    data['categoria']=categoria;
     const res = await addDoc(collection(db,'users'),data);
     if(res.id){
-      console.log('Enviar correo a:',data.correo);
-      const destinatario=data.correo;
+      const destinatario=data.asociacion.correo;
+      const usuarioMail = data.correo;
+      console.log('Enviar correo a:',destinatario);
       // Configuración del transporte de correo
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -77,7 +84,6 @@ class User {
       const contenidoHtml = `
       <!DOCTYPE html>
       <html lang="es">
-
       <head>
         <meta charset="UTF-8">
         <style>
@@ -90,9 +96,7 @@ class User {
           body{
             font-family: 'Nunito', sans-serif;
           }
-          a:hover{
-            color:red;
-          }
+
           .container{
             display: flex;
             flex-direction: column;
@@ -104,28 +108,90 @@ class User {
             </style>
       </head>
       <body>
+
+
         <div class="container">
+        <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
           <h2 style="
-          color:#268dee;">HOLA ${data.nombre}</h2>
+          color:#268dee;">${data.asociacion.representante.toUpperCase()}</h2>
+          <p style="
+          color:#333;">FEMEPASHIDI esta enviando esta solicitud para registrar al siguiente participante como parte de su asociación.</p>
+          <p style="
+          color:#333;">Nombre: ${data.nombre}  ${data.apellido_paterno} ${data.apellido_materno}</p>
+          <p style="
+          color:#333;">Nivel: ${data.nivel_actual}</p>
+          <p style="
+          color:#333;">Categoria: ${data.categoria}</p>
+          <p style="
+          color:#333;">Fecha de nacimeinto: ${data.fecha_nacimiento}</p>
+          <p style="
+          color:#333;">Es necesario que dé su Visto Bueno para que esta solicitud sea enviada al Presidente de FEMEPASHIDI</p>
+            <a href="${server}api/v1/users/verification/${data.curp}/true" target="_self">
+              <img style="width:200px;" src="cid:aceptarImg" alt="Imagen Adjunta">
+            </a>
+            <a href="${server}api/v1/users/verification/${data.curp}/false" target="_self">
+              <img style="width:200px;" src="cid:rechazarImg" alt="Imagen Adjunta">
+            </a>
+            <p style="
+            color:#333;">Una vez realizada la autorización se notificara al participante que se acepto su registro</p>
+            <p style="
+            color:#333;">Cualquier comentario o sugerencia, con gusto lo recibiremos en el siguiente correo:<a href="mailto:webmaster@femepashidi.org.mx">webmaster@femepashidi.org.mx</a></p>
+            <p style="
+            color:#333;">Saludos,</p>
+            <p style="
+            color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
+            <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
+          </div>
+      </body>
+      </html>
 
-        <p style="
-        color:#333;">Recibimos tu solicitud de registro en nuestra plataforma</p>
-        <p style="
-        color:#333;">Haz click en el siguiente boton para verificar tu cuenta</p>
 
-          <a href="http://localhost:3000/api/v1/users/verification/${data.curp}/true" target="_self"
-          style="
-          width: 50%;
-          padding: 10px;
-          background-color:#268dee;
-          border-radius: 1rem;
-          color: #f0f0f0;
-          text-decoration: none;
-          text-align: center;">
-            VERIFICAR REGISTRO
-          </a>
-        </div>
-        <h3>Agradecemos tu confianza</h3>
+      `;
+      const contenidoHtmlUsuario = `
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+          :root{
+            --primary-color-r:#268dee;
+            --background-input:#f0f0f0;
+            --font-input:#333;
+          }
+          body{
+            font-family: 'Nunito', sans-serif;
+          }
+
+          .container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            align-items: center;"
+          }
+
+            </style>
+      </head>
+      <body>
+
+
+        <div class="container">
+        <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
+          <h2 style="
+          color:#268dee;">${data.nombre.toUpperCase()} ${data.apellido_paterno.toUpperCase()} ${data.apellido_materno.toUpperCase()}</h2>
+          <p style="color:#333;">FEMEPASHIDI ha recibido y esta gestionando tu solicitud de registro en nuestra plataforma. </p>
+          <p style="color:#333;">En cuanto se autorice por parte del presidente de tu asociación te enviaremos un correo notificando tu aceptación para que puedas inscribirte a las competencias vigentes.</p>
+          <p style="color:#333;">Te pedimos estes pendiente de tu correo.</p>
+
+          <p style="
+          color:#333;">Cualquier comentario o sugerencia, con gusto lo recibiremos en el siguiente correo:<a href="mailto:webmaster@femepashidi.org.mx">webmaster@femepashidi.org.mx</a></p>
+          <p style="
+          color:#333;">Saludos,</p>
+          <p style="
+          color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
+          <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
+          </div>
       </body>
       </html>
 
@@ -136,13 +202,52 @@ class User {
       from:'luasjcr.3543@gmail.com',
       to: destinatario,
       subject: 'Registro PASHIDI A.C.',
-      html: contenidoHtml
+      html: contenidoHtml,
+      attachments:[
+        {
+        filename: 'ACEPTAR.png',  // Nombre del archivo adjunto
+        path: './uploads/others/ACEPTAR.png',  // Ruta a la imagen en tu sistema
+        cid: 'aceptarImg'  // Identificador único para la imagen, usado en el contenido HTML
+        },
+        {
+          filename: 'RECHAZAR.png',  // Nombre del archivo adjunto
+          path: './uploads/others/RECHAZAR.png',  // Ruta a la imagen en tu sistema
+          cid: 'rechazarImg'  // Identificador único para la imagen, usado en el contenido HTML
+          },
+          {
+            filename: 'encabezado.png',  // Nombre del archivo adjunto
+            path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
+            cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
+            }
+    ]
       };
-      // Enviar el correo
+
+      // Opciones del correo
+      const opcionesCorreoUsuario = {
+        from:'luasjcr.3543@gmail.com',
+        to: usuarioMail,
+        subject: 'Registro PASHIDI A.C.',
+        html: contenidoHtmlUsuario,
+        attachments:[
+            {
+              filename: 'encabezado.png',  // Nombre del archivo adjunto
+              path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
+              cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
+              }
+      ]
+        };
+      // Enviar el correo a la asociación
       transporter.sendMail(opcionesCorreo, (error, info) => {
-
-
+        console.log('[ERROR MAIL ASOCIACION]',error);
+        console.log(info);
       });
+
+      transporter.sendMail(opcionesCorreoUsuario, (error, info) => {
+        console.log('[ERROR MAIL USUARIO]',error);
+        console.log(info);
+      });
+
+
     }
     return {message:'Creado',id:res.id,data:data }
   }
@@ -181,15 +286,124 @@ class User {
     documents[0].data['categoria']=categoria;
     await this.update(documents[0].data.curp,{categoria:categoria});
     const nombre_imagen =documents[0].data.img;
-    const imagen = `http://localhost:3000/images/users/${nombre_imagen}`;
+    const imagen = `${server}images/users/${nombre_imagen}`;
 
     return { message:'UNO', documents,img:imagen}
   }
   async verification(curp,status){
     let boolValue = (status === 'true');
-    const data = { verificacion:boolValue}
-    await this.update(curp,data);
-    return { message:'verificado'}
+    if(boolValue){
+      const data = { verificacion:boolValue}
+      await this.update(curp,data);
+      const user = await this.findOne(curp);
+      console.log(user)
+
+
+
+      const destinatario=user.documents[0].data.correo;
+
+      // Configuración del transporte de correo
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user:'luasjcr.3543@gmail.com',
+            pass:'fyzb llwd vqrv epaa'
+        }
+      });
+      // Contenido HTML del correo
+      const contenidoHtmlUsuario = `
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+          :root{
+            --primary-color-r:#268dee;
+            --background-input:#f0f0f0;
+            --font-input:#333;
+          }
+          body{
+            font-family: 'Nunito', sans-serif;
+          }
+
+          .container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            align-items: center;"
+          }
+
+            </style>
+      </head>
+      <body>
+
+
+        <div class="container">
+        <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
+          <h2 style="
+          color:#268dee;">FELICIDADES ${user.documents[0].data.nombre.toUpperCase()} ${user.documents[0].data.apellido_paterno.toUpperCase()} ${user.documents[0].data.apellido_materno.toUpperCase()}</h2>
+          <p style="color:#333;">Se ha confirmado tu registro en nuestra plataforma!!!! </p>
+          <p style="color:#333;">Accede al siguiente link y accede con tu CURP para poder inscribirte a nuestras competencias vigentes!</p>
+
+          <a href="${server}app/registro/" target="_self">
+              <img style="width:200px;" src="cid:registroImg" alt="Imagen Adjunta">
+            </a>
+
+
+
+
+
+          <p style="
+          color:#333;">Cualquier comentario o sugerencia, con gusto lo recibiremos en el siguiente correo:<a href="mailto:webmaster@femepashidi.org.mx">webmaster@femepashidi.org.mx</a></p>
+          <p style="
+          color:#333;">Saludos,</p>
+          <p style="
+          color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
+          <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
+          </div>
+      </body>
+      </html>
+
+
+      `;
+       // Opciones del correo
+       const opcionesCorreo = {
+        from:'luasjcr.3543@gmail.com',
+        to: destinatario,
+        subject: 'ACEPTACION DE REGISTRO PASHIDI A.C.',
+        html: contenidoHtmlUsuario,
+        attachments:[
+          {
+            filename: 'encabezado.png',  // Nombre del archivo adjunto
+            path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
+            cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
+            },
+            {
+              filename: 'registro.png',  // Nombre del archivo adjunto
+              path: './uploads/others/registro.png',  // Ruta a la imagen en tu sistema
+              cid: 'registroImg'  // Identificador único para la imagen, usado en el contenido HTML
+              }
+      ]
+        };
+
+
+        // Enviar el correo a la asociación
+      transporter.sendMail(opcionesCorreo, (error, info) => {
+        console.log('[ERROR MAIL ASOCIACION]',error);
+        console.log(info);
+      });
+
+
+
+
+
+
+      return { message:'verificado'}
+
+    }
+
   }
   async update(id,data){
     const q = query(collection(db,'users'),where('curp','==',id));

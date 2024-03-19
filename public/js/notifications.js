@@ -8,7 +8,7 @@ const nuevo = (elemento)=> document.createElement(elemento);
 
 const API_COMMUNICATIONS = 'http://localhost:3000/api/v1/communications/';
 const API_EVENTS = 'http://localhost:3000/api/v1/events/';
-
+const SERVER_UPLOADS=`http://localhost:3000/images/`;
 
 document.addEventListener("DOMContentLoaded", async function () {
   await fetch(API_COMMUNICATIONS)
@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       card.classList.add('notifications');
       card.innerHTML = `
       <figure>
-        <img alt="Mensaje 1" id="${element.data.url_img}">
+        <img alt="Mensaje 1" id="${SERVER_UPLOADS}communications/${element.data.img}">
       </figure>
-      <h2>${element.data.titulo}</h2>`;
+      <p class="negro">${element.data.titulo}</p>`;
       if(element.data.texto1 != ""){
         card.innerHTML +=`
         <p>${element.data.texto1}</p>`;
@@ -46,11 +46,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         card.innerHTML +=`
         <p>${element.data.texto5}</p>`;
       }
+      card.innerHTML+=`
+      <a class="button button-blue" id="${element.data.img}">DESCARGAR</a>`
       comunicados.appendChild(card);
-      const img = n(`${element.data.url_img}`);
-      console.log(img);
-      img.src=`./img/notifications/${element.data.url_img}`;
 
+      const img = n(`${SERVER_UPLOADS}communications/${element.data.img}`);
+      img.src=`${SERVER_UPLOADS}communications/${element.data.img}`;
+
+     n(element.data.img).onclick = ()=> showPdf(element.data.doc);
 
     });
 
@@ -65,6 +68,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const events = n('events_container');
     events.innerHTML=''
     data.documents.forEach(element=>{
+      if(element.data.status!='Activo'){
+        console.log('NO ESTA ACTIVO')
+      }else{
       let card = nuevo('div');
       card.classList.add('carrusel-item');
       card.innerHTML = `
@@ -77,6 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       </article>
       `;
       events.appendChild(card);
+      }
     });
   })
   .catch(error=>console.log(error));
@@ -95,9 +102,9 @@ const showPdf = (pdf)=>{
   if(!isMobileDevice()){
   console.log(pdf);
   n('myModalPdf').style.display="block";
-  n('pdfViewer').src=`./notifications/${pdf}`
+  n('pdfViewer').src=`${SERVER_UPLOADS}communications/${pdf}`
   }else{
-    window.open(`./notifications/${pdf}`, "_blank");
+    window.open(`${SERVER_UPLOADS}communications/${pdf}`, "_blank");
   }
 
 }

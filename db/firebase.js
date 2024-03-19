@@ -18,5 +18,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-module.exports = {db}
+const server = `http://localhost:3000/`
+
+module.exports = {db,server}
+
+
 

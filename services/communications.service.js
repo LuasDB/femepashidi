@@ -10,13 +10,15 @@ class Communication {
   constructor(){
 
   }
-  async create(data){
-    console.log(data);
-    const res = await addDoc(collection(db,'communications'),data);
-    console.log(res)
-    const docRef= doc(collection(db,'communications'),res.id);
+  async create(data,files){
+    data['img']=files['file_input'][0].filename;
+    data['doc']=files['documento'][0].filename;
+
+   const res = await addDoc(collection(db,'communications'),data);
+  const docRef= doc(collection(db,'communications'),res.id);
     await setDoc(docRef,data);
     return {message:'Creado',id:res.id, data:data}
+
   }
   async findAll(){
     const resfirebase = await getDocs(collection(db,'communications'));
@@ -58,7 +60,7 @@ class Communication {
         ...data
       }
       const actualizar = await updateDoc(doc(db,'communications',id),obj.data);
-      return {actualizar}
+      return {message:'Actualizado'}
 
     }else{
       throw boom.notFound('No se encontro la asociacion');

@@ -6,7 +6,6 @@ const $a = (elemento)=> document.querySelectorAll(elemento);
 const n = (elemento)=> document.getElementById(elemento);
 const nuevo = (elemento)=> document.createElement(elemento);
 
-
 const btn_curp = document.getElementById('buscar_curp');
 btn_curp.onclick = ()=> buscarCurp();
 const nuevo_registro = document.getElementById('nuevo_registro');
@@ -45,7 +44,7 @@ $('.area-form').style.fontSize="10px"
  *******************************************************************************************************************************************/
 // const server = 'http://localhost:3000/api/v1/'
 const server = 'https://femepashidiapi.onrender.com/api/v1/'
-const API_USERS = `${server}users`;
+const API_USERS = `${server}users/`;
 const API_EVENTS = `${server}events`;
 const API_ASSOCIATIONS =`${server}associations`;
 const API_REGISTER =`${server}register`;
@@ -55,8 +54,6 @@ const API_REGISTER =`${server}register`;
 /***************************************************************************************************************************************
  * FUNCIONES DECLARATIVAS PARA LA APLICACIÓN
  *******************************************************************************************************************************************/
-
-
 
 //Funcion para el efecto de cambio de formulario
 const activar = ()=>{
@@ -200,7 +197,7 @@ const nuevoRegistro = async()=>{
   let img = n('img_user');
   //Funcionalidad para las imagenes
   n('file_input').addEventListener('change', (event) => {
-    console.log(img)
+
     // n('nombre_archivo').textContent= event.target.files[0].name;
 
     const file = event.target.files[0];
@@ -226,7 +223,7 @@ const buscarCurp=async()=>{
     return;
   }
   //traemos la información de la Base de datos
-  await fetch(`${API_USERS}/${n('curp').value}`)
+  await fetch(`${API_USERS}${n('curp').value}`)
   .then(response => response.json())
   .then(async(data )=> {
 
@@ -345,7 +342,7 @@ const buscarCurp=async()=>{
     $('.area-description').innerHTML=`
     <div class="toogle-left ">
       <div class="container-right">
-        <p><span>Bienvenido<span></p>
+        <p><span>Hola<span></p>
         <p><span>${usuario.nombre.toUpperCase()}<span></p>
         <br>
         <p>Selecciona la competencia</p>
@@ -367,6 +364,7 @@ const buscarCurp=async()=>{
 }
 
 const cambiarFoto = ()=>{
+
   const file = $('.fotoNueva');
   console.log(file)
   let reader = new FileReader();
@@ -377,7 +375,6 @@ const cambiarFoto = ()=>{
 
     console.log(e.target.result)
     console.log(img)
-
   }
   reader.readAsDataURL(file);
 }
