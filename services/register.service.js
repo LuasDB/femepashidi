@@ -218,29 +218,16 @@ class Register {
         color:#333;">En el nivel : ${registro.data().user.nivel_actual} categoria  ${registro.data().user.categoria}</p>
         <p style="
         color:#333;">Es necesario que dé su Visto Bueno para que esta solicitud sea enviada al presidente de FEMEPASHIDI:</p>
+        <br>
 
-        <a href="${server}api/v1/register/approval/${id}/aprobado" target="_self"
-          style="
-          width: 50%;
-          padding: 10px;
-          background-color:#268dee;
-          border-radius: 1rem;
-          color: #f0f0f0;
-          text-decoration: none;
-          text-align: center;">
-            ACEPTAR
-          </a>
-          <br>
-          <a href="${server}api/v1/register/approval/${id}/rechazado" target="_self"
-          style="
-          width: 50%;
-          padding: 10px;
-          background-color:#FF0000;
-          border-radius: 1rem;
-          color: #f0f0f0;
-          text-decoration: none;
-          text-align: center;"> RECHAZAR
-          </a>
+        <a href="${server}api/v1/register/approval/${id}/aprobado" target="_self">
+          <img style="width:200px;" src="cid:aceptarImg" alt="Imagen Adjunta">
+        </a>
+        <br>
+        <a href="${server}api/v1/register/approval/${id}/rechazado" target="_self">
+          <img style="width:200px;" src="cid:aceptarImg" alt="Imagen Adjunta">
+        </a>
+
         </div>
         <h3>Agradecemos tu confianza</h3>
       </body>
@@ -253,7 +240,18 @@ class Register {
       from:'luasjcr.3543@gmail.com',
       to: destinatario,
       subject: 'SOLICITUD DE APROBACIÓN PASHIDI A.C.',
-      html: contenidoHtml
+      html: contenidoHtml,
+      attachments:[
+        {
+        filename: 'ACEPTAR.png',  // Nombre del archivo adjunto
+        path: './uploads/others/ACEPTAR.png',  // Ruta a la imagen en tu sistema
+        cid: 'aceptarImg'  // Identificador único para la imagen, usado en el contenido HTML
+        },
+        {
+          filename: 'RECHAZAR.png',  // Nombre del archivo adjunto
+          path: './uploads/others/RECHAZAR.png',  // Ruta a la imagen en tu sistema
+          cid: 'rechazarImg'  // Identificador único para la imagen, usado en el contenido HTML
+          }]
       };
       // Enviar el correo
       transporter.sendMail(opcionesCorreo, (error, info) => {

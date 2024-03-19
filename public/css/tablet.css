@@ -247,8 +247,34 @@ header{
     height: 100%;
 
 }
+/* ******************* */
+.notifications{
+  height: auto;
+  padding-top: 20%;
 
+}
+.notifications figure{
+inset: -10% 15% 70% 15% ;
 
+}
+
+.notifications figure > p{
+  opacity: 1;
+}
+.negro{
+font-weight: bold;
+}
+
+.notifications figure .directory-section{
+margin-top: 500px;
+}
+.notifications > a.button{
+opacity: 1;
+}
+.notifications > p{
+opacity: 1;
+}
+/* ***************** */
 
 
 .antidoping-section .container-antidoping{
