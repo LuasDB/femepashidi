@@ -5,10 +5,14 @@ const $ = (elemento)=> document.querySelector(elemento);
 const $a = (elemento)=> document.querySelectorAll(elemento);
 const n = (elemento)=> document.getElementById(elemento);
 const nuevo = (elemento)=> document.createElement(elemento);
-
-const API_COMMUNICATIONS = 'http://localhost:3000/api/v1/communications/';
-const API_EVENTS = 'http://localhost:3000/api/v1/events/';
-const SERVER_UPLOADS=`http://localhost:3000/images/`;
+/****************************************************************************************************************
+ * Variables para la API para mandar a llamar a construir en el monitor
+ ***********************************************************************************************************/
+// const server = 'http://localhost:3000/';
+const server = 'https://femepashidiapi.onrender.com/'
+const API_COMMUNICATIONS = `${server}api/v1/communications/`;
+const API_EVENTS = `${server}api/v1/events/`;
+const SERVER_UPLOADS=`${server}images/`;
 
 document.addEventListener("DOMContentLoaded", async function () {
   await fetch(API_COMMUNICATIONS)
