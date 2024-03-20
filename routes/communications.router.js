@@ -46,7 +46,7 @@ router.post('/',uploadComImg.fields([{name: 'documento', maxCount: 1},{name: 'fi
 });
 router.patch('/:id',uploadComImg.fields([{name: 'documento', maxCount: 1},{name: 'file_input', maxCount: 1}]),async(req,res,next)=>{
   try {
-    const user = await comunicado.update(req.params.id,req.body);
+    const user = await comunicado.update(req.params.id,req.body,req.files);
     res.status(201).json(user);
   } catch (error) {
     next(error);

@@ -48,7 +48,10 @@ class Communication {
       throw boom.notFound('Usuario no encontrado');
     }
   }
-  async update(id,data){
+  async update(id,data,files){
+    data['img']=files['file_input'][0].filename;
+    data['doc']=files['documento'][0].filename;
+
     const q = doc(db,'communications',id);
     const document = await getDoc(q);
     if(document.exists()){
@@ -60,7 +63,7 @@ class Communication {
         ...data
       }
       const actualizar = await updateDoc(doc(db,'communications',id),obj.data);
-      return {message:'Actualizado'}
+      return {message:'Actualizado', data: actualizar}
 
     }else{
       throw boom.notFound('No se encontro la asociacion');

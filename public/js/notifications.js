@@ -8,8 +8,8 @@ const nuevo = (elemento)=> document.createElement(elemento);
 /****************************************************************************************************************
  * Variables para la API para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
-// const server = 'http://localhost:3000/';
-const server = 'https://femepashidiapi.onrender.com/'
+const server = 'http://localhost:3000/';
+// const server = 'https://femepashidiapi.onrender.com/'
 const API_COMMUNICATIONS = `${server}api/v1/communications/`;
 const API_EVENTS = `${server}api/v1/events/`;
 const SERVER_UPLOADS=`${server}images/`;

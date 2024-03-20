@@ -50,8 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
 /****************************************************************************************************************
  * Variables para la API para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
-// const server = 'http://localhost:3000/';
-const server = 'https://femepashidiapi.onrender.com/'
+const server = 'http://localhost:3000/';
+// const server = 'https://femepashidiapi.onrender.com/'
 const API_USERS = `${server}api/v1/users/`;
 const API_ASSOCIATIONS = `${server}api/v1/associations/`;
 const API_REGISTERS = `${server}api/v1/register/`;
@@ -767,74 +767,91 @@ const editar = (element,collection)=>{
   else if(collection==='communications'){
     monitor.innerHTML = `
     <form id="form_nuevo" enctype="multipart/form-data">
-<section class="card container-form">
-<h3>Datos del comunicado</h3>
+    <section class="card container-form">
+    <h3>Datos del comunicado</h3>
 
-  <div class="flex-container-input">
-    <label for="titulo">
-      Titulo
-      <input type="text" name="titulo" class="envioDb" value="${element.data.titulo}">
-    </label>
-  </div>
-<h3>Descripcion del comunicado</h3>
-  <div class="flex-container-input">
-    <label for="texto1">
-      Texto 1
-      <input type="text" name="texto1" class="envioDb" value="${element.data.texto1}"></textarea>
-    </label>
-  </div>
-  <div class="flex-container-input">
-    <label for="texto2">
-      Texto 2
-      <input type="text" name="texto2" class="envioDb" value="${element.data.texto2}"></textarea>
-    </label>
-  </div>
-  <div class="flex-container-input">
-    <label for="texto3">
-      Texto 3
-      <input type="text" name="texto3" class="envioDb" value="${element.data.texto3}"></textarea>
-    </label>
-  </div>
-  <div class="flex-container-input">
-    <label for="texto4">
-      Texto 4
-      <input type="text" name="texto4" class="envioDb" value="${element.data.texto4}"></textarea>
-    </label>
-  </div>
-  <div class="flex-container-input">
-    <label for="texto5">
-      Texto 5
-      <input type="text" name="texto5" class="envioDb" value="${element.data.texto5}"></textarea>
-    </label>
-  </div>
-  <div class="flex-container-input">
-    <label for="documento">
-      Documento de comunicado
-      <input type="file" name="documento" id="documento" class="envioDb" value="${API_DOCUMENTS}${element.data.doc}"></textarea>
-    </label>
-  </div>
-  <div class="flex-container-input">
-  <figure class="img-update">
-  <div>
-    <label for="file_input" id="nombre_archivo">Haz click aqui para subir una foto
-      <input type="file" style="display:none" id="file_input" name="file_input" class="envioDb fotoNueva" value="${API_DOCUMENTS}${element.data.img}">
-      <img src="./user.png" class="img-user" id="img_user">
-    </label>
-  </div>
-</figure>
-  </div>
-  <div class="flex-container-input">
-    <label for="status">
-      Status
-      <select name="status" id="status" class="envioDb" value="${element.data.status}">
-        <option value="Activo">Activo</option>
-        <option value="Baja">Baja</option>
-      </select>
-    </label>
-  </div>
-  <button id="guardar" type="button">Guardar</button>
-</section>
+      <div class="flex-container-input">
+        <label for="titulo">
+          Titulo
+          <input type="text" name="titulo" class="envioDb" value="${element.data.titulo}">
+        </label>
+      </div>
+    <h3>Descripcion del comunicado</h3>
+      <div class="flex-container-input">
+        <label for="texto1">
+          Texto 1
+          <input type="text" name="texto1" class="envioDb" value="${element.data.texto1}">
+        </label>
+      </div>
+      <div class="flex-container-input">
+        <label for="texto2">
+          Texto 2
+          <input type="text" name="texto2" class="envioDb" value="${element.data.texto2}">
+        </label>
+      </div>
+      <div class="flex-container-input">
+        <label for="texto3">
+          Texto 3
+          <input type="text" name="texto3" class="envioDb" value="${element.data.texto3}">
+        </label>
+      </div>
+      <div class="flex-container-input">
+        <label for="texto4">
+          Texto 4
+          <input type="text" name="texto4" class="envioDb" value="${element.data.texto4}">
+        </label>
+      </div>
+      <div class="flex-container-input">
+        <label for="texto5">
+          Texto 5
+          <input type="text" name="texto5" class="envioDb" value="${element.data.texto5}">
+        </label>
+      </div>
+      <div class="flex-container-input">
+        <label for="documento">
+          Documento de comunicado
+          <input type="file" name="documento" id="documento" class="envioDb">
+        </label>
+      </div>
+      <div class="flex-container-input">
+      <figure class="img-update">
+      <div>
+        <label for="file_input" id="nombre_archivo">Haz click aqui para subir una foto
+          <input type="file" style="display:none" id="file_input" name="file_input" class="envioDb fotoNueva" >
+          <img src="./user.png" class="img-user" id="img_user">
+        </label>
+      </div>
+    </figure>
+      </div>
+      <div class="flex-container-input">
+        <label for="status">
+          Status
+          <select name="status" id="status" class="envioDb" value="${element.data.status}">
+            <option value="Activo">Activo</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </label>
+      </div>
+      <button id="guardar" type="button">Guardar</button>
+    </section>
 </form>`;
+      let imgCom = n('img_user');
+      //Funcionalidad para las imagenes
+      n('file_input').addEventListener('change', (event) => {
+
+        // n('nombre_archivo').textContent= event.target.files[0].name;
+
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+              imgCom.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+          }});
 
   }
 
@@ -1037,6 +1054,9 @@ async function envioActualizarComunicados(id){
 
   const formulario = n('form_nuevo');
   const formData = new FormData(formulario);
+  for (let entry of formData.entries()) {
+    console.log(entry);
+}
 
   const envio = await fetch(`${API_COMUNICATIONS}/${id}`,{
   method:'PATCH',

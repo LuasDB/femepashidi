@@ -880,6 +880,7 @@ font-size: x-large;
 .directory-section{
   display: flex;
   flex-direction: row;
+  min-height: 100vh;
 
 }
 .element-directory{
