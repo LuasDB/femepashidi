@@ -49,12 +49,103 @@ const API_EVENTS = `${server}events`;
 const API_ASSOCIATIONS =`${server}associations`;
 const API_REGISTER =`${server}register`;
 
-
+const estados = {
+  'AS': 'Aguascalientes',
+  'BC': 'Baja California',
+  'BS': 'Baja California Sur',
+  'CC': 'Campeche',
+  'CL': 'Coahuila',
+  'CM': 'Colima',
+  'CS': 'Chiapas',
+  'CH': 'Chihuahua',
+  'DF': 'Ciudad de México',
+  'DG': 'Durango',
+  'GT': 'Guanajuato',
+  'GR': 'Guerrero',
+  'HG': 'Hidalgo',
+  'JC': 'Jalisco',
+  'MC': 'Estado de México',
+  'MN': 'Michoacán',
+  'MS': 'Morelos',
+  'NT': 'Nayarit',
+  'NL': 'Nuevo León',
+  'OC': 'Oaxaca',
+  'PL': 'Puebla',
+  'QT': 'Querétaro',
+  'QR': 'Quintana Roo',
+  'SP': 'San Luis Potosí',
+  'SL': 'Sinaloa',
+  'SR': 'Sonora',
+  'TC': 'Tabasco',
+  'TS': 'Tamaulipas',
+  'TL': 'Tlaxcala',
+  'VZ': 'Veracruz',
+  'YN': 'Yucatán',
+  'ZS': 'Zacatecas'
+};
 
 /***************************************************************************************************************************************
  * FUNCIONES DECLARATIVAS PARA LA APLICACIÓN
  *******************************************************************************************************************************************/
 
+
+function transformarFecha(fecha) {
+  // Separar la fecha en día, mes y año
+  const [dia, mes, anio] = fecha.split('/');
+
+  // Obtener el año completo dependiendo de si es 1900 o 2000
+  const anioCompleto = (parseInt(anio) < 50) ? 2000 + parseInt(anio) : 1900 + parseInt(anio);
+
+  // Crear una nueva fecha en formato válido (mes-1 porque los meses van de 0 a 11 en JavaScript)
+  const fechaValida = new Date(anioCompleto, parseInt(mes) - 1, parseInt(dia));
+
+  // Obtener la fecha en formato 'yyyy-mm-dd'
+  const fechaInputDate = fechaValida.toISOString().split('T')[0];
+
+  return fechaInputDate;
+}
+//Funcion para validar un curp
+function validarCURP(curp) {
+  const regexCURP = /^[A-Z]{4}[0-9]{6}[H,M][A-Z]{5}[A-Z0-9]{2}$/;
+  if (!regexCURP.test(curp)) {
+    Swal.fire({
+      title: `CURP NO VALIDO`,
+      text: `Este CURP no cumple con el formato, verificalo`,
+      icon: "error",
+      showConfirmButton: true,
+    });
+    return
+  }
+
+
+  // Extraer información del CURP
+  const fechaNacimiento = transformarFecha(`${curp.substr(8, 2)}/${curp.substr(6, 2)}/${curp.substr(4, 2)}`)
+  let sexo ='';
+  if(curp.charAt(10) === 'H'){
+    sexo = 'MASCULINO'
+  }else{
+    sexo='FEMENINO'
+  }
+
+  const estadoNacimiento = estados[curp.substr(11, 2)] ;
+  console.log(fechaNacimiento);
+  console.log(sexo);
+  console.log(estadoNacimiento);
+
+  // // Validar fecha de nacimiento
+  // if (isNaN(fechaNacimiento.getTime())) {
+
+  //     Swal.fire({
+  //       title: `FECHA DE NACIMIENTO NO VALIDA`,
+  //       text: `Revisa bien tu CURP `,
+  //       icon: "error",
+  //       showConfirmButton: true,
+  //     });
+  //     return
+  // }
+
+  return { fechaNacimiento, sexo, estadoNacimiento };
+}
 //Funcion para el efecto de cambio de formulario
 const activar = ()=>{
 
@@ -72,6 +163,7 @@ const activar = ()=>{
 //
 const nuevoRegistro = async()=>{
   activar();
+
   $('.area-form').innerHTML=`
   <form id="form_nuevo">
     <div class="col-2">
@@ -109,8 +201,38 @@ const nuevoRegistro = async()=>{
       </label>
       <label for="lugar_nacimiento">LUGAR DE NACIMIENTO
         <select id="lugar_nacimiento" name="lugar_nacimiento" class="envioDb">
-          <option value="CDMX">CDMX</option>
-          <option value="EDO.DE MÉXICO">EDO.DE MÉXICO</option>
+        <option value="Aguascalientes">Aguascalientes</option>
+        <option value="Baja California">Baja California</option>
+        <option value="Baja California Sur">Baja California Sur</option>
+        <option value="Campeche">Campeche</option>
+        <option value="Coahuila">Coahuila</option>
+        <option value="Colima">Colima</option>
+        <option value="Chiapas">Chiapas</option>
+        <option value="Chihuahua">Chihuahua</option>
+        <option value="Ciudad de México">Ciudad de México</option>
+        <option value="Durango">Durango</option>
+        <option value="Guanajuato">Guanajuato</option>
+        <option value="Guerrero">Guerrero</option>
+        <option value="Hidalgo">Hidalgo</option>
+        <option value="Jalisco">Jalisco</option>
+        <option value="Estado de México">Estado de México</option>
+        <option value="Michoacán">Michoacán</option>
+        <option value="Morelos">Morelos</option>
+        <option value="Nayarit">Nayarit</option>
+        <option value="Nuevo León">Nuevo León</option>
+        <option value="Oaxaca">Oaxaca</option>
+        <option value="Puebla">Puebla</option>
+        <option value="Querétaro">Querétaro</option>
+        <option value="Quintana Roo">Quintana Roo</option>
+        <option value="San Luis Potosí">San Luis Potosí</option>
+        <option value="Sinaloa">Sinaloa</option>
+        <option value="Sonora">Sonora</option>
+        <option value="Tabasco">Tabasco</option>
+        <option value="Tamaulipas">Tamaulipas</option>
+        <option value="Tlaxcala">Tlaxcala</option>
+        <option value="Veracruz">Veracruz</option>
+        <option value="Yucatán">Yucatán</option>
+        <option value="Zacatecas">Zacatecas</option>
         </select>
       </label>
     </div>
@@ -156,6 +278,20 @@ const nuevoRegistro = async()=>{
       <a class="btn-form" id="enviar">Enviar</a>
     </div>
   </form>`;
+  n('curp').addEventListener('input',function(){
+    if(n('curp').value.length === 18){
+      const { fechaNacimiento, sexo, estadoNacimiento }=validarCURP(n('curp').value);
+      if( fechaNacimiento && sexo && estadoNacimiento){
+        n('fecha_nacimiento').value =fechaNacimiento;
+        n('sexo').value =sexo;
+        n('lugar_nacimiento').value = estadoNacimiento;
+      }else{
+        alert('no funciono')
+      }
+    }
+  });
+
+
 
   //Buscamos las asociaciones vigentes
   const res = await fetch(API_ASSOCIATIONS);
@@ -388,6 +524,7 @@ const envioNuevoRegistro=async ()=>{
   let email=emailInput.value;
   email=email.toLowerCase();
   emailInput.value=email;
+
   Swal.fire({
     title: "¡Estas a punto de registrarte!",
     text: "¿Revisaste que la información sea correcta?",
@@ -416,6 +553,27 @@ const envioNuevoRegistro=async ()=>{
           }else{
           const form = n('form_nuevo');
           const formData = new FormData(form);
+          // Visualizar los datos en la consola
+
+
+
+            const inputs = document.querySelectorAll('.envioDb');
+            let camposFaltantes = [];
+
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === '') {
+                    camposFaltantes.push(inputs[i]);
+                }
+            }
+
+            if (camposFaltantes.length > 0) {
+                alert('Todos los campos deben ser llenados.');
+                camposFaltantes.forEach(input => {
+                    input.style.border = '1px solid red';
+                });
+                return;
+            }
+
           await fetch(API_USERS,{
             method:'POST',
             body:formData
