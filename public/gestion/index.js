@@ -603,6 +603,27 @@ const eliminar = (element,collection)=>{
   }).then(async(result) => {
     if (result.isConfirmed){
       switch (collection) {
+        case 'users':
+          const borrar = await fetch(`${API_USERS}${element.id}`,{
+            method:'DELETE'
+          });
+          const res = await borrar.json();
+          if(res.message){
+            Swal.fire({
+              title: `${res.message}`,
+              text: "El registro se ha BORRADO correctamente",
+              icon: "success",
+              showConfirmButton: true,
+            })
+            .then(res=>{
+              if(res.isConfirmed){
+                window.location.reload();
+              }
+            });
+          }
+          break;
+
+
         case 'associations':
           const borrar = await fetch(`${API_ASSOCIATIONS}${element.id}`,{
             method:'DELETE'
