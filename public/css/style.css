@@ -284,7 +284,7 @@ header{
 }
 .nav-menus a{
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;
 }
@@ -407,7 +407,7 @@ header{
   background: linear-gradient(
               to left top,
               rgba(39, 152, 233, 0.8),rgba(255, 255, 255, 0.8)); */
-  box-shadow: 1px 2px 20px 5px rgba(39, 152, 233, 0.8);
+  /* box-shadow: 1px 2px 20px 5px rgba(39, 152, 233, 0.8); */
 }
 .about-section .img-about{
   width: 35%;
@@ -1207,7 +1207,7 @@ height: 100%;
 
 }
 .notifications:hover figure{
-  inset: -10% 15% 70% 15% ;
+  inset: -10% 10% 80% 10% ;
 
 }
 

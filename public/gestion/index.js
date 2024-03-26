@@ -50,8 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
 /****************************************************************************************************************
  * Variables para la API para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
+const server = 'https://femepashidi.siradiacion.com.mx/';
 // const server = 'http://localhost:3000/';
-const server = 'https://femepashidiapi.onrender.com/'
+// const server = 'https://femepashidiapi.onrender.com/'
 const API_USERS = `${server}api/v1/users/`;
 const API_ASSOCIATIONS = `${server}api/v1/associations/`;
 const API_REGISTERS = `${server}api/v1/register/`;
@@ -59,6 +60,14 @@ const API_EVENTS = `${server}api/v1/events/`;
 const API_COMUNICATIONS = `${server}api/v1/communications/`;
 const API_IMAGE = `${server}images/users/`;
 const API_DOCUMENTS =  `${server}images/communications/`;
+
+
+
+function formatearNombre(nombre) {
+  return nombre.toLowerCase().replace(/\b\w/g, function (letra) {
+      return letra.toUpperCase();
+  });
+}
 /****************************************************************************************************************
  * Funciones para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
@@ -190,10 +199,10 @@ const callSolicitudesList = async()=>{
       let fila = nuevo('tr');
       fila.innerHTML = `
       <td>${element.data.user.curp}</td>
-      <td>${element.data.user.nombre} ${element.data.user.apellido_paterno} ${element.data.user.apellido_materno}</td>
+      <td>${formatearNombre(element.data.user.nombre)} ${element.data.user.apellido_paterno.toUpperCase()} ${element.data.user.apellido_materno.toUpperCase()}</td>
       <td>${element.data.user.nivel_actual}</td>
       <td>${element.data.event.nombre}</td>
-      <td class="${element.data.status}"><p>${element.data.status.toUpperCase()}</p></td>
+      <td class="${element.data.status.toLowerCase()}"><p>${element.data.status.toUpperCase()}</p></td>
       <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
       `;
       n('listado_solicitudes').appendChild(fila);
@@ -625,11 +634,11 @@ const eliminar = (element,collection)=>{
 
 
         case 'associations':
-          const borrar = await fetch(`${API_ASSOCIATIONS}${element.id}`,{
+          const borrarAsoc = await fetch(`${API_ASSOCIATIONS}${element.id}`,{
             method:'DELETE'
           });
-          const res = await borrar.json();
-          if(res.message){
+          const resAsoc = await borrarAsoc.json();
+          if(resAsoc.message){
             Swal.fire({
               title: `${res.message}`,
               text: "El registro se ha BORRADO correctamente",

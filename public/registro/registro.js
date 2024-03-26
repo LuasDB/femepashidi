@@ -42,8 +42,10 @@ $('.area-form').style.fontSize="10px"
 /***************************************************************************************************************************************
  * VARIABLES API
  *******************************************************************************************************************************************/
-// const server = 'http://localhost:3000/api/v1/'
-const server = 'https://femepashidiapi.onrender.com/api/v1/'
+
+
+const server = 'https://femepashidi.siradiacion.com.mx/api/v1/'
+// const server = 'https://femepashidiapi.onrender.com/api/v1/'
 const API_USERS = `${server}users/`;
 const API_EVENTS = `${server}events`;
 const API_ASSOCIATIONS =`${server}associations`;
@@ -81,8 +83,59 @@ const estados = {
   'TL': 'Tlaxcala',
   'VZ': 'Veracruz',
   'YN': 'Yucatán',
-  'ZS': 'Zacatecas'
+  'ZS': 'Zacatecas',
+  'EN': 'Extranjero',
 };
+
+const categories = {
+  2:`A`,
+  3:`A`,
+  4:`A`,
+  5:`A`,
+  6:`B`,
+  7:`B`,
+  8:`B`,
+  9:`B`,
+  10:`C`,
+  11:`C`,
+  12:`C`,
+  13:`C`,
+  14:`C`,
+  15:`D`,
+  16:`D`,
+  17:`D`,
+  18:`D`,
+  19:`D`,
+  20:`MAYOR`,
+  28:`ADULTO`,
+}
+
+
+const verifyCategory=(fecha_nacimiento)=>{
+  const fecha = new Date(fecha_nacimiento);
+  const hoy = new Date();
+  const diferenciaMilisegundos = hoy - fecha;
+  let edadExacta = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
+  console.log('Edad:',edadExacta);
+  let verificacion = edadExacta;
+    if(edadExacta >= 28){
+      verificacion=28;
+    }else if (edadExacta >= 20){
+      verificacion=20;
+
+    }
+    console.log(categories[verificacion])
+
+    return categories[verificacion];
+
+}
+function fechaActual(){
+  const fecha = new Date();
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+    const day = String(fecha.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;}
+
 
 /***************************************************************************************************************************************
  * FUNCIONES DECLARATIVAS PARA LA APLICACIÓN
@@ -194,13 +247,13 @@ const nuevoRegistro = async()=>{
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="envioDb" >
       </label>
       <label for="sexo">SEXO
-        <select id="sexo" name="sexo" class="envioDb">
+        <select id="sexo" name="sexo" class="envioDb" >
           <option value="MASCULINO">MASCULINO</option>
           <option value="FEMENINO">FEMENINO</option>
         </select>
       </label>
       <label for="lugar_nacimiento">LUGAR DE NACIMIENTO
-        <select id="lugar_nacimiento" name="lugar_nacimiento" class="envioDb">
+        <select id="lugar_nacimiento" name="lugar_nacimiento" class="envioDb" >
         <option value="Aguascalientes">Aguascalientes</option>
         <option value="Baja California">Baja California</option>
         <option value="Baja California Sur">Baja California Sur</option>
@@ -237,11 +290,8 @@ const nuevoRegistro = async()=>{
       </label>
     </div>
     <div class="col-3">
-      <label for="telefono">TELEFONO
-       <input type="phone" id="telefono" name="telefono" class="envioDb">
-      </label>
-      <label for="correo">CORREO
-        <input type="email" id="correo" name="correo" class="envioDb">
+    <label for="categoria">Categoria
+        <input type="text" placeholder="" id="categoria" name="categoria" class="envioDb" disabled>
       </label>
       <label for="nivel_actual">NIVEL ACTUAL
         <select id="nivel_actual" name="nivel_actual" class="envioDb">
@@ -267,14 +317,19 @@ const nuevoRegistro = async()=>{
           <option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
         </select>
       </label>
+      <label for="asociacion">ASOCIACIÓN
+      <select id="asociacion" name="id_asociacion" class="envioDb">
+      </select>
+    </label>
+
     </div>
     <div class="col-3">
-
-      <label for="asociacion">ASOCIACIÓN
-        <select id="asociacion" name="id_asociacion" class="envioDb">
-        </select>
+      <label for="telefono">TELEFONO
+       <input type="phone" id="telefono" name="telefono" class="envioDb">
       </label>
-      <label></label>
+      <label for="correo">CORREO
+        <input type="email" id="correo" name="correo" class="envioDb">
+      </label>
       <a class="btn-form" id="enviar">Enviar</a>
     </div>
   </form>`;
@@ -285,6 +340,10 @@ const nuevoRegistro = async()=>{
         n('fecha_nacimiento').value =fechaNacimiento;
         n('sexo').value =sexo;
         n('lugar_nacimiento').value = estadoNacimiento;
+        let categoria = verifyCategory(fechaNacimiento)
+        console.log(categoria);
+        console.log(n('categoria').value);
+        n('categoria').value = `${categoria}`;
       }else{
         alert('no funciono')
       }
@@ -352,7 +411,6 @@ const nuevoRegistro = async()=>{
   );
 
 
-
 }
 const buscarCurp=async()=>{
   if(n('curp').value.trim() === ''){
@@ -376,8 +434,8 @@ const buscarCurp=async()=>{
     const usuario = data.documents[0].data;
     if(usuario.verificacion === false){
       Swal.fire({
-        title: `NO ENCONTRADO`,
-        text: `Necesitas verificar tu cuenta, al registrarte te enviamos un correo`,
+        title: `NO APROBADO`,
+        text: `Es necesario verificar tu cuenta. En cuanto se apruebe tu solicitud, se te enviará un correo para que verifiques tu cuenta y puedas entrar`,
         icon: "error",
         showConfirmButton: true,
       });
@@ -613,10 +671,12 @@ const envioRegistroCompetencia = ()=>{
     confirmButtonText: "Si,claro"
   }).then(async(result) => {
     if(result.isConfirmed){
+
+
       const form = n('nuevo_form');
       let formData = new FormData(form);
-      formData.append('status','Inscrito');
-      formData.append('fecha_solicitud','2024-03-03');
+      formData.append('status','Preinscrito');
+      formData.append('fecha_solicitud',fechaActual());
       for (let entry of formData.entries()) {
         console.log(entry[0] + ': ' + entry[1]);
     }

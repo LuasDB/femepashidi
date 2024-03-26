@@ -168,24 +168,30 @@ ul li:hover{
   cursor: pointer;
 }
 /*STATUS*/
-.inscrito p{
+.aprobado p{
     padding: 0.5rem;
     color: var(--contrast-prymary);
-    background-color: blue;
+    background-color: green;
     border-radius: 10px;
 
 }
-.aprobado p{
+.preinscrito p{
     padding: 0.5rem;
     color: var(--contrast-prymary);
     background-color: orange;
     border-radius: 10px;
 }
-.registrado p{
+.inscrito p{
     padding: 0.5rem;
     color: var(--contrast-prymary);
-    background-color: green;
+    background-color: rgb(128, 0, 122);
     border-radius: 10px;
+}
+.rechazado p{
+  padding: 0.5rem;
+  color: var(--contrast-prymary);
+  background-color: red;
+  border-radius: 10px;
 }
 /*UTILITY*/
 .red{

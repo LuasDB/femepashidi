@@ -18,8 +18,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const server = `https://femepashidi.siradiacion.com.mx/`
 // const server = `http://localhost:3000/`
-const server = `https://femepashidiapi.onrender.com/`
+
+// const server = `https://femepashidiapi.onrender.com/`
 
 
 module.exports = {db,server}

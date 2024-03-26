@@ -12,26 +12,53 @@ const { string } = require('joi');
 
 
 
-const categories = {
-  4:`PRE-INFANTIL 'A'`,
-  5:`PRE-INFANTIL 'B'`,
-  6:`PRE-INFANTIL 'B'`,
-  7:`INFANTIL 'A'`,
-  8:`INFANTIL 'A'`,
-  9:`INFANTIL 'B'`,
-  10:`INFANTIL 'B'`,
-  11:`INFANTIL 'C'`,
-  12:`INFANTIL 'C'`,
-  13:`JUVENIL 'A'`,
-  14:`JUVENIL 'A'`,
-  15:`JUVENIL 'B'`,
-  16:`JUVENIL 'B'`,
-  17:`JUVENIL 'c'`,
-  18:`JUVENIL 'c'`,
-  19:`MAYOR`,
-  29:`ADULTO`,
+// const categories = {
+//   4:`PRE-INFANTIL 'A'`,
+//   5:`PRE-INFANTIL 'B'`,
+//   6:`PRE-INFANTIL 'B'`,
+//   7:`INFANTIL 'A'`,
+//   8:`INFANTIL 'A'`,
+//   9:`INFANTIL 'B'`,
+//   10:`INFANTIL 'B'`,
+//   11:`INFANTIL 'C'`,
+//   12:`INFANTIL 'C'`,
+//   13:`JUVENIL 'A'`,
+//   14:`JUVENIL 'A'`,
+//   15:`JUVENIL 'B'`,
+//   16:`JUVENIL 'B'`,
+//   17:`JUVENIL 'c'`,
+//   18:`JUVENIL 'c'`,
+//   19:`MAYOR`,
+//   29:`ADULTO`,
 
+// }
+
+
+
+const categories = {
+  2:`A`,
+  3:`A`,
+  4:`A`,
+  5:`A`,
+  6:`B`,
+  7:`B`,
+  8:`B`,
+  9:`B`,
+  10:`C`,
+  11:`C`,
+  12:`C`,
+  13:`C`,
+  14:`C`,
+  15:`D`,
+  16:`D`,
+  17:`D`,
+  18:`D`,
+  19:`D`,
+  20:`MAYOR`,
+  28:`ADULTO`,
 }
+
+
 const verifyCategory=(fecha_nacimiento)=>{
   const fecha = new Date(fecha_nacimiento);
   const hoy = new Date();
@@ -39,11 +66,12 @@ const verifyCategory=(fecha_nacimiento)=>{
   let edadExacta = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
   console.log('Edad:',edadExacta);
   let verificacion = edadExacta;
-    if(edadExacta >= 29){
-      verificacion=29;
-    }else if (edadExacta >= 19){
-      verificacion=19;
+    if(edadExacta >= 28){
+      verificacion=28;
+    }else if (edadExacta >= 20){
+      verificacion=20;
     }
+    console.log(categories[verificacion])
 
     return categories[verificacion];
 
@@ -66,7 +94,7 @@ class User {
     data['asociacion']=asociacion.data();
     data['verificacion']=false;
     const categoria = verifyCategory(data.fecha_nacimiento);
-    data['categoria']=categoria;
+    data['categoria']=`${categoria}`;
     const res = await addDoc(collection(db,'users'),data);
     if(res.id){
       const destinatario=data.asociacion.correo;
@@ -135,8 +163,6 @@ class User {
             <p style="
             color:#333;">Una vez realizada la autorización se notificara al participante que se acepto su registro</p>
             <p style="
-            color:#333;">Cualquier comentario o sugerencia, con gusto lo recibiremos en el siguiente correo:<a href="mailto:webmaster@femepashidi.org.mx">webmaster@femepashidi.org.mx</a></p>
-            <p style="
             color:#333;">Saludos,</p>
             <p style="
             color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
@@ -174,8 +200,6 @@ class User {
             </style>
       </head>
       <body>
-
-
         <div class="container">
         <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
           <h2 style="
@@ -185,23 +209,19 @@ class User {
           <p style="color:#333;">Te pedimos estes pendiente de tu correo.</p>
 
           <p style="
-          color:#333;">Cualquier comentario o sugerencia, con gusto lo recibiremos en el siguiente correo:<a href="mailto:webmaster@femepashidi.org.mx">webmaster@femepashidi.org.mx</a></p>
-          <p style="
           color:#333;">Saludos,</p>
           <p style="
           color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
           <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
           </div>
       </body>
-      </html>
-
-
+    </html>
       `;
       // Opciones del correo
       const opcionesCorreo = {
       from:'luasjcr.3543@gmail.com',
       to: destinatario,
-      subject: 'Registro PASHIDI A.C.',
+      subject: 'SOLICITUD DE REGISTRO FEMEPASHIDI A.C.',
       html: contenidoHtml,
       attachments:[
         {
@@ -226,7 +246,7 @@ class User {
       const opcionesCorreoUsuario = {
         from:'luasjcr.3543@gmail.com',
         to: usuarioMail,
-        subject: 'Registro PASHIDI A.C.',
+        subject: 'Registro FEMEPASHIDI A.C.',
         html: contenidoHtmlUsuario,
         attachments:[
             {

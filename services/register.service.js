@@ -84,7 +84,7 @@ class Register {
             CONFIRMAR MI REGISTRO
           </a>
         </div>
-        <h3>Agradecemos tu confianza</h3>
+
       </body>
       </html>
 
@@ -225,15 +225,13 @@ class Register {
         </a>
         <br>
         <a href="${server}api/v1/register/approval/${id}/rechazado" target="_self">
-          <img style="width:200px;" src="cid:aceptarImg" alt="Imagen Adjunta">
+          <img style="width:200px;" src="cid:rechazarImg" alt="Imagen Adjunta">
         </a>
 
         </div>
-        <h3>Agradecemos tu confianza</h3>
+
       </body>
       </html>
-
-
       `;
       // Opciones del correo
       const opcionesCorreo = {
