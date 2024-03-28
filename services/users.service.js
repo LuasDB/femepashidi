@@ -78,9 +78,6 @@ const verifyCategory=(fecha_nacimiento)=>{
 }
 
 
-
-
-
 //Creamos una clase para la gestión de usuarios
 class User {
   constructor(){
@@ -99,7 +96,7 @@ class User {
     if(res.id){
       const destinatario=data.asociacion.correo;
       const usuarioMail = data.correo;
-      console.log('Enviar correo a:',destinatario);
+
       // Configuración del transporte de correo
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -311,27 +308,45 @@ class User {
     return { message:'UNO', documents,img:imagen}
   }
   async verification(curp,status){
-    let boolValue = (status === 'true');
+    let boolValue = true;
+
+    if(status === 'false'){ boolValue = false;};
+    const data = { verificacion:boolValue}
+    await this.update(curp,data);
+    const user = await this.findOne(curp);
+    const destinatario=user.documents[0].data.correo;
+    // Configuración del transporte de correo
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user:'luasjcr.3543@gmail.com',
+          pass:'fyzb llwd vqrv epaa'
+      }
+    });
+    let contenidoHtmlUsuario='';
+    // Opciones del correo
+    let opcionesCorreo = {
+      from:'luasjcr.3543@gmail.com',
+      to: destinatario,
+      subject: '',
+      html: contenidoHtmlUsuario,
+      attachments:[
+        {
+          filename: 'encabezado.png',  // Nombre del archivo adjunto
+          path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
+          cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
+          },
+          {
+            filename: 'registro.png',  // Nombre del archivo adjunto
+            path: './uploads/others/registro.png',  // Ruta a la imagen en tu sistema
+            cid: 'registroImg'  // Identificador único para la imagen, usado en el contenido HTML
+            }
+    ]
+      };
+
     if(boolValue){
-      const data = { verificacion:boolValue}
-      await this.update(curp,data);
-      const user = await this.findOne(curp);
-      console.log(user)
-
-
-
-      const destinatario=user.documents[0].data.correo;
-
-      // Configuración del transporte de correo
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user:'luasjcr.3543@gmail.com',
-            pass:'fyzb llwd vqrv epaa'
-        }
-      });
       // Contenido HTML del correo
-      const contenidoHtmlUsuario = `
+      contenidoHtmlUsuario = `
       <!DOCTYPE html>
       <html lang="es">
       <head>
@@ -363,11 +378,11 @@ class User {
         <div class="container">
         <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
           <h2 style="
-          color:#268dee;">FELICIDADES ${user.documents[0].data.nombre.toUpperCase()} ${user.documents[0].data.apellido_paterno.toUpperCase()} ${user.documents[0].data.apellido_materno.toUpperCase()}</h2>
+          color:#268dee;">FELICIDADES ${user.documents[0].data.nombre.toUpperCase()} ${user.documents[0].data.apellido_paterno.toUpperCase()} ${user.documents[0].data.apellido_materno.toUpperCase()}!</h2>
           <p style="color:#333;">Se ha confirmado tu registro en nuestra plataforma!!!! </p>
           <p style="color:#333;">Accede al siguiente link y accede con tu CURP para poder inscribirte a nuestras competencias vigentes!</p>
 
-          <a href="${server}app/registro/" target="_self">
+          <a href="https://www.femepashidi.com.mx/inicio/registro/" target="_self">
               <img style="width:200px;" src="cid:registroImg" alt="Imagen Adjunta">
             </a>
 
@@ -375,8 +390,6 @@ class User {
 
 
 
-          <p style="
-          color:#333;">Cualquier comentario o sugerencia, con gusto lo recibiremos en el siguiente correo:<a href="mailto:webmaster@femepashidi.org.mx">webmaster@femepashidi.org.mx</a></p>
           <p style="
           color:#333;">Saludos,</p>
           <p style="
@@ -389,40 +402,76 @@ class User {
 
       `;
        // Opciones del correo
-       const opcionesCorreo = {
-        from:'luasjcr.3543@gmail.com',
-        to: destinatario,
-        subject: 'ACEPTACION DE REGISTRO PASHIDI A.C.',
-        html: contenidoHtmlUsuario,
-        attachments:[
-          {
-            filename: 'encabezado.png',  // Nombre del archivo adjunto
-            path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
-            cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
-            },
-            {
-              filename: 'registro.png',  // Nombre del archivo adjunto
-              path: './uploads/others/registro.png',  // Ruta a la imagen en tu sistema
-              cid: 'registroImg'  // Identificador único para la imagen, usado en el contenido HTML
-              }
-      ]
-        };
+        opcionesCorreo['subject'] = 'ACEPTACION DE REGISTRO FEMEPASHIDI A.C.'
+    }else{
+      // Opciones del correo
+      opcionesCorreo['subject'] = 'REGISTRO RECHAZADO FEMEPASHIDI A.C.'
+        // Contenido HTML del correo
+       contenidoHtmlUsuario = `
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+            :root{
+              --primary-color-r:#268dee;
+              --background-input:#f0f0f0;
+              --font-input:#333;
+            }
+            body{
+              font-family: 'Nunito', sans-serif;
+            }
+
+            .container{
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              justify-content: center;
+              align-items: center;"
+            }
+
+              </style>
+        </head>
+        <body>
 
 
-        // Enviar el correo a la asociación
-      transporter.sendMail(opcionesCorreo, (error, info) => {
-        console.log('[ERROR MAIL ASOCIACION]',error);
-        console.log(info);
-      });
+          <div class="container">
+          <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
+            <h2 style="
+            color:#268dee;"> ${user.documents[0].data.nombre.toUpperCase()} ${user.documents[0].data.apellido_paterno.toUpperCase()} ${user.documents[0].data.apellido_materno.toUpperCase()}</h2>
+            <p style="color:#333;">Lamentamos informarte que se rechazo tu registro a nuestra plataforma</p>
+            <p style="color:#333;">Contacta a tu asociación para mas informes</p>
+
+            <a href="${server}app/registro/" target="_self">
+                <img style="width:200px;" src="cid:registroImg" alt="Imagen Adjunta">
+              </a>
 
 
 
 
 
+           <p style="
+            color:#333;">Saludos,</p>
+            <p style="
+            color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
+            <a href="https://www.femepashidi.com.mx/">https://www.femepashidi.com.mx/</a>
+            </div>
+        </body>
+        </html>
 
-      return { message:'verificado'}
+
+        `;
+
 
     }
+
+     // Enviar el correo a la asociación
+     transporter.sendMail(opcionesCorreo, (error, info) => {
+      console.log('[ERROR MAIL ASOCIACION]',error);
+      console.log(info);
+    });
+    return { message:'verificado'}
 
   }
   async update(id,data){

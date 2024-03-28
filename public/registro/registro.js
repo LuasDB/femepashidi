@@ -84,7 +84,7 @@ const estados = {
   'VZ': 'Veracruz',
   'YN': 'Yucatán',
   'ZS': 'Zacatecas',
-  'EN': 'Extranjero',
+  'NE': 'Extranjero',
 };
 
 const categories = {
@@ -286,6 +286,7 @@ const nuevoRegistro = async()=>{
         <option value="Veracruz">Veracruz</option>
         <option value="Yucatán">Yucatán</option>
         <option value="Zacatecas">Zacatecas</option>
+        <option value="Extranjero">Extranjero</option>
         </select>
       </label>
     </div>
