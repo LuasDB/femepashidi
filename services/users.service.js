@@ -324,6 +324,26 @@ class User {
       }
     });
     let contenidoHtmlUsuario='';
+    // Opciones del correo
+    let opcionesCorreo = {
+      from:'luasjcr.3543@gmail.com',
+      to: destinatario,
+      subject: '',
+      html: contenidoHtmlUsuario,
+      attachments:[
+        {
+          filename: 'encabezado.png',  // Nombre del archivo adjunto
+          path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
+          cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
+          },
+          {
+            filename: 'registro.png',  // Nombre del archivo adjunto
+            path: './uploads/others/registro.png',  // Ruta a la imagen en tu sistema
+            cid: 'registroImg'  // Identificador único para la imagen, usado en el contenido HTML
+            }
+    ]
+      };
+
 
 
     if(boolValue){
@@ -384,7 +404,8 @@ class User {
 
       `;
        // Opciones del correo
-        opcionesCorreo['subject'] = 'ACEPTACION DE REGISTRO FEMEPASHIDI A.C.'
+        opcionesCorreo['subject'] = 'ACEPTACION DE REGISTRO FEMEPASHIDI A.C.';
+        opcionesCorreo['html'] =contenidoHtmlUsuario
     }else{
       // Opciones del correo
       opcionesCorreo['subject'] = 'REGISTRO RECHAZADO FEMEPASHIDI A.C.'
@@ -444,28 +465,10 @@ class User {
 
 
         `;
+        opcionesCorreo['html'] =contenidoHtmlUsuario
 
 
     }
-     // Opciones del correo
-     let opcionesCorreo = {
-      from:'luasjcr.3543@gmail.com',
-      to: destinatario,
-      subject: '',
-      html: contenidoHtmlUsuario,
-      attachments:[
-        {
-          filename: 'encabezado.png',  // Nombre del archivo adjunto
-          path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
-          cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
-          },
-          {
-            filename: 'registro.png',  // Nombre del archivo adjunto
-            path: './uploads/others/registro.png',  // Ruta a la imagen en tu sistema
-            cid: 'registroImg'  // Identificador único para la imagen, usado en el contenido HTML
-            }
-    ]
-      };
 
      // Enviar el correo a la asociación
      transporter.sendMail(opcionesCorreo, (error, info) => {
