@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#Ajustes vscode
+.vscode
+#carpeta
+uploads/
+users/
