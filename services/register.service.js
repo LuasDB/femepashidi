@@ -253,22 +253,22 @@ class Register {
       };
       // Enviar el correo
       transporter.sendMail(opcionesCorreo, (error, info) => {
-        if(error === null){
-          return {message:'Correo enviado'}
-        }
+
 
       });
+      return {message:'Correo enviado'}
+
 
 
     }
   }
   async approval(params){
     const { id, status } = params;
-    const register = this.findOne(id)
+    const register =await this.findOne(id)
     console.log(register)
     this.update(id,{status:status});
 
-    const destinatario=register.data().user.correo;
+    const destinatario=register.data.user.correo;
       // Configuración del transporte de correo
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -310,15 +310,15 @@ class Register {
       <body>
         <div class="container">
           <h2 style="
-          color:#268dee;">ESTIMADO ${register.data().user.nombre.toUpperCase()}</h2>
+          color:#268dee;">ESTIMADO ${register.data.user.nombre.toUpperCase()}</h2>
 
         <p style="
         color:#333;">Nos complace informarte que se ha aceptado tu registro para competir en:</p>
 
         <p style="
-        color:#333;">${register.data().event.nombre} que se llevará a cabo el proximo ${register.data().event.fecha_larga}</p>
+        color:#333;">${register.data.event.nombre} que se llevará a cabo el proximo ${register.data.event.fecha_larga}</p>
         <p style="
-        color:#333;">En el nivel : ${register.data().user.nivel_actual} categoria  ${register.data().user.categoria}</p>
+        color:#333;">En el nivel : ${register.data.user.nivel_actual} categoria  ${register.data.user.categoria}</p>
 
 
         </div>
@@ -335,11 +335,10 @@ class Register {
       };
       // Enviar el correo
       transporter.sendMail(opcionesCorreo, (error, info) => {
-        if(error === null){
-          return {message:'Correo enviado'}
-        }
+
 
       });
+      return {message:'Correo enviado'}
 
 
 

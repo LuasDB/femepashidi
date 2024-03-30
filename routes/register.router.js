@@ -61,7 +61,9 @@ router.get('/approval/:id/:status',async(req,res,next)=>{
 
   try {
     const register = await registro.approval(req.params);
-    res.status(201).json(register);
+    if(register.message === 'Correo enviado'){
+      res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html');
+    }
   } catch (error) {
     next(error);
   }
