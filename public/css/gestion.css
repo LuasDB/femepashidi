@@ -284,11 +284,15 @@ thead{
   z-index: 1;
 }
 td {
-  padding: 1rem;
+  padding: 0.5rem;
   border-bottom: 1px solid var(--contrast-bg);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 300;
   text-align: center;
+}
+th{
+  font-size: 0.8rem;
+
 }
 td span{
     cursor: pointer;

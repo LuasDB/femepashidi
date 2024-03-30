@@ -124,6 +124,12 @@ const formNewAssociation = `
     </label>
   </div>
   <div class="flex-container-input">
+    <label for="correo">
+      Abreviación
+      <input type="text" id="abreviacion" name="abreviacion" class="envioDb">
+    </label>
+  </div>
+  <div class="flex-container-input">
     <label for="status">
       Status
       <select name="status" id="status" name="status" class="envioDb">

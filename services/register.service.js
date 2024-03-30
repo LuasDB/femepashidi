@@ -237,7 +237,7 @@ class Register {
       const opcionesCorreo = {
       from:'luasjcr.3543@gmail.com',
       to: destinatario,
-      subject: 'SOLICITUD DE APROBACIÓN PASHIDI A.C.',
+      subject: 'SOLICITUD DE INSCRIPCIÓN A COMPETENCIA FEMEPASHIDI A.C.',
       html: contenidoHtml,
       attachments:[
         {
@@ -253,18 +253,97 @@ class Register {
       };
       // Enviar el correo
       transporter.sendMail(opcionesCorreo, (error, info) => {
-
+        if(error === null){
+          return {message:'Correo enviado'}
+        }
 
       });
-      return {message:'Correo enviado'}
+
 
     }
   }
   async approval(params){
     const { id, status } = params;
+    const register = this.findOne(id)
+    console.log(register)
     this.update(id,{status:status});
 
-    return {message:status}
+    const destinatario=register.data().user.correo;
+      // Configuración del transporte de correo
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user:'luasjcr.3543@gmail.com',
+            pass:'fyzb llwd vqrv epaa'
+        }
+      });
+      // Contenido HTML del correo al Competidor
+      const contenidoHtml = `
+      <!DOCTYPE html>
+      <html lang="es">
+
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+          :root{
+            --primary-color-r:#268dee;
+            --background-input:#f0f0f0;
+            --font-input:#333;
+          }
+          body{
+            font-family: 'Nunito', sans-serif;
+          }
+          a:hover{
+            color:red;
+          }
+          .container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            align-items: center;"
+          }
+
+            </style>
+      </head>
+      <body>
+        <div class="container">
+          <h2 style="
+          color:#268dee;">ESTIMADO ${register.data().user.nombre.toUpperCase()}</h2>
+
+        <p style="
+        color:#333;">Nos complace informarte que se ha aceptado tu registro para competir en:</p>
+
+        <p style="
+        color:#333;">${register.data().event.nombre} que se llevará a cabo el proximo ${register.data().event.fecha_larga}</p>
+        <p style="
+        color:#333;">En el nivel : ${register.data().user.nivel_actual} categoria  ${register.data().user.categoria}</p>
+
+
+        </div>
+
+      </body>
+      </html>
+      `;
+      // Opciones del correo
+      const opcionesCorreo = {
+      from:'luasjcr.3543@gmail.com',
+      to: destinatario,
+      subject: 'ACEPTACIÓN DE INSCRIPCIÓN A COMPETENCIA FEMEPASHIDI A.C.',
+      html: contenidoHtml
+      };
+      // Enviar el correo
+      transporter.sendMail(opcionesCorreo, (error, info) => {
+        if(error === null){
+          return {message:'Correo enviado'}
+        }
+
+      });
+
+
+
+
   }
 }
 

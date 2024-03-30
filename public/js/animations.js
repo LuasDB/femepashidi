@@ -175,6 +175,7 @@ window.addEventListener("scroll", handleScroll);
 
  // Cerrar el modal al hacer clic en el span
  span.onclick = function() {
+  console.log('Close modal')
    modal.style.display = "none";
    modalPdf.style.display = "none";
  }
@@ -185,7 +186,7 @@ window.addEventListener("scroll", handleScroll);
 
  // Cerrar el modal al hacer clic fuera de la imagen
  window.onclick = function(event) {
-   if (event.target == modal || event.target == modalPdf ) {
+   if (event.target === modal || event.target === modalPdf ) {
      modal.style.display = "none";
      modalPdf.style.display = "none";
    }

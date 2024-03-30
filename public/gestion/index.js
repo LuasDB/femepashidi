@@ -50,8 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
 /****************************************************************************************************************
  * Variables para la API para mandar a llamar a construir en el monitor
  ***********************************************************************************************************/
-const server = 'https://femepashidi.siradiacion.com.mx/';
-// const server = 'http://localhost:3000/';
+// const server = 'https://femepashidi.siradiacion.com.mx/';
+const server = 'http://localhost:3000/';
 // const server = 'https://femepashidiapi.onrender.com/'
 const API_USERS = `${server}api/v1/users/`;
 const API_ASSOCIATIONS = `${server}api/v1/associations/`;
@@ -137,6 +137,7 @@ const callAsociacionesList = async()=>{
           <thead>
             <tr>
               <th>NOMBRE</th>
+              <th>SIGLAS</th>
               <th>REPRESENTANTE</th>
               <th>CORREO</th>
               <th>STATUS</th>
@@ -153,6 +154,7 @@ const callAsociacionesList = async()=>{
         let fila = nuevo('tr');
         fila.innerHTML=`
         <td>${element.data.nombre}</td>
+        <td>${element.data.abreviacion}</td>
         <td>${element.data.representante}</td>
         <td>${element.data.correo}</td>
         <td class="${element.data.status.toLowerCase()}"><p>${element.data.status}</p></td>
@@ -179,14 +181,17 @@ const callSolicitudesList = async()=>{
     console.log(data);
     monitor.innerHTML=`
     <section class="card bg-blue-100">
+      <button class="button" id="descargar">Descargar lista</button>
         <h3>Solicitudes</h3>
-        <table>
+        <table id="tabla">
           <thead>
             <tr>
-              <th>CURP</th>
-              <th>NOMBRE</th>
-              <th>NIVEL</th>
               <th>COMPETENCIA</th>
+              <th>NOMBRE</th>
+              <th>CATEGORIA</th>
+              <th>NIVEL</th>
+              <th>GENERO</th>
+              <th>ASOCIACIÓN</th>
               <th>STATUS</th>
               <th>VER SOLICITUD</th>
             </tr>
@@ -195,21 +200,61 @@ const callSolicitudesList = async()=>{
           </tbody>
         </table>
       </section>`;
-    data.documents.forEach(element=>{
-      let fila = nuevo('tr');
-      fila.innerHTML = `
-      <td>${element.data.user.curp}</td>
-      <td>${formatearNombre(element.data.user.nombre)} ${element.data.user.apellido_paterno.toUpperCase()} ${element.data.user.apellido_materno.toUpperCase()}</td>
-      <td>${element.data.user.nivel_actual}</td>
-      <td>${element.data.event.nombre}</td>
-      <td class="${element.data.status.toLowerCase()}"><p>${element.data.status.toUpperCase()}</p></td>
-      <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
-      `;
-      n('listado_solicitudes').appendChild(fila);
+      let conteo={}
+      let clave ='';
+      data.documents.forEach(element => {
+        clave=`${element.data.event.nombre},${element.data.status},${element.data.user.categoria},${element.data.user.nivel_actual},${element.data.user.sexo},${element.data.association.abreviacion},`;
+        if(!conteo[clave]){
+          conteo[clave] = { total:0, participantes:{}}
+        }
+        conteo[clave].total +=1;
 
-      n(`${element.id}`).onclick = ()=> visualizar(element,'register');
+      });
 
-    });
+      for (const clave in conteo) {
+        if (conteo.hasOwnProperty(clave)) {
+          data.documents.forEach(element=>{
+            let claveElement = `${element.data.event.nombre},${element.data.status},${element.data.user.categoria},${element.data.user.nivel_actual},${element.data.user.sexo},${element.data.association.abreviacion},`;
+            if( clave === claveElement){
+              let fila = nuevo('tr');
+              let genero= element.data.user.sexo==='FEMENINO'?'FEMENIL':'VARONIL';
+
+              fila.innerHTML = `
+              <td>${element.data.event.nombre}</td>
+              <td>${formatearNombre(element.data.user.nombre)} ${element.data.user.apellido_paterno.toUpperCase()} ${element.data.user.apellido_materno.toUpperCase()}</td>
+              <td>${element.data.user.categoria}</td>
+              <td>${element.data.user.nivel_actual}</td>
+              <td>${genero}</td>
+              <td>${element.data.association.abreviacion}</td>
+              <td class="${element.data.status.toLowerCase()}"><p>${element.data.status.toUpperCase()}</p></td>
+              <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
+              `;
+              n('listado_solicitudes').appendChild(fila);
+
+             n(`${element.id}`).onclick = ()=> visualizar(element,'register');
+
+
+            }
+
+
+
+          });
+
+        }
+      }
+
+      n('descargar').onclick = ()=> {
+        const tabla = document.getElementById('tabla');
+        const nombreArchivo = 'solicitudes.xlsx';
+
+        const workbook = XLSX.utils.table_to_book(tabla, {sheet: "Sheet1"});
+        XLSX.writeFile(workbook, nombreArchivo);
+      }
+
+
+
+
+
   } catch (error) {
     console.log(error)
   }
@@ -735,6 +780,12 @@ const editar = (element,collection)=>{
           </label>
         </div>
         <div class="flex-container-input">
+    <label for="correo">
+      Abreviación
+      <input type="text" id="abreviacion" name="abreviacion" class="envioDb" value="${element.data.abreviacion}">
+    </label>
+  </div>
+        <div class="flex-container-input">
           <label for="status">
             Status
             <select name="status" id="status" name="status" class="envioDb" value="${element.data.status}">
@@ -889,7 +940,6 @@ const editar = (element,collection)=>{
   n('guardar').onclick = ()=> actualizarBd(collection,element.id);
 
 }
-
 const cerrarModal = (id)=>{
   console.log('CERRANDO')
   n('modal_bg').classList.add('hidden');

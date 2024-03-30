@@ -49,7 +49,10 @@ router.get('/confirmation/:id',async(req,res,next)=>{
   const { id } = req.params
   try {
     const register = await registro.confirmate(id);
-    res.status(201).json(register);
+    if(register.message === 'Correo enviado'){
+      res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html');
+    }
+
   } catch (error) {
     next(error);
   }

@@ -48,7 +48,7 @@ router.get('/verification/:curp/:status',async(req,res,next)=>{
   try {
     const verification = await usuario.verification(curp,status);
     if(verification.message === 'verificado'){
-      res.redirect('https://www.femepashidi.com.mx/inicio/');
+      res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html');
     }
 
   } catch (error) {
