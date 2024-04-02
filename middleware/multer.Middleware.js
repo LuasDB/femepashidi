@@ -17,6 +17,7 @@ const storageUsers = multer.diskStorage({
   destination: (req, file, cb) => {
     // Especifica la carpeta donde se almacenarán los archivos
     cb(null, './uploads/users');
+    console.log('Aqui entro')
   },
   filename: (req, file, cb) => {
     // Personaliza el nombre del archivo si es necesario

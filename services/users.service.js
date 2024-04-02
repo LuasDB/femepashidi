@@ -85,8 +85,10 @@ class User {
   }
 
   async create(data,img_name){
+
     data['img']=img_name;
     const id_association = data.id_asociacion;
+
     const asociacion = await getDoc(doc(db,'associations',id_association));
     data['asociacion']=asociacion.data();
     // data['verificacion']=false;

@@ -614,6 +614,10 @@ const envioNuevoRegistro=async ()=>{
           const form = n('form_nuevo');
           const formData = new FormData(form);
           // Visualizar los datos en la consola
+          for (let entry of formData.entries()) {
+            console.log(entry[0], entry[1]);
+        }
+
 
 
 
