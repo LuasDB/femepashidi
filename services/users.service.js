@@ -6,7 +6,7 @@ const { db,server }= require('../db/firebase');
 const {  doc,addDoc, getDocs,getDoc,setDoc,deleteDoc,updateDoc, arrayUnion,query, where, collection} = require("firebase/firestore");
 //Traemos nodemailer para los correos automaticos
 const nodemailer = require('nodemailer');
-const { string } = require('joi');
+
 
 
 
