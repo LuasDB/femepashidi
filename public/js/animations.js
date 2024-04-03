@@ -162,6 +162,7 @@ window.addEventListener("scroll", handleScroll);
  const images = document.querySelectorAll(".image");
  const modalImg = document.getElementById("img01");
  images.forEach(function(image) {
+  console.log('entrando a ponerles onclick')
    const img = image.querySelector("img");
    img.onclick = function() {
      modal.style.display = "block";
@@ -170,8 +171,8 @@ window.addEventListener("scroll", handleScroll);
  });
 
  // Obtener el span que cierra el modal
-  const span = document.getElementsByClassName("close")[0];
-  const spanPdf = document.getElementsByClassName("closePdf")[0];
+  const span = document.getElementById('close_modal');
+  const spanPdf = document.getElementById("close_modalPdf")
 
  // Cerrar el modal al hacer clic en el span
  span.onclick = function() {
@@ -186,6 +187,7 @@ window.addEventListener("scroll", handleScroll);
 
  // Cerrar el modal al hacer clic fuera de la imagen
  window.onclick = function(event) {
+  console.log('EVENTO DE MODAL')
    if (event.target === modal || event.target === modalPdf ) {
      modal.style.display = "none";
      modalPdf.style.display = "none";

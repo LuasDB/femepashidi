@@ -287,7 +287,7 @@
       <div class="section-container">
         <div id="myModalPdf" class="modal">
           <div class="modal-content-pdf">
-            <span class="close closePdf">&times;</span>
+            <span id="close_modalPdf" class="close closePdf">&times;</span>
             <embed id="pdfViewer" src="./notifications/EJEMPLO.pdf" type="application/pdf" toolbar="0"/>
           </div>
         </div>
@@ -357,27 +357,73 @@
       <div class="">
          <!-- propuesta de galeria -->
         <div id="myModal" class="modal">
-          <span class="close">&times;</span>
+          <span id="close_modal" class="close">&times;</span>
           <img class="modal-content" id="img01">
         </div>
         <h2>Galeria</h2>
 
         <div class="gallery scroll-animation-up">
-          <div class="image "><img src="./img/galery/1.1.jpg" alt="Imagen 1"></div>
-          <div class="image "><img src="./img/galery/ANDREA1.jpg" alt="Imagen 2"></div>
-          <div class="image "><img src="./img/galery/DONOVAN1.jpg" alt="Imagen 3"></div>
-          <div class="image "><img src="./img/galery/MARIA1.jpg" alt="Imagen 1"></div>
-          <div class="image "><img src="./img/galery/DONOVAN1.jpg" alt="Imagen 3"></div>
-          <div class="image "><img src="./img/galery/NIÑA3.jpg" alt="Imagen 3"></div>
-
-
-          <div class="image "><img src="./img/galery/NIÑA3.jpg" alt="Imagen 3"></div>
-
-          <div class="image "><img src="./img/galery/NIÑA1.jpg" alt="Imagen 2"></div>
-          <div class="image "><img src="./img/galery/NIÑA3.jpg" alt="Imagen 3"></div>
-          <div class="image "><img src="./img/galery/NIÑO1.jpg" alt="Imagen 1"></div>
-
+          <div class="image "><img src="./img/galery/vertical/1.1.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/ANDREA1.jpg" alt="Imagen 2"></div>
+          <div class="image "><img src="./img/galery/vertical/DONOVAN1.jpg" alt="Imagen 3"></div>
+          <div class="image "><img src="./img/galery/vertical/MARIA1.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/participante1.jpg" alt="Imagen 3"></div>
+          <div class="image "><img src="./img/galery/vertical/participante2.jpg" alt="Imagen 3"></div>
+          <div class="image "><img src="./img/galery/vertical/participante3.jpg" alt="Imagen 3"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_1070.jpg" alt="Imagen 2"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_1071.jpg" alt="Imagen 3"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_1186.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_0055.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_0111.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_0123.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_1070.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_0717.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_1360.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_2428.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_2743.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_3281.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_3517.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_4030.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_4104.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_4405.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_5219.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_5938.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_6480.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_6823.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_8854.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_9120.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/vertical/DSC_9488.jpg" alt="Imagen 1"></div>
         </div>
+        <div class=" scroll-animation-up">
+          <div class="image "><img src="./img/galery/horizontal/premio femepashidi.jpeg" alt="Imagen 1"></div>
+        </div>
+        <div class="gallery-horizontal scroll-animation-up">
+          <div class="image "><img src="./img/galery/horizontal/ABOUT1.JPG" alt="Imagen 3"></div>
+          <div class="image "><img src="./img/galery/horizontal/ABOUT2.JPG" alt="Imagen 2"></div>
+          <div class="image "><img src="./img/galery/horizontal/ABOUT3.JPG" alt="Imagen 3"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1075.JPG" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1095.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1116.JPG" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1133.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1138.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1139.JPG" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1140.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1145.JPG" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1147.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1149.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1157.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1172.jpg" alt="Imagen 1"></div>
+          <div class="image "><img src="./img/galery/horizontal/DSC_1199.jpg" alt="Imagen 1"></div>
+        </div>
+        <div class=" scroll-animation-up">
+          <div class="card">
+            <video width="100%" height="50%" controls preload="none">
+              <source src="./img/galery/videos/00017.mp4">
+              Tu servidor no soporta este video
+            </video>
+          </div>
+        </div>
+
 
 
       </div>

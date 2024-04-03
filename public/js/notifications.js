@@ -16,6 +16,29 @@ const API_COMMUNICATIONS = `${server}api/v1/communications/`;
 const API_EVENTS = `${server}api/v1/events/`;
 const SERVER_UPLOADS=`${server}images/`;
 
+const meses = {
+  0:'ENERO',
+  1:'FEBRERO',
+  2:'MARZO',
+  3:'ABRIL',
+  4:'MAYO',
+  5:'JUNIO',
+  6:'JULIO',
+  7:'AGOSTO',
+  8:'SEPTIEMBRE',
+  9:'OCTUBRE',
+  10:'NOVIEMBRE',
+  11:'DICIEMBRE'
+}
+
+function fechaLarga(fecha){
+  const e = fecha.split('-');
+  console.log(e)
+  const f = new Date(e[0],e[1]-1,e[2]);
+  console.log(`${f.getDate()} DE ${meses[f.getMonth()]} DE ${f.getFullYear()} `)
+  return `${f.getDate()} DE ${meses[f.getMonth()]} DE ${f.getFullYear()} `;
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
   await fetch(API_COMMUNICATIONS)
   .then(response => response.json())
@@ -83,7 +106,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       <article class="card">
         <h1 class="article__tittle_black">${element.data.nombre}</h1>
         <p><span>Lugar:</span> ${element.data.lugar}</p>
-        <p><span>Fecha:</span>${element.data.fecha_larga}</p>
+        <p><span>Fecha de inicio:</span>${fechaLarga(element.data.fecha_inicio)}</p>
+        <p><span>Fecha de termino:</span>${fechaLarga(element.data.fecha_fin)}</p>
         <p><span>Descripción:</span>${element.data.texto}</p>
         <a href="./registro" class="button button-50 button-blue">Registrarme</a>
       </article>

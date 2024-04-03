@@ -5,13 +5,29 @@ const { db,server }= require('../db/firebase');
 //agregamos las funciones para el manejo en la base de datos de Firestore
 const {  doc,addDoc, getDocs,getDoc,setDoc,deleteDoc,updateDoc, arrayUnion,query, where, collection} = require("firebase/firestore");
 const nodemailer = require('nodemailer');
+// Configuración del transporte de correo
+const transporter = nodemailer.createTransport({
+  host: 'mail.femepashidi.com.mx', // Reemplaza 'tudominio.com' con el nombre de tu servidor SMTP
+  port: 465, // Puerto SMTP seguro (reemplaza con el puerto adecuado)
+  secure: true, // Habilitar SSL/TLS
+  auth: {
+      user: 'registros@femepashidi.com.mx', // Reemplaza con tu dirección de correo electrónico
+      pass: 'Registros2024@' // Reemplaza con tu contraseña de correo electrónico
+  }
+  // service: 'gmail',
+  // auth: {
+  //     user:'luasjcr.3543@gmail.com',
+  //     pass:'fyzb llwd vqrv epaa'
+  //}
+});
+
 //Creamos una clase para la gestión de usuarios
 class Register {
   constructor(){
 
   }
   async create(data){
-    const { id_user, id_association,id_events,fecha_solicitud,status} = data;
+    const { id_user, id_association,id_events,fecha_solicitud,status, nivel_actual,categoria} = data;
     const user = await getDoc(doc(db,'users',id_user));
     const association = await getDoc(doc(db,'associations',id_association));
     const event =await getDoc(doc(db,'events',id_events));
@@ -20,18 +36,11 @@ class Register {
       association:association.data(),
       event:event.data(),
       fecha_solicitud,
-      status
+      status,nivel_actual,categoria
     });
     if(res.id){
       const destinatario=user.data().correo;
-      // Configuración del transporte de correo
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user:'luasjcr.3543@gmail.com',
-            pass:'fyzb llwd vqrv epaa'
-        }
-      });
+
       // Contenido HTML del correo al Competidor
       const contenidoHtml = `
       <!DOCTYPE html>
@@ -65,7 +74,7 @@ class Register {
       <body>
         <div class="container">
           <h2 style="
-          color:#268dee;">HOLA ${user.data().nombre}</h2>
+          color:#268;">HOLA ${user.data().nombre}</h2>
 
         <p style="
         color:#333;">Recibimos tu solicitud de registro para la copetencia ${event.data().nombre} que se llevará a cabo el proximo ${event.data().fecha_larga}</p>
@@ -84,6 +93,10 @@ class Register {
             CONFIRMAR MI REGISTRO
           </a>
         </div>
+        <br>
+        <p style="
+        color:#333;">Una vez que confirmes tu registro tendras que esperar a que te enviemos un correo confirmando la aceptación por parte del presidente de tu asociación. Te recomendamos estar pendiente de tu correo</p>
+
 
       </body>
       </html>
@@ -92,9 +105,9 @@ class Register {
       `;
       // Opciones del correo
       const opcionesCorreo = {
-      from:'luasjcr.3543@gmail.com',
+      from:'registros@femepashidi.com.mx',
       to: destinatario,
-      subject: 'Registro PASHIDI A.C.',
+      subject: 'Registro a competencia FEMEPASHIDI A.C.',
       html: contenidoHtml
       };
       // Enviar el correo
@@ -166,14 +179,7 @@ class Register {
     if(registro.data()){
 
       const destinatario=registro.data().association.correo;
-      // Configuración del transporte de correo
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user:'luasjcr.3543@gmail.com',
-            pass:'fyzb llwd vqrv epaa'
-        }
-      });
+
       // Contenido HTML del correo al Competidor
       const contenidoHtml = `
       <!DOCTYPE html>
@@ -207,7 +213,7 @@ class Register {
       <body>
         <div class="container">
           <h2 style="
-          color:#268dee;">ESTIMADO ${registro.data().association.representante.toUpperCase()}</h2>
+          color:#268;">BUEN DÍA ${registro.data().association.representante.toUpperCase()}</h2>
 
         <p style="
         color:#333;">El deportista  ${registro.data().user.nombre}  ${registro.data().user.apellido_paterno} ${registro.data().user.apellido_materno} envía esta solicitud para competir en:</p>
@@ -215,7 +221,7 @@ class Register {
         <p style="
         color:#333;">${registro.data().event.nombre} que se llevará a cabo el proximo ${registro.data().event.fecha_larga}</p>
         <p style="
-        color:#333;">En el nivel : ${registro.data().user.nivel_actual} categoria  ${registro.data().user.categoria}</p>
+        color:#333;">En el nivel : ${registro.data().nivel_actual} categoria  ${registro.data().categoria}</p>
         <p style="
         color:#333;">Es necesario que dé su Visto Bueno para que esta solicitud sea enviada al presidente de FEMEPASHIDI:</p>
         <br>
@@ -235,7 +241,7 @@ class Register {
       `;
       // Opciones del correo
       const opcionesCorreo = {
-      from:'luasjcr.3543@gmail.com',
+      from:'registros@femepashidi.com.mx',
       to: destinatario,
       subject: 'SOLICITUD DE INSCRIPCIÓN A COMPETENCIA FEMEPASHIDI A.C.',
       html: contenidoHtml,
@@ -269,14 +275,7 @@ class Register {
     this.update(id,{status:status});
 
     const destinatario=register.data.user.correo;
-      // Configuración del transporte de correo
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user:'luasjcr.3543@gmail.com',
-            pass:'fyzb llwd vqrv epaa'
-        }
-      });
+
       // Contenido HTML del correo al Competidor
       const contenidoHtml = `
       <!DOCTYPE html>
@@ -310,7 +309,7 @@ class Register {
       <body>
         <div class="container">
           <h2 style="
-          color:#268dee;">ESTIMADO ${register.data.user.nombre.toUpperCase()}</h2>
+          color:#268;">FELICIDADES ${register.data.user.nombre.toUpperCase()}</h2>
 
         <p style="
         color:#333;">Nos complace informarte que se ha aceptado tu registro para competir en:</p>
@@ -328,7 +327,7 @@ class Register {
       `;
       // Opciones del correo
       const opcionesCorreo = {
-      from:'luasjcr.3543@gmail.com',
+      from:'registros@femepashidi.com.mx',
       to: destinatario,
       subject: 'ACEPTACIÓN DE INSCRIPCIÓN A COMPETENCIA FEMEPASHIDI A.C.',
       html: contenidoHtml

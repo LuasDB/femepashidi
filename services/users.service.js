@@ -8,8 +8,23 @@ const {  doc,addDoc, getDocs,getDoc,setDoc,deleteDoc,updateDoc, arrayUnion,query
 const nodemailer = require('nodemailer');
 const { string } = require('joi');
 
-//Funcion para envio de mails
 
+
+// Configuración del transporte de correo
+const transporter = nodemailer.createTransport({
+  host: 'mail.femepashidi.com.mx', // Reemplaza 'tudominio.com' con el nombre de tu servidor SMTP
+  port: 465, // Puerto SMTP seguro (reemplaza con el puerto adecuado)
+  secure: true, // Habilitar SSL/TLS
+  auth: {
+      user: 'registros@femepashidi.com.mx', // Reemplaza con tu dirección de correo electrónico
+      pass: 'Registros2024@' // Reemplaza con tu contraseña de correo electrónico
+  }
+  // service: 'gmail',
+  // auth: {
+  //     user:'luasjcr.3543@gmail.com',
+  //     pass:'fyzb llwd vqrv epaa'
+  //}
+});
 
 
 // const categories = {
@@ -91,7 +106,7 @@ class User {
 
     const asociacion = await getDoc(doc(db,'associations',id_association));
     data['asociacion']=asociacion.data();
-    // data['verificacion']=false;
+    data['verificacion']=false;
     const categoria = verifyCategory(data.fecha_nacimiento);
     data['categoria']=`${categoria}`;
     const res = await addDoc(collection(db,'users'),data);
@@ -99,14 +114,6 @@ class User {
       const destinatario=data.asociacion.correo;
       const usuarioMail = data.correo;
 
-      // Configuración del transporte de correo
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user:'luasjcr.3543@gmail.com',
-            pass:'fyzb llwd vqrv epaa'
-        }
-      });
       // Contenido HTML del correo
       const contenidoHtml = `
       <!DOCTYPE html>
@@ -218,7 +225,8 @@ class User {
       `;
       // Opciones del correo
       const opcionesCorreo = {
-      from:'luasjcr.3543@gmail.com',
+      // from:'luasjcr.3543@gmail.com',
+      from:'registros@femepashidi.com.mx',
       to: destinatario,
       subject: 'SOLICITUD DE REGISTRO FEMEPASHIDI A.C.',
       html: contenidoHtml,
@@ -243,7 +251,7 @@ class User {
 
       // Opciones del correo
       const opcionesCorreoUsuario = {
-        from:'luasjcr.3543@gmail.com',
+        from:'registros@femepashidi.com.mx',
         to: usuarioMail,
         subject: 'Registro FEMEPASHIDI A.C.',
         html: contenidoHtmlUsuario,
@@ -323,18 +331,11 @@ class User {
       await this.update(curp,data);
 
       const destinatario=user.documents[0].data.correo;
-      // Configuración del transporte de correo
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user:'luasjcr.3543@gmail.com',
-            pass:'fyzb llwd vqrv epaa'
-        }
-      });
+
       let contenidoHtmlUsuario='';
       // Opciones del correo
       let opcionesCorreo = {
-        from:'luasjcr.3543@gmail.com',
+        from:'registros@femepashidi.com.mx',
         to: destinatario,
         subject: '',
         html: contenidoHtmlUsuario,

@@ -42,10 +42,10 @@ $('.area-form').style.fontSize="10px"
 /***************************************************************************************************************************************
  * VARIABLES API
  *******************************************************************************************************************************************/
-const server = 'http://localhost:3000/api/v1/';
+// const server = 'http://localhost:3000/api/v1/';
 
 
-// const server = 'https://femepashidi.siradiacion.com.mx/api/v1/'
+const server = 'https://femepashidi.siradiacion.com.mx/api/v1/'
 // const server = 'https://femepashidiapi.onrender.com/api/v1/'
 const API_USERS = `${server}users/`;
 const API_EVENTS = `${server}events`;
@@ -111,6 +111,29 @@ const categories = {
   28:`ADULTO`,
 }
 
+const categoriesInternational = {
+  2:`A`,
+  3:`A`,
+  4:`A`,
+  5:`A`,
+  6:`B`,
+  7:`B`,
+  8:`B`,
+  9:`B`,
+  10:`C`,
+  11:`C`,
+  12:`C`,
+  13:`C`,
+  14:`C`,
+  15:`D`,
+  16:`D`,
+  17:`D`,
+  18:`D`,
+  19:`D`,
+  20:`MAYOR`,
+  28:`ADULTO`,
+}
+
 
 const verifyCategory=(fecha_nacimiento)=>{
   const fecha = new Date(fecha_nacimiento);
@@ -130,18 +153,37 @@ const verifyCategory=(fecha_nacimiento)=>{
     return categories[verificacion];
 
 }
+
+const verifyCategoryInternational=(fecha_nacimiento)=>{
+  const fecha = new Date(fecha_nacimiento);
+  const hoy = new Date();
+  const diferenciaMilisegundos = hoy - fecha;
+  let edadExacta = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
+
+  let verificacion = edadExacta;
+    if(edadExacta >= 28){
+      verificacion=28;
+    }else if (edadExacta >= 20){
+      verificacion=20;
+
+    }
+    console.log(categories[verificacion])
+
+    return categories[verificacion];
+
+}
 function fechaActual(){
   const fecha = new Date();
-    const year = fecha.getFullYear();
-    const month = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
-    const day = String(fecha.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;}
+  const year = fecha.getFullYear();
+  const month = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+  const day = String(fecha.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 
 /***************************************************************************************************************************************
  * FUNCIONES DECLARATIVAS PARA LA APLICACIÓN
  *******************************************************************************************************************************************/
-
 
 function transformarFecha(fecha) {
   // Separar la fecha en día, mes y año
@@ -450,9 +492,6 @@ const buscarCurp=async()=>{
     <form id="nuevo_form">
     <input type="text" placeholder="Tu nombre" value="${data.documents[0].id}" style="display:none;" name="id_user" >
     <input type="text" placeholder="Tu nombre" value="${usuario.id_asociacion}" style="display:none;" name="id_association" >
-
-
-
       <div class="col-2">
         <label for="curp">CURP
           <input type="text" placeholder="Tu nombre" value="${usuario.curp}" disabled>
@@ -485,12 +524,48 @@ const buscarCurp=async()=>{
         </label>
       </div>
       <div class="col-3">
-        <label for="curp">CATEGORIA
-          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.categoria}" disabled>
-        </label>
-        <label for="curp">NIVEL ACTUAL
-          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.nivel_actual}" disabled>
-        </label>
+      <label for="nivel_actual">NIVEL ACTUAL
+        <select id="nivel_actual" name="nivel_actual" class="envioDb" placeholder="Selecciona tu nivel">
+          <option value="Debutantes 1">Debutantes 1</option>
+          <option value="Debutantes 2">Debutantes 2</option>
+          <option value="Pre-Básicos">Pre-Básicos</option>
+          <option value="Básicos">Básicos</option>
+          <option value="Pre-preliminar">Pre-preliminar</option>
+          <option value="Preliminar">Preliminar</option>
+          <option value="Intermedios 1">Intermedios 1</option>
+          <option value="Intermedios 2">Intermedios 2</option>
+          <option value="Novicios">Novicios</option>
+          <option value="Avanzados 1">Avanzados 1</option>
+          <option value="Avanzados 2">Avanzados 2</option>
+          <option value="Adulto Bronce">Adulto Bronce</option>
+          <option value="Adulto Plata">Adulto Plata</option>
+          <option value="Adulto Oro">Adulto Oro</option>
+          <option value="Adulto Master">Adulto Master</option>
+          <option value="Adulto Master Elite">Adulto Master Elite</option>
+          <option value="ADULTO PAREJAS">ADULTO PAREJAS</option>
+          <option value="ADULTO PAREJAS INTERMEDIATE">ADULTO PAREJAS INTERMEDIATE</option>
+          <option value="ADULTO PAREJAS MASTER">ADULTO PAREJAS MASTER</option>
+          <option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
+        </select>
+      </label>
+      <label for="categoria">CATEGORIA
+      <select id="categoria" name="categoria" class="envioDb" placeholder="Selecciona tu nivel">
+        <option value="A">A (5 AÑOS O MENOS)</option>
+        <option value="B">B (6 A 9 AÑOS)</option>
+        <option value="C">C (10 A 14 AÑOS)</option>
+        <option value="D">D (15 A 19 AÑOS)</option>
+        <option value="MAYOR">MAYOR (20 A 27 AÑOS)</option>
+        <option value="ADULTO">ADULTO(28 AÑOS O MAS)</option>
+        <option value="CALSS I">CALSS I(NACIDOS ENTRE EL 1 DE JULIO DE1985 Y 30 DE JUNIO DE 1995)</option>
+        <option value="CALSS II">CALSS II(NACIDOS ENTRE EL 1 DE JULIO DE1975 Y 30 DE JUNIO DE 1985)</option>
+        <option value="CALSS III">CALSS III(NACIDOS ENTRE EL 1 DE JULIO DE1965 Y 30 DE JUNIO DE 1975)</option>
+        <option value="CALSS IV">CALSS IV(NACIDOS ENTRE EL 1 DE JULIO DE1955 Y 30 DE JUNIO DE 1965)</option>
+        <option value="CALSS V">CALSS V(NACIDOS ANTES DEL 30 DE JUNIO DE 1965)</option>
+
+      </select>
+    </label>
+
+
         <label for="curp">ASOCIACIÓN
           <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.asociacion.nombre}" disabled>
         </label>
@@ -557,6 +632,31 @@ const buscarCurp=async()=>{
     console.log(error)
 
   });
+
+  //Para competencia internacional cambiamos la categoria segun el nivel que escojan y su edad:
+  n('nivel_actual').addEventListener('change', ()=>{
+
+    const internationalLevel = {
+      'Adulto Bronce':true,
+      'Adulto Plata':true,
+      'Adulto Oro':true,
+      'Adulto Master':true,
+      'Adulto Master Elite':true,
+    }
+    const internationalCat = {
+      'Adulto Bronce':true,
+      'Adulto Plata':true,
+      'Adulto Oro':true,
+      'Adulto Master':true,
+      'Adulto Master Elite':true,
+    }
+    console.log('cambio el nivel',n('nivel_actual').value)
+    let nuevo_nivel =n('nivel_actual').value;
+    if(internationalLevel[nuevo_nivel]){
+
+    }
+  })
+
 }
 
 const cambiarFoto = ()=>{

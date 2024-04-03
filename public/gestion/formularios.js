@@ -161,9 +161,15 @@ const formNewEvent = `
           </label>
         </div>
         <div class="flex-container-input">
-          <label for="fecha_corta">
-            Fecha
-            <input type="date" name="fecha_corta" class="envioDb">
+          <label for="fecha_inicio">
+            Fecha de inicio
+            <input type="date" name="fecha_inicio" class="envioDb">
+          </label>
+        </div>
+        <div class="flex-container-input">
+          <label for="fecha_fin">
+            Fecha de termino
+            <input type="date" name="fecha_fin" class="envioDb">
           </label>
         </div>
         <div class="flex-container-input">

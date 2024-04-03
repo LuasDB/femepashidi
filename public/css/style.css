@@ -452,6 +452,12 @@ font-size: x-large;
   grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   gap: 20px;
 }
+.gallery-horizontal{
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(40%,1fr));
+  gap: 20px;
+}
 
 .image {
   position: relative;

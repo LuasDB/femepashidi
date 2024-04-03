@@ -203,18 +203,17 @@ const callSolicitudesList = async()=>{
       let conteo={}
       let clave ='';
       data.documents.forEach(element => {
-        clave=`${element.data.event.nombre},${element.data.status},${element.data.user.categoria},${element.data.user.nivel_actual},${element.data.user.sexo},${element.data.association.abreviacion},`;
+        clave=`${element.data.event.nombre},${element.data.status},${element.data.categoria},${element.data.nivel_actual},${element.data.user.sexo},${element.data.association.abreviacion},`;
         if(!conteo[clave]){
           conteo[clave] = { total:0, participantes:{}}
         }
         conteo[clave].total +=1;
-
       });
 
       for (const clave in conteo) {
         if (conteo.hasOwnProperty(clave)) {
           data.documents.forEach(element=>{
-            let claveElement = `${element.data.event.nombre},${element.data.status},${element.data.user.categoria},${element.data.user.nivel_actual},${element.data.user.sexo},${element.data.association.abreviacion},`;
+            let claveElement = `${element.data.event.nombre},${element.data.status},${element.data.categoria},${element.data.nivel_actual},${element.data.user.sexo},${element.data.association.abreviacion},`;
             if( clave === claveElement){
               let fila = nuevo('tr');
               let genero= element.data.user.sexo==='FEMENINO'?'FEMENIL':'VARONIL';
@@ -222,8 +221,8 @@ const callSolicitudesList = async()=>{
               fila.innerHTML = `
               <td>${element.data.event.nombre}</td>
               <td>${formatearNombre(element.data.user.nombre)} ${element.data.user.apellido_paterno.toUpperCase()} ${element.data.user.apellido_materno.toUpperCase()}</td>
-              <td>${element.data.user.categoria}</td>
-              <td>${element.data.user.nivel_actual}</td>
+              <td>${element.data.categoria}</td>
+              <td>${element.data.nivel_actual}</td>
               <td>${genero}</td>
               <td>${element.data.association.abreviacion}</td>
               <td class="${element.data.status.toLowerCase()}"><p>${element.data.status.toUpperCase()}</p></td>
@@ -247,7 +246,7 @@ const callSolicitudesList = async()=>{
         const tabla = document.getElementById('tabla');
         const nombreArchivo = 'solicitudes.xlsx';
 
-        const workbook = XLSX.utils.table_to_book(tabla, {sheet: "Sheet1"});
+        const workbook = XLSX.utils.table_to_book(tabla, {sheet: "Solicitudes"});
         XLSX.writeFile(workbook, nombreArchivo);
       }
 
@@ -274,7 +273,8 @@ const callEventosList = async()=>{
           <thead>
             <tr>
               <th>EVENTO</th>
-              <th>FECHA</th>
+              <th>FECHA INICIO</th>
+              <th>FECHA FIN</th>
               <th>LUGAR</th>
               <th>STATUS</th>
               <th>EDITAR</th>
@@ -288,9 +288,10 @@ const callEventosList = async()=>{
       data.documents.forEach(element =>{
         let fila = nuevo('tr');
         fila.innerHTML = `
-        <td>EVENTO 1${element.data.nombre}</td>
-        <td>28 DE FEBRERO 2024 ${element.data.fecha_larga}</td>
-        <td>CIUDAD DE MÉXICO, A.OREGÓN${element.data.lugar}</td>
+        <td>${element.data.nombre}</td>
+        <td>${fechaLarga(element.data.fecha_inicio)}</td>
+        <td>${fechaLarga(element.data.fecha_fin)}</td>
+        <td>${element.data.lugar}</td>
         <td class="${element.data.status.toLowerCase()}"><p>${element.data.status}</p></td>
         <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">edit</span></td>
         <td class="red" id="${element.id}_delete"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>
@@ -604,10 +605,10 @@ const visualizar = (element,collection)=>{
       <p>${element.data.user.asociacion.nombre}</p>
     </label>
     <label for="">NIVEL ACTUAL
-      <p>${element.data.user.nivel_actual}</p>
+      <p>${element.data.nivel_actual}</p>
     </label>
     <label for="">CATEGORIA
-    <p>${element.data.user.categoria}</p>
+    <p>${element.data.categoria}</p>
   </label>
   </div>
 
@@ -820,8 +821,14 @@ const editar = (element,collection)=>{
             </div>
             <div class="flex-container-input">
               <label for="fecha_corta">
-                Fecha
-                <input type="date" name="fecha_corta" class="envioDb" value="${element.data.fecha_corta}">
+                Fecha de inicio
+                <input type="date" name="fecha_corta" class="envioDb" value="${element.data.fecha_inicio}">
+              </label>
+            </div>
+            <div class="flex-container-input">
+              <label for="fecha_corta">
+                Fecha de termino
+                <input type="date" name="fecha_corta" class="envioDb" value="${element.data.fecha_fin}">
               </label>
             </div>
             <div class="flex-container-input">
