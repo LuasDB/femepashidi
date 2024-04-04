@@ -488,6 +488,13 @@ const buscarCurp=async()=>{
     }
 
     activar();
+    //Buscamos los eventos para cargarlos
+    const res = await fetch(API_EVENTS);
+    const data_events = await res.json();
+    const events = data_events.documents;
+
+
+
     $('.area-form').innerHTML=`
     <form id="nuevo_form">
     <input type="text" placeholder="Tu nombre" value="${data.documents[0].id}" style="display:none;" name="id_user" >
@@ -599,10 +606,7 @@ const buscarCurp=async()=>{
     `;
     n('enviar_registro').onclick= ()=> envioRegistroCompetencia();
 
-    //Buscamos los eventos para cargarlos
-    const res = await fetch(API_EVENTS);
-    const data_events = await res.json();
-    const events = data_events.documents;
+
     const competencias = n('competencia');
     events.forEach(event => {
       const option = document.createElement('option');

@@ -839,6 +839,15 @@ const editar = (element,collection)=>{
             </div>
             <div class="flex-container-input">
               <label for="status">
+              Tipo de competencia
+              <select name="tipo_competencia" id="tipo_competencia" class="envioDb" >
+                <option value="Nacional">Nacional</option>
+                <option value="Internacional">Internacional</option>
+              </select>
+              </label>
+            </div>
+            <div class="flex-container-input">
+              <label for="status">
                 Status
                 <select name="status" id="status" class="envioDb" value="${element.data.status}">
                   <option value="Activo">Activo</option>
@@ -850,6 +859,8 @@ const editar = (element,collection)=>{
         </section>
       </form>
     `;
+    n('tipo_competencia').value = element.data.tipo_competencia;
+    n('status').value = element.data.status;
 
   }
   else if(collection==='communications'){

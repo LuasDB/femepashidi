@@ -180,6 +180,15 @@ const formNewEvent = `
         </div>
         <div class="flex-container-input">
           <label for="status">
+            Tipo de competencia
+            <select name="tipo_competencia" id="tipo_competencia" class="envioDb">
+              <option value="Nacional">Nacional</option>
+              <option value="Internacional">Internacional</option>
+            </select>
+          </label>
+        </div>
+        <div class="flex-container-input">
+          <label for="status">
             Status
             <select name="status" id="status" class="envioDb">
               <option value="Activo">Activo</option>
