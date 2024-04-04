@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         <p><span>Lugar:</span> ${element.data.lugar}</p>
         <p><span>Fecha de inicio:</span>${fechaLarga(element.data.fecha_inicio)}</p>
         <p><span>Fecha de termino:</span>${fechaLarga(element.data.fecha_fin)}</p>
-        <p><span>Descripción:</span>${element.data.texto}</p>
+        <p><span>Descripción:</span>${String(element.data.texto)}</p>
         <a href="./registro" class="button button-50 button-blue">Registrarme</a>
       </article>
       `;

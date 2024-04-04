@@ -533,26 +533,35 @@ const buscarCurp=async()=>{
       <div class="col-3">
       <label for="nivel_actual">NIVEL ACTUAL
         <select id="nivel_actual" name="nivel_actual" class="envioDb" placeholder="Selecciona tu nivel">
-          <option value="Debutantes 1">Debutantes 1</option>
-          <option value="Debutantes 2">Debutantes 2</option>
-          <option value="Pre-Básicos">Pre-Básicos</option>
-          <option value="Básicos">Básicos</option>
-          <option value="Pre-preliminar">Pre-preliminar</option>
-          <option value="Preliminar">Preliminar</option>
-          <option value="Intermedios 1">Intermedios 1</option>
-          <option value="Intermedios 2">Intermedios 2</option>
-          <option value="Novicios">Novicios</option>
-          <option value="Avanzados 1">Avanzados 1</option>
-          <option value="Avanzados 2">Avanzados 2</option>
-          <option value="Adulto Bronce">Adulto Bronce</option>
-          <option value="Adulto Plata">Adulto Plata</option>
-          <option value="Adulto Oro">Adulto Oro</option>
-          <option value="Adulto Master">Adulto Master</option>
-          <option value="Adulto Master Elite">Adulto Master Elite</option>
-          <option value="ADULTO PAREJAS">ADULTO PAREJAS</option>
-          <option value="ADULTO PAREJAS INTERMEDIATE">ADULTO PAREJAS INTERMEDIATE</option>
-          <option value="ADULTO PAREJAS MASTER">ADULTO PAREJAS MASTER</option>
-          <option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
+          <option value="DEBUTANTES 1">DEBUTANTES 1</option>
+          <option value="DEBUTANTES 2">DEBUTANTES 2</option>
+          <option value="PRE-BASICOS">PRE-BASICOS</option>
+          <option value="NO-TEST">NO-TEST</option>
+          <option value="PRE-PRELIMINARY">PRE-PRELIMINARY</option>
+          <option value="PRELIMINARY">PRELIMINARY</option>
+          <option value="JUVENILE">JUVENILE</option>
+          <option value="INTERMEDIATE">INTERMEDIATE</option>
+          <option value="ADVANCED NOVICE">ADVANCED NOVICE</option>
+          <option value="JUNIOR">JUNIOR</option>
+          <option value="SENIOR">SENIOR</option>
+          <option value="BRONZE">BRONZE</option>
+          <option value="BRONZE ARTISTIC">BRONZE ARTISTIC</option>
+          <option value="SILVER">SILVER</option>
+          <option value="SILVER ARTISTIC">SILVER ARTISTIC</option>
+          <option value="GOLD">GOLD</option>
+          <option value="GOLD ARTISTIC">GOLD ARTISTIC</option>
+          <option value="MASTER">MASTER</option>
+          <option value="MASTER ARTISTIC">MASTER ARTISTIC</option>
+          <option value="MASTER ELITE">MASTER ELITE</option>
+          <option value="MASTER ELITE ARTISTIC">MASTER ELITE ARTISTIC</option>
+          <option value="ADULT PAIRS">ADULT PAIRS</option>
+          <option value="ADULT PAIRS ARTISTIC">ADULT PAIRS ARTISTIC</option>
+          <option value="INTERMEDIATE PAIRS">INTERMEDIATE PAIRS</option>
+          <option value="INTERMEDIATE PAIRS ARTISTIC">INTERMEDIATE PAIRS ARTISTIC</option>
+          <option value="MASTER PAIRS">MASTER PAIRS</option>
+          <option value="MASTER PAIRS ARTISTIC">MASTER PAIRS ARTISTIC</option>
+
+
         </select>
       </label>
       <label for="categoria">CATEGORIA
@@ -563,11 +572,12 @@ const buscarCurp=async()=>{
         <option value="D">D (15 A 19 AÑOS)</option>
         <option value="MAYOR">MAYOR (20 A 27 AÑOS)</option>
         <option value="ADULTO">ADULTO(28 AÑOS O MAS)</option>
-        <option value="CALSS I">CALSS I(NACIDOS ENTRE EL 1 DE JULIO DE1985 Y 30 DE JUNIO DE 1995)</option>
-        <option value="CALSS II">CALSS II(NACIDOS ENTRE EL 1 DE JULIO DE1975 Y 30 DE JUNIO DE 1985)</option>
+        <option value="NOT APPLY">NOT APPLY</option>
+        <option value="CLASS I">CALSS I(NACIDOS ENTRE EL 1 DE JULIO DE1985 Y 30 DE JUNIO DE 1995)</option>
+        <option value="CLASS II">CALSS II(NACIDOS ENTRE EL 1 DE JULIO DE1975 Y 30 DE JUNIO DE 1985)</option>
         <option value="CALSS III">CALSS III(NACIDOS ENTRE EL 1 DE JULIO DE1965 Y 30 DE JUNIO DE 1975)</option>
-        <option value="CALSS IV">CALSS IV(NACIDOS ENTRE EL 1 DE JULIO DE1955 Y 30 DE JUNIO DE 1965)</option>
-        <option value="CALSS V">CALSS V(NACIDOS ANTES DEL 30 DE JUNIO DE 1965)</option>
+        <option value="CLASS IV">CALSS IV(NACIDOS ENTRE EL 1 DE JULIO DE1955 Y 30 DE JUNIO DE 1965)</option>
+        <option value="CLASS V">CALSS V(NACIDOS ANTES DEL 30 DE JUNIO DE 1965)</option>
 
       </select>
     </label>
@@ -656,9 +666,7 @@ const buscarCurp=async()=>{
     }
     console.log('cambio el nivel',n('nivel_actual').value)
     let nuevo_nivel =n('nivel_actual').value;
-    if(internationalLevel[nuevo_nivel]){
 
-    }
   })
 
 }
