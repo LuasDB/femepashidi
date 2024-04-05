@@ -336,9 +336,9 @@ class Register {
         color:#333;">Nos complace informarte que se ha aceptado tu registro para competir en:</p>
 
         <p style="
-        color:#333;">${register.data.event.nombre} que se llevará a cabo el proximo ${register.data.event.fecha_larga}</p>
+        color:#333;">${register.data.event.nombre} que se llevará a cabo del ${fechaLarga(register.data.event.fecha_inicio)} al ${fechaLarga(register.data.event.fecha_fin)}</p>
         <p style="
-        color:#333;">En el nivel : ${register.data.user.nivel_actual} categoria  ${register.data.user.categoria}</p>
+        color:#333;">En el nivel : ${register.data.nivel_actual} categoria  ${register.data.categoria}</p>
 
 
         </div>
