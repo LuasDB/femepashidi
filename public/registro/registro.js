@@ -285,18 +285,66 @@ const nuevoRegistro = async()=>{
         <input type="text" placeholder="APELLIDO MATERNO" id="apellido_materno" name="apellido_materno" class="envioDb" >
       </label>
     </div>
-    <div class="col-3">
-      <label for="fecha_nacimiento">FECHA DE NACIMIENTO
+    <div class="hidden">
+      <label for="fecha_nacimiento" >FECHA DE NACIMIENTO
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="envioDb" >
       </label>
       <label for="sexo">SEXO
-        <select id="sexo" name="sexo" class="envioDb" >
+        <select id="sexo" name="sexo" class="envioDb " >
           <option value="MASCULINO">MASCULINO</option>
           <option value="FEMENINO">FEMENINO</option>
         </select>
       </label>
       <label for="lugar_nacimiento">LUGAR DE NACIMIENTO
         <select id="lugar_nacimiento" name="lugar_nacimiento" class="envioDb" >
+        <option value="Aguascalientes">Aguascalientes</option>
+        <option value="Baja California">Baja California</option>
+        <option value="Baja California Sur">Baja California Sur</option>
+        <option value="Campeche">Campeche</option>
+        <option value="Coahuila">Coahuila</option>
+        <option value="Colima">Colima</option>
+        <option value="Chiapas">Chiapas</option>
+        <option value="Chihuahua">Chihuahua</option>
+        <option value="Ciudad de México">Ciudad de México</option>
+        <option value="Durango">Durango</option>
+        <option value="Guanajuato">Guanajuato</option>
+        <option value="Guerrero">Guerrero</option>
+        <option value="Hidalgo">Hidalgo</option>
+        <option value="Jalisco">Jalisco</option>
+        <option value="Estado de México">Estado de México</option>
+        <option value="Michoacán">Michoacán</option>
+        <option value="Morelos">Morelos</option>
+        <option value="Nayarit">Nayarit</option>
+        <option value="Nuevo León">Nuevo León</option>
+        <option value="Oaxaca">Oaxaca</option>
+        <option value="Puebla">Puebla</option>
+        <option value="Querétaro">Querétaro</option>
+        <option value="Quintana Roo">Quintana Roo</option>
+        <option value="San Luis Potosí">San Luis Potosí</option>
+        <option value="Sinaloa">Sinaloa</option>
+        <option value="Sonora">Sonora</option>
+        <option value="Tabasco">Tabasco</option>
+        <option value="Tamaulipas">Tamaulipas</option>
+        <option value="Tlaxcala">Tlaxcala</option>
+        <option value="Veracruz">Veracruz</option>
+        <option value="Yucatán">Yucatán</option>
+        <option value="Zacatecas">Zacatecas</option>
+        <option value="Extranjero">Extranjero</option>
+        </select>
+      </label>
+    </div>
+    <div class="col-3">
+      <label for="fecha_nacimiento2">FECHA DE NACIMIENTO
+        <input type="date" id="fecha_nacimiento2" class="envioDb" >
+      </label>
+      <label for="sexo2">SEXO
+        <select id="sexo2"  class="envioDb " >
+          <option value="MASCULINO">MASCULINO</option>
+          <option value="FEMENINO">FEMENINO</option>
+        </select>
+      </label>
+      <label for="lugar_nacimiento2">LUGAR DE NACIMIENTO
+        <select id="lugar_nacimiento2"  class="envioDb" >
         <option value="Aguascalientes">Aguascalientes</option>
         <option value="Baja California">Baja California</option>
         <option value="Baja California Sur">Baja California Sur</option>
@@ -384,10 +432,20 @@ const nuevoRegistro = async()=>{
         n('fecha_nacimiento').value =fechaNacimiento;
         n('sexo').value =sexo;
         n('lugar_nacimiento').value = estadoNacimiento;
+
+        n('fecha_nacimiento2').value =fechaNacimiento;
+        n('sexo2').value =sexo;
+        n('lugar_nacimiento2').value = estadoNacimiento;
+
         let categoria = verifyCategory(fechaNacimiento)
-        console.log(categoria);
-        console.log(n('categoria').value);
+
         n('categoria').value = `${categoria}`;
+        n('fecha_nacimiento2').setAttribute("readonly", true);
+        n('sexo2').disabled = true
+        n('lugar_nacimiento2').disabled = true
+        n('categoria').setAttribute("readonly", true);
+
+
       }else{
         alert('no funciono')
       }
@@ -520,16 +578,22 @@ const buscarCurp=async()=>{
         </label>
       </div>
       <div class="col-3">
-        <label for="curp">FECHA DE NACIMIENTO
-          <input type="date" value="${usuario.fecha_nacimiento}" disabled>
+        <label for="curp">ASOCIACIÓN
+        <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.asociacion.nombre}" disabled>
         </label>
-        <label for="curp">SEXO
-          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.sexo}" disabled>
-        </label>
-        <label for="curp">LUGAR DE NACIMIENTO
-          <input type="text" value="${usuario.lugar_nacimiento}" disabled>
-        </label>
+        <label for="curp">TELEFONO
+        <input type="phone" value="${usuario.telefono}" disabled>
+      </label>
+      <label for="curp">CORREO
+        <input type="email" value="${usuario.correo}" disabled>
+      </label>
       </div>
+      <label for="competencia">COMPETENCIA A LA QUE TE INSCRIBES
+        <select name="id_events" id="competencia">
+        <option value="--------">----------</option>
+
+        </select>
+      </label>
       <div class="col-3">
       <label for="nivel_actual">NIVEL ACTUAL
         <select id="nivel_actual" name="nivel_actual" class="envioDb" placeholder="Selecciona tu nivel">
@@ -573,34 +637,22 @@ const buscarCurp=async()=>{
         <option value="MAYOR">MAYOR (20 A 27 AÑOS)</option>
         <option value="ADULTO">ADULTO(28 AÑOS O MAS)</option>
         <option value="NOT APPLY">NOT APPLY</option>
-        <option value="CLASS I">CALSS I(NACIDOS ENTRE EL 1 DE JULIO DE1985 Y 30 DE JUNIO DE 1995)</option>
-        <option value="CLASS II">CALSS II(NACIDOS ENTRE EL 1 DE JULIO DE1975 Y 30 DE JUNIO DE 1985)</option>
-        <option value="CALSS III">CALSS III(NACIDOS ENTRE EL 1 DE JULIO DE1965 Y 30 DE JUNIO DE 1975)</option>
-        <option value="CLASS IV">CALSS IV(NACIDOS ENTRE EL 1 DE JULIO DE1955 Y 30 DE JUNIO DE 1965)</option>
-        <option value="CLASS V">CALSS V(NACIDOS ANTES DEL 30 DE JUNIO DE 1965)</option>
-
+        <option value="CLASS I">CLASS I(NACIDOS ENTRE EL 1 DE JULIO DE1985 Y 30 DE JUNIO DE 1995)</option>
+        <option value="CLASS II">CLASS II(NACIDOS ENTRE EL 1 DE JULIO DE1975 Y 30 DE JUNIO DE 1985)</option>
+        <option value="CALSS III">CLASS III(NACIDOS ENTRE EL 1 DE JULIO DE1965 Y 30 DE JUNIO DE 1975)</option>
+        <option value="CLASS IV">CLASS IV(NACIDOS ENTRE EL 1 DE JULIO DE1955 Y 30 DE JUNIO DE 1965)</option>
+        <option value="CLASS V">CLASS V(NACIDOS ANTES DEL 30 DE JUNIO DE 1965)</option>
       </select>
     </label>
 
 
-        <label for="curp">ASOCIACIÓN
-          <input type="text" placeholder="APELLIDO PATERNO" value="${usuario.asociacion.nombre}" disabled>
-        </label>
+
 
       </div>
       <div class="col-3">
-      <label for="curp">TELEFONO
-          <input type="phone" value="${usuario.telefono}" disabled>
-        </label>
-        <label for="curp">CORREO
-          <input type="email" value="${usuario.correo}" disabled>
-        </label>
-      </div>
-      <label for="competencia">COMPETENCIA A LA QUE TE INSCRIBES
-        <select name="id_events" competencia" id="competencia">
 
-        </select>
-      </label>
+      </div>
+
       <div class="col-3">
 
       <label for="curp">
@@ -619,10 +671,13 @@ const buscarCurp=async()=>{
 
     const competencias = n('competencia');
     events.forEach(event => {
+      if(event.data.status==='Activo'){
       const option = document.createElement('option');
       option.innerHTML=`${event.data.nombre}`;
       option.value=event.id;
+      option.classList.add(`${event.data.tipo_competencia}`)
       competencias.appendChild(option);
+    }
     });
     $('.area-description').innerHTML=`
     <div class="toogle-left ">
@@ -648,24 +703,51 @@ const buscarCurp=async()=>{
   });
 
   //Para competencia internacional cambiamos la categoria segun el nivel que escojan y su edad:
-  n('nivel_actual').addEventListener('change', ()=>{
+  n('competencia').addEventListener('change', function(){
+    let tipo_comp = this.options[this.selectedIndex].classList[0];
+    console.log(tipo_comp);
+    if(tipo_comp === 'Internacional'){
+      n('nivel_actual').innerHTML=`
+      <option value="ADVANCED NOVICE">ADVANCED NOVICE</option>
+      <option value="JUNIOR">JUNIOR</option>
+      <option value="SENIOR">SENIOR</option>
+      `;
 
-    const internationalLevel = {
-      'Adulto Bronce':true,
-      'Adulto Plata':true,
-      'Adulto Oro':true,
-      'Adulto Master':true,
-      'Adulto Master Elite':true,
+    }else if(tipo_comp === 'Nacional'){
+      n('nivel_actual').innerHTML=`
+      <option value="DEBUTANTES 1">DEBUTANTES 1</option>
+          <option value="DEBUTANTES 2">DEBUTANTES 2</option>
+          <option value="PRE-BASICOS">PRE-BASICOS</option>
+          <option value="NO-TEST">NO-TEST</option>
+          <option value="PRE-PRELIMINARY">PRE-PRELIMINARY</option>
+          <option value="PRELIMINARY">PRELIMINARY</option>
+          <option value="JUVENILE">JUVENILE</option>
+          <option value="INTERMEDIATE">INTERMEDIATE</option>
+          <option value="ADVANCED NOVICE">ADVANCED NOVICE</option>
+          <option value="JUNIOR">JUNIOR</option>
+          <option value="SENIOR">SENIOR</option>
+          <option value="BRONZE">BRONZE</option>
+          <option value="BRONZE ARTISTIC">BRONZE ARTISTIC</option>
+          <option value="SILVER">SILVER</option>
+          <option value="SILVER ARTISTIC">SILVER ARTISTIC</option>
+          <option value="GOLD">GOLD</option>
+          <option value="GOLD ARTISTIC">GOLD ARTISTIC</option>
+          <option value="MASTER">MASTER</option>
+          <option value="MASTER ARTISTIC">MASTER ARTISTIC</option>
+          <option value="MASTER ELITE">MASTER ELITE</option>
+          <option value="MASTER ELITE ARTISTIC">MASTER ELITE ARTISTIC</option>
+          <option value="ADULT PAIRS">ADULT PAIRS</option>
+          <option value="ADULT PAIRS ARTISTIC">ADULT PAIRS ARTISTIC</option>
+          <option value="INTERMEDIATE PAIRS">INTERMEDIATE PAIRS</option>
+          <option value="INTERMEDIATE PAIRS ARTISTIC">INTERMEDIATE PAIRS ARTISTIC</option>
+          <option value="MASTER PAIRS">MASTER PAIRS</option>
+          <option value="MASTER PAIRS ARTISTIC">MASTER PAIRS ARTISTIC</option>
+
+      `;
+
+
+
     }
-    const internationalCat = {
-      'Adulto Bronce':true,
-      'Adulto Plata':true,
-      'Adulto Oro':true,
-      'Adulto Master':true,
-      'Adulto Master Elite':true,
-    }
-    console.log('cambio el nivel',n('nivel_actual').value)
-    let nuevo_nivel =n('nivel_actual').value;
 
   })
 

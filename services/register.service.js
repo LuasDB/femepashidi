@@ -20,6 +20,27 @@ const transporter = nodemailer.createTransport({
   //     pass:'fyzb llwd vqrv epaa'
   //}
 });
+function fechaLarga(fecha){
+  const meses = {
+    0:'ENERO',
+    1:'FEBRERO',
+    2:'MARZO',
+    3:'ABRIL',
+    4:'MAYO',
+    5:'JUNIO',
+    6:'JULIO',
+    7:'AGOSTO',
+    8:'SEPTIEMBRE',
+    9:'OCTUBRE',
+    10:'NOVIEMBRE',
+    11:'DICIEMBRE'
+}
+  const e = fecha.split('-');
+  console.log(e)
+  const f = new Date(e[0],e[1]-1,e[2]);
+  console.log(`${f.getDate()} DE ${meses[f.getMonth()]} DE ${f.getFullYear()} `)
+  return `${f.getDate()} DE ${meses[f.getMonth()]} DE ${f.getFullYear()} `;
+}
 
 //Creamos una clase para la gestión de usuarios
 class Register {
@@ -77,7 +98,7 @@ class Register {
           color:#268;">HOLA ${user.data().nombre}</h2>
 
         <p style="
-        color:#333;">Recibimos tu solicitud de registro para la copetencia ${event.data().nombre} que se llevará a cabo el proximo ${event.data().fecha_larga}</p>
+        color:#333;">Recibimos tu solicitud de registro para la competencia ${event.data().nombre} que se llevará a cabo del ${fechaLarga(event.data().fecha_inicio)} al ${fechaLarga(event.data().fecha_fin)}</p>
         <p style="
         color:#333;">Haz click en el siguiente boton para confirmar tu registro y continuar con tu proceso</p>
 
@@ -219,7 +240,7 @@ class Register {
         color:#333;">El deportista  ${registro.data().user.nombre}  ${registro.data().user.apellido_paterno} ${registro.data().user.apellido_materno} envía esta solicitud para competir en:</p>
 
         <p style="
-        color:#333;">${registro.data().event.nombre} que se llevará a cabo el proximo ${registro.data().event.fecha_larga}</p>
+        color:#333;">${registro.data().event.nombre} que se llevará a cabo del ${fechaLarga(registro.data().event.fecha_inicio)} al ${fechaLarga(registro.data().event.fecha_fin)}</p>
         <p style="
         color:#333;">En el nivel : ${registro.data().nivel_actual} categoria  ${registro.data().categoria}</p>
         <p style="

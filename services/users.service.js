@@ -75,6 +75,7 @@ const categories = {
 
 
 const verifyCategory=(fecha_nacimiento)=>{
+  console.log('[Fecha nacimiento]',fecha_nacimiento)
   const fecha = new Date(fecha_nacimiento);
   const hoy = new Date();
   const diferenciaMilisegundos = hoy - fecha;
@@ -318,6 +319,7 @@ class User {
     return { message:'UNO', documents,img:imagen}
   }
   async verification(curp,status){
+
     const user = await this.findOne(curp);
     if(user.documents[0].data.verificacion){
       console.log('YA REGISTRADO');

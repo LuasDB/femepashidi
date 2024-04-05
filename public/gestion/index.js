@@ -820,15 +820,15 @@ const editar = (element,collection)=>{
               </label>
             </div>
             <div class="flex-container-input">
-              <label for="fecha_corta">
+              <label for="fecha_inicio">
                 Fecha de inicio
-                <input type="date" name="fecha_corta" class="envioDb" value="${element.data.fecha_inicio}">
+                <input type="date" name="fecha_inicio" class="envioDb" value="${element.data.fecha_inicio}">
               </label>
             </div>
             <div class="flex-container-input">
-              <label for="fecha_corta">
+              <label for="fecha_fin">
                 Fecha de termino
-                <input type="date" name="fecha_corta" class="envioDb" value="${element.data.fecha_fin}">
+                <input type="date" name="fecha_fin" class="envioDb" value="${element.data.fecha_fin}">
               </label>
             </div>
             <div class="flex-container-input">
