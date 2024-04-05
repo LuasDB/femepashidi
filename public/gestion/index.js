@@ -194,6 +194,7 @@ const callSolicitudesList = async()=>{
               <th>ASOCIACIÓN</th>
               <th>STATUS</th>
               <th>VER SOLICITUD</th>
+              <th>ELIMINAR</th>
             </tr>
           </thead>
           <tbody id="listado_solicitudes">
@@ -227,10 +228,13 @@ const callSolicitudesList = async()=>{
               <td>${element.data.association.abreviacion}</td>
               <td class="${element.data.status.toLowerCase()}"><p>${element.data.status.toUpperCase()}</p></td>
               <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
-              `;
+              <td class="red" id="${element.id}_delete"><span class="material-symbols-outlined" id="${element.id}_delete">
+              delete
+              </span></td>`;
               n('listado_solicitudes').appendChild(fila);
 
              n(`${element.id}`).onclick = ()=> visualizar(element,'register');
+             n(`${element.id}_delete`).onclick = ()=> eliminar(element,'register');
 
 
             }
@@ -738,6 +742,26 @@ const eliminar = (element,collection)=>{
             });
           }
           break;
+
+        case 'register':
+        const borrarRegister = await fetch(`${API_REGISTERS}${element.id}`,{
+          method:'DELETE'
+        });
+        const resRegister = await borrarRegister.json();
+        if(resRegister.message){
+          Swal.fire({
+            title: `${resRegister.message}`,
+            text: "El registro se ha BORRADO correctamente",
+            icon: "success",
+            showConfirmButton: true,
+          })
+          .then(res=>{
+            if(res.isConfirmed){
+              window.location.reload();
+            }
+          });
+        }
+      break;
 
 
         default:
