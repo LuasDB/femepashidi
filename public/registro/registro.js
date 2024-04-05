@@ -553,6 +553,7 @@ const buscarCurp=async()=>{
 
 
 
+
     $('.area-form').innerHTML=`
     <form id="nuevo_form">
     <input type="text" placeholder="Tu nombre" value="${data.documents[0].id}" style="display:none;" name="id_user" >
@@ -629,44 +630,38 @@ const buscarCurp=async()=>{
         </select>
       </label>
       <label for="categoria">CATEGORIA
-      <select id="categoria" name="categoria" class="envioDb" placeholder="Selecciona tu nivel">
-        <option value="A">A (5 AÑOS O MENOS)</option>
-        <option value="B">B (6 A 9 AÑOS)</option>
-        <option value="C">C (10 A 14 AÑOS)</option>
-        <option value="D">D (15 A 19 AÑOS)</option>
-        <option value="MAYOR">MAYOR (20 A 27 AÑOS)</option>
-        <option value="ADULTO">ADULTO(28 AÑOS O MAS)</option>
-        <option value="NOT APPLY">NOT APPLY</option>
-        <option value="CLASS I">CLASS I(NACIDOS ENTRE EL 1 DE JULIO DE1985 Y 30 DE JUNIO DE 1995)</option>
-        <option value="CLASS II">CLASS II(NACIDOS ENTRE EL 1 DE JULIO DE1975 Y 30 DE JUNIO DE 1985)</option>
-        <option value="CALSS III">CLASS III(NACIDOS ENTRE EL 1 DE JULIO DE1965 Y 30 DE JUNIO DE 1975)</option>
-        <option value="CLASS IV">CLASS IV(NACIDOS ENTRE EL 1 DE JULIO DE1955 Y 30 DE JUNIO DE 1965)</option>
-        <option value="CLASS V">CLASS V(NACIDOS ANTES DEL 30 DE JUNIO DE 1965)</option>
-      </select>
-    </label>
-
-
-
-
-      </div>
-      <div class="col-3">
-
+        <select id="categoria" name="categoria" class="envioDb" placeholder="Selecciona tu nivel">
+          <option value="A">A (5 AÑOS O MENOS)</option>
+          <option value="B">B (6 A 9 AÑOS)</option>
+          <option value="C">C (10 A 14 AÑOS)</option>
+          <option value="D">D (15 A 19 AÑOS)</option>
+          <option value="MAYOR">MAYOR (20 A 27 AÑOS)</option>
+          <option value="ADULTO">ADULTO(28 AÑOS O MAS)</option>
+          <option value="NOT APPLY">NOT APPLY</option>
+          <option value="CLASS I">CLASS I(NACIDOS ENTRE EL 1 DE JULIO DE1985 Y 30 DE JUNIO DE 1995)</option>
+          <option value="CLASS II">CLASS II(NACIDOS ENTRE EL 1 DE JULIO DE1975 Y 30 DE JUNIO DE 1985)</option>
+          <option value="CALSS III">CLASS III(NACIDOS ENTRE EL 1 DE JULIO DE1965 Y 30 DE JUNIO DE 1975)</option>
+          <option value="CLASS IV">CLASS IV(NACIDOS ENTRE EL 1 DE JULIO DE1955 Y 30 DE JUNIO DE 1965)</option>
+          <option value="CLASS V">CLASS V(NACIDOS ANTES DEL 30 DE JUNIO DE 1965)</option>
+        </select>
+      </label>
       </div>
 
-      <div class="col-3">
-
-      <label for="curp">
+      <div class="col-2">
+      <label class="aceptacion" >
+      <input type="checkbox" id="aceptacion">
+      Acepto realizar el pago en la fecha requerida
       </label>
-      <label for="curp">
-
-      </label>
-      <a class="btn-form" id="enviar_registro">Enviar</a>
+      <a class="btn-form hidden" id="enviar_registro">Enviar</a>
     </div>
 
 
     </form>
     `;
     n('enviar_registro').onclick= ()=> envioRegistroCompetencia();
+    n('aceptacion').addEventListener('change', function(){
+      n('aceptacion').checked?n('enviar_registro').classList.remove('hidden'):n('enviar_registro').classList.add('hidden')
+    })
 
 
     const competencias = n('competencia');
