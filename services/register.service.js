@@ -196,8 +196,10 @@ class Register {
 
   async confirmate(id){
     const registro = await getDoc(doc(db,'register',id));
+    console.log('DATOS')
+
     console.log(registro.data())
-    if(registro.data()){
+    if(registro.data() && registro.data().status === 'Preinscrito'){
 
       const destinatario=registro.data().association.correo;
 

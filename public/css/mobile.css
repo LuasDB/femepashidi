@@ -99,12 +99,7 @@ main{
   display: flex;
   flex-direction: column;
 }
-/* Estilos para iPhones */
-@media only screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-  header{
-    background-color: red;
-  }
-}
+
 
 .gallery-container{
   display: flex;

@@ -511,6 +511,15 @@ const nuevoRegistro = async()=>{
 
   }
   );
+  const aviso = `En cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, se informa que los datos personales recabados durante el registro en nuestra plataforma digital serán utilizados única y exclusivamente para brindar los servicios solicitados. Garantizamos que sus datos serán tratados con estricta confidencialidad y no serán compartidos con terceros sin su consentimiento. Tu privacidad es importante para nosotros.
+  `
+  Swal.fire({
+    title: `Aviso de privacidad`,
+    text: aviso,
+    icon: "warning",
+    showConfirmButton: true,
+  });
+
 
 
 }
