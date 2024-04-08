@@ -89,26 +89,25 @@ const estados = {
 };
 
 const categories = {
-  2:`A`,
-  3:`A`,
-  4:`A`,
-  5:`A`,
-  6:`B`,
-  7:`B`,
-  8:`B`,
-  9:`B`,
-  10:`C`,
-  11:`C`,
-  12:`C`,
-  13:`C`,
-  14:`C`,
-  15:`D`,
-  16:`D`,
-  17:`D`,
-  18:`D`,
-  19:`D`,
-  20:`MAYOR`,
-  28:`ADULTO`,
+  2:`PRE-INFANTIL A`,
+  3:`PRE-INFANTIL A`,
+  4:`PRE-INFANTIL A`,
+  5:`PRE-INFANTIL B`,
+  6:`PRE-INFANTIL B`,
+  7:`INFANTIL A`,
+  8:`INFANTIL A`,
+  9:`INFANTIL B`,
+  10:`INFANTIL B`,
+  11:`INFANTIL C`,
+  12:`INFANTIL C`,
+  13:`JUVENIL A`,
+  14:`JUVENIL A`,
+  15:`JUVENIL B`,
+  16:`JUVENIL B`,
+  17:`JUVENIL C`,
+  18:`JUVENIL C`,
+  19:`MAYOR`,
+  29:`ADULTO`,
 }
 
 const categoriesInternational = {
@@ -140,12 +139,26 @@ const verifyCategory=(fecha_nacimiento)=>{
   const hoy = new Date();
   const diferenciaMilisegundos = hoy - fecha;
   let edadExacta = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
-  console.log('Edad:',edadExacta);
+  console.log('Edad exacta',edadExacta)
+
+  const diaNacimiento = fecha.getDate();
+  const mesNacimiento = fecha.getMonth();
+
+  const diaActual = hoy.getDate();
+  const mesActual = hoy.getMonth();
+
+  if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
+    edadExacta++;
+  }
+
+
+
+  console.log('ED',edadExacta)
   let verificacion = edadExacta;
-    if(edadExacta >= 28){
-      verificacion=28;
-    }else if (edadExacta >= 20){
-      verificacion=20;
+    if(edadExacta >= 29){
+      verificacion=29;
+    }else if (edadExacta >= 19){
+      verificacion=19;
 
     }
     console.log(categories[verificacion])

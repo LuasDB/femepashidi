@@ -246,14 +246,32 @@ const callSolicitudesList = async()=>{
         }
       }
 
+      // n('descargar').onclick = ()=> {
+      //   const tabla = document.getElementById('tabla');
+      //   const nombreArchivo = 'solicitudes.xlsx';
+
+      //   let workbook = XLSX.utils.table_to_book(tabla, {sheet: "Solicitudes"});
+      //   workbook = XLSX.utils.table_to_book(tabla, {sheet: "Solicitudes_2"});
+      //   XLSX.writeFile(workbook, nombreArchivo);
+      // }
+
       n('descargar').onclick = ()=> {
+        console.log('Se fue ')
         const tabla = document.getElementById('tabla');
         const nombreArchivo = 'solicitudes.xlsx';
 
-        const workbook = XLSX.utils.table_to_book(tabla, {sheet: "Solicitudes"});
-        XLSX.writeFile(workbook, nombreArchivo);
-      }
+       let workbook = XLSX.utils.book_new();
+       let sheet1 = XLSX.utils.aoa_to_sheet([["Elementos de tabla A"]]);
+       let sheet2 = XLSX.utils.aoa_to_sheet([["Elementos de Tabla B"]]);
 
+       workbook = XLSX.utils.table_to_book(tabla,sheet1);
+
+       XLSX.utils.book_append_sheet(workbook, sheet1, 'HojaA');
+      XLSX.utils.book_append_sheet(workbook, sheet2, 'HojaB');
+
+      XLSX.writeFile(workbook, nombreArchivo);
+
+      }
 
 
 
