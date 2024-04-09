@@ -401,9 +401,13 @@ const nuevoRegistro = async()=>{
       <label for="nivel_actual">NIVEL ACTUAL
         <select id="nivel_actual" name="nivel_actual" class="envioDb">
           <option value="Debutantes 1">Debutantes 1</option>
+          <option value="Debutantes 1 Artistic">Debutantes 1 Artistic</option>
           <option value="Debutantes 2">Debutantes 2</option>
+          <option value="Debutantes 2 Artistic">Debutantes 2 Artistic</option>
           <option value="Pre-Básicos">Pre-Básicos</option>
+          <option value="Pre-Básicos Artistic">Pre-Básicos Artistic</option>
           <option value="Básicos">Básicos</option>
+          <option value="Básicos Artistic">Básicos Artistic</option>
           <option value="Pre-preliminar">Pre-preliminar</option>
           <option value="Preliminar">Preliminar</option>
           <option value="Intermedios 1">Intermedios 1</option>
@@ -426,7 +430,6 @@ const nuevoRegistro = async()=>{
       <select id="asociacion" name="id_asociacion" class="envioDb">
       </select>
     </label>
-
     </div>
     <div class="col-3">
       <label for="telefono">TELEFONO

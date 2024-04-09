@@ -75,17 +75,19 @@ const categories = {
 
 
 const verifyCategory=(fecha_nacimiento)=>{
+  console.log('Estro bien')
   const fecha = new Date(fecha_nacimiento);
   const hoy = new Date();
   const diferenciaMilisegundos = hoy - fecha;
   let edadExacta = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
-  console.log('Edad exacta',edadExacta)
+  console.log('Edad exacta',edadExacta);
 
   const diaNacimiento = fecha.getDate();
   const mesNacimiento = fecha.getMonth();
 
   const diaActual = hoy.getDate();
   const mesActual = hoy.getMonth();
+
 
   if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
     edadExacta++;
@@ -305,6 +307,7 @@ class User {
       obj['data']=item.data();
       documents.push(obj);
     })
+
 
     return {
       message:'TODOS',documents

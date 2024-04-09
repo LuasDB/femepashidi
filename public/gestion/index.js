@@ -77,11 +77,12 @@ const callPatinadoresList = async()=>{
     const data = await resApi.json();
     monitor.innerHTML=`
     <section class="card bg-blue-100">
+    <button class="button" id="descargar">Descargar lista</button>
         <h3>Patinadores</h3>
         <button id="nuevo-patinador"><span class="material-symbols-outlined">
     add_circle
     </span>Nuevo</button>
-        <table>
+        <table id="tabla_patinadores">
           <thead>
             <tr>
               <th>CURP</th>
@@ -90,6 +91,7 @@ const callPatinadoresList = async()=>{
               <th>FECHA DE NACIMIENTO</th>
               <th>ASOCIACION</th>
               <th>VER</th>
+              <th>EDITAR</th>
               <th>ELIMINAR</th>
             </tr>
           </thead>
@@ -107,16 +109,29 @@ const callPatinadoresList = async()=>{
         <td>${element.data.fecha_nacimiento}</td>
         <td>${element.data.asociacion.nombre}</td>
         <td id="${element.id}" class="blue"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
+        <td class="blue" id="${element.id}_edit"><span class="material-symbols-outlined" id="${element.id}_edit">edit</span></td>
         <td id="${element.id}_delete" class="red"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>`;
 
         n('listado_users').appendChild(fila);
 
         n(element.id).onclick = ()=> visualizar(element,'users');
+        n(`${element.id}_edit`).onclick = ()=> editar(element,'users');
         n(`${element.id}_delete`).onclick = ()=> eliminar(element,'users');
 
 
     });
     n('nuevo-patinador').onclick = ()=> nuevoRegistro('patinador');
+    n('descargar').onclick = ()=> {
+      const tabla = document.getElementById('tabla_patinadores');
+      const nombreArchivo = 'lista_patinadores.xlsx';
+
+      let workbook = XLSX.utils.table_to_book(tabla, {sheet: "Patinadores"});
+      XLSX.writeFile(workbook, nombreArchivo);
+    }
+
+
+
+
   } catch (error) {
     console.log('ERROR',error);
   }
@@ -246,32 +261,31 @@ const callSolicitudesList = async()=>{
         }
       }
 
-      // n('descargar').onclick = ()=> {
-      //   const tabla = document.getElementById('tabla');
-      //   const nombreArchivo = 'solicitudes.xlsx';
-
-      //   let workbook = XLSX.utils.table_to_book(tabla, {sheet: "Solicitudes"});
-      //   workbook = XLSX.utils.table_to_book(tabla, {sheet: "Solicitudes_2"});
-      //   XLSX.writeFile(workbook, nombreArchivo);
-      // }
-
       n('descargar').onclick = ()=> {
-        console.log('Se fue ')
         const tabla = document.getElementById('tabla');
         const nombreArchivo = 'solicitudes.xlsx';
 
-       let workbook = XLSX.utils.book_new();
-       let sheet1 = XLSX.utils.aoa_to_sheet([["Elementos de tabla A"]]);
-       let sheet2 = XLSX.utils.aoa_to_sheet([["Elementos de Tabla B"]]);
-
-       workbook = XLSX.utils.table_to_book(tabla,sheet1);
-
-       XLSX.utils.book_append_sheet(workbook, sheet1, 'HojaA');
-      XLSX.utils.book_append_sheet(workbook, sheet2, 'HojaB');
-
-      XLSX.writeFile(workbook, nombreArchivo);
-
+        let workbook = XLSX.utils.table_to_book(tabla, {sheet: "Solicitudes"});
+        XLSX.writeFile(workbook, nombreArchivo);
       }
+
+      // n('descargar').onclick = ()=> {
+      //   console.log('Se fue ')
+      //   const tabla = document.getElementById('tabla');
+      //   const nombreArchivo = 'solicitudes.xlsx';
+
+      //  let workbook = XLSX.utils.book_new();
+      //  let sheet1 = XLSX.utils.aoa_to_sheet([["Elementos de tabla A"]]);
+      //  let sheet2 = XLSX.utils.aoa_to_sheet([["Elementos de Tabla B"]]);
+
+      //  workbook = XLSX.utils.table_to_book(tabla,sheet1);
+
+      //  XLSX.utils.book_append_sheet(workbook, sheet1, 'HojaA');
+      // XLSX.utils.book_append_sheet(workbook, sheet2, 'HojaB');
+
+      // XLSX.writeFile(workbook, nombreArchivo);
+
+      // }
 
 
 
@@ -514,6 +528,8 @@ const actualizarBd= (collection,id)=>{
           break;
         case 'communications': envioActualizarComunicados(id);
           break;
+        // case 'users': envioActualizarUsers(id);
+        //   break;
 
 
         default:
@@ -525,7 +541,7 @@ const actualizarBd= (collection,id)=>{
 /****************************************************************************************************************
  * Funciones para mandar a llamar alguna accion
  ***********************************************************************************************************/
-const visualizar = (element,collection)=>{
+const visualizar = async(element,collection)=>{
 
   $('section').classList.add('hidden');
   n('modal_bg').classList.remove('hidden');
@@ -583,6 +599,8 @@ const visualizar = (element,collection)=>{
 
 
     `;
+
+
 
 
   }
@@ -798,6 +816,86 @@ const editar = (element,collection)=>{
   console.log(collection);
   console.log(element.id);
   console.groupEnd();
+
+//   if(collection === 'users'){
+//     monitor.innerHTML =`
+// <datalist id="list_nivel">
+// <option value="Debutantes 1">Debutantes 1</option>
+// <option value="Debutantes 2">Debutantes 2</option>
+// <option value="Pre-Básicos">Pre-Básicos</option>
+// <option value="Básicos">Básicos</option>
+// <option value="Pre-preliminar">Pre-preliminar</option>
+// <option value="Preliminar">Preliminar</option>
+// <option value="Intermedios 1">Intermedios 1</option>
+// <option value="Intermedios 2">Intermedios 2</option>
+// <option value="Novicios">Novicios</option>
+// <option value="Avanzados 1">Avanzados 1</option>
+// <option value="Avanzados 2">Avanzados 2</option>
+// <option value="Adulto Bronce">Adulto Bronce</option>
+// <option value="Adulto Plata">Adulto Plata</option>
+// <option value="Adulto Oro">Adulto Oro</option>
+// <option value="Adulto Master">Adulto Master</option>
+// <option value="Adulto Master Elite">Adulto Master Elite</option>
+// <option value="ADULTO PAREJAS">ADULTO PAREJAS</option>
+// <option value="ADULTO PAREJAS INTERMEDIATE">ADULTO PAREJAS INTERMEDIATE</option>
+// <option value="ADULTO PAREJAS MASTER">ADULTO PAREJAS MASTER</option>
+// <option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
+// </datalist>
+// <datalist id="list_asoc">
+
+// </datalist>
+// <form id="form_nuevo">
+// <section class="card container-form">
+// <h3>Datos del deportista</h3>
+//   <div class="flex-container-input">
+//     <label for="curp">
+//       CURP
+//       <input type="text" name="curp" class="envioDb" id="curp" value="${element.data.curp}">
+//     </label>
+//   </div>
+
+//   <div class="">
+//     <div class="flex-container-input">
+//       <label for="nombre"> Nombre
+//         <input type="text" name="nombre" class="envioDb" value="${element.data.nombre}">
+//       </label>
+//       <label for="apellido_paterno"> Apellido paterno
+//         <input type="text" name="apellido_paterno" class="envioDb" value="${element.data.apellido_paterno}">
+//       </label><label for="apellido_materno"> Apellido materno
+//         <input type="text" name="apellido_materno" class="envioDb" value="${element.data.apellido_materno}">
+//       </label>
+//     </div>
+//     <div class="flex-container-input">
+//       <label for="fecha_nacimiento"> Fecha de nacimiento
+//         <input type="date" name="fecha_nacimiento" class="envioDb" value="${element.data.fecha_nacimiento}">
+//       </label>
+//       <label for="lugar_nacimiento"> Lugar de Nacimiento
+//         <input type="text" name="lugar_nacimiento" class="envioDb" value="${element.data.lugar_nacimiento}">
+//       </label>
+//       <label for="sexo"> Sexo
+//       <input type="text" name="sexo" class="envioDb" value="${element.data.sexo}">
+//       </label>
+//     </div>
+//     <div class="flex-container-input">
+//       <label for="correo"> Correo de contacto
+//         <input type="text" name="correo" class="envioDb" value="${element.data.correo}">
+//       </label>
+//       <label for="telefono"> Teléfono/whatsapp
+//         <input type="text" name="telefono" class="envioDb" value="${element.data.telefono}">
+//       </label>
+//     </div>
+//   </div>
+//   <div class="flex-container-input">
+//     <label for="nivel_actual"> Nivel Actual
+//       <input list="list_nivel" name="nivel_actual" class="envioDb" value="${element.data.nivel_actual}">
+//     </label>
+//   </div>
+
+//   <button id="guardar" type="button">Guardar</button>
+// </section>
+// </form>
+//     `;
+//   }
 
   if(collection==='associations'){
     monitor.innerHTML = `
@@ -1219,3 +1317,6 @@ async function envioActualizarComunicados(id){
 
 
 }
+
+
+
