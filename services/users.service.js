@@ -26,27 +26,47 @@ const transporter = nodemailer.createTransport({
   //}
 });
 
-
 const categories = {
-  4:`PRE-INFANTIL 'A'`,
-  5:`PRE-INFANTIL 'B'`,
-  6:`PRE-INFANTIL 'B'`,
-  7:`INFANTIL 'A'`,
-  8:`INFANTIL 'A'`,
-  9:`INFANTIL 'B'`,
-  10:`INFANTIL 'B'`,
-  11:`INFANTIL 'C'`,
-  12:`INFANTIL 'C'`,
-  13:`JUVENIL 'A'`,
-  14:`JUVENIL 'A'`,
-  15:`JUVENIL 'B'`,
-  16:`JUVENIL 'B'`,
-  17:`JUVENIL 'c'`,
-  18:`JUVENIL 'c'`,
+  2:`PRE-INFANTIL A`,
+  3:`PRE-INFANTIL A`,
+  4:`PRE-INFANTIL A`,
+  5:`PRE-INFANTIL B`,
+  6:`PRE-INFANTIL B`,
+  7:`INFANTIL A`,
+  8:`INFANTIL A`,
+  9:`INFANTIL B`,
+  10:`INFANTIL B`,
+  11:`INFANTIL C`,
+  12:`INFANTIL C`,
+  13:`JUVENIL A`,
+  14:`JUVENIL A`,
+  15:`JUVENIL B`,
+  16:`JUVENIL B`,
+  17:`JUVENIL C`,
+  18:`JUVENIL C`,
   19:`MAYOR`,
   29:`ADULTO`,
-
 }
+// const categories = {
+//   4:`PRE-INFANTIL 'A'`,
+//   5:`PRE-INFANTIL 'B'`,
+//   6:`PRE-INFANTIL 'B'`,
+//   7:`INFANTIL 'A'`,
+//   8:`INFANTIL 'A'`,
+//   9:`INFANTIL 'B'`,
+//   10:`INFANTIL 'B'`,
+//   11:`INFANTIL 'C'`,
+//   12:`INFANTIL 'C'`,
+//   13:`JUVENIL 'A'`,
+//   14:`JUVENIL 'A'`,
+//   15:`JUVENIL 'B'`,
+//   16:`JUVENIL 'B'`,
+//   17:`JUVENIL 'c'`,
+//   18:`JUVENIL 'c'`,
+//   19:`MAYOR`,
+//   29:`ADULTO`,
+
+// }
 
 
 
@@ -308,6 +328,16 @@ class User {
       documents.push(obj);
     })
 
+    // FUNCION PARA CORREGIR CATEGORIAS
+    // let cont = 1
+    // resfirebase.forEach(item =>{
+    //   let patinador = item.data();
+    //   patinador['categoria']=verifyCategory(patinador.fecha_nacimiento);
+    //   this.update(patinador.curp,patinador);
+    //   console.log(cont)
+    //   cont++;
+    // })
+
 
     return {
       message:'TODOS',documents
@@ -334,6 +364,11 @@ class User {
     const imagen = `${server}images/users/${nombre_imagen}`;
 
     return { message:'UNO', documents,img:imagen}
+
+
+
+
+
   }
   async verification(curp,status){
 
@@ -509,22 +544,213 @@ class User {
 
 
   }
-  async update(id,data){
-    const q = query(collection(db,'users'),where('curp','==',id));
+  async resendMailRegister(curp){
+    const q = query(collection(db,'users'),where('curp','==',curp));
+    const res = await getDocs(q);
+    let documents = []
+    res.forEach(item =>{
+      let obj ={}
+      obj['id']=item.id;
+      obj['data']=item.data();
+      documents.push(obj);
+    })
+    if(documents.length === 0){
+      throw boom.notFound('Usuario no encontrado');
+    }
+    const data = documents[0].data;
+    console.log(data)
+    if(data){
+      console.log('Se reenvia el correo');
+      const destinatario=data.asociacion.correo;
+      const usuarioMail = data.correo;
+
+      // Contenido HTML del correo
+      const contenidoHtml = `
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+          :root{
+            --primary-color-r:#268dee;
+            --background-input:#f0f0f0;
+            --font-input:#333;
+          }
+          body{
+            font-family: 'Nunito', sans-serif;
+          }
+
+          .container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            align-items: center;"
+          }
+
+            </style>
+      </head>
+      <body>
+
+
+        <div class="container">
+        <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
+          <h2 style="
+          color:#268dee;">${data.asociacion.representante.toUpperCase()}</h2>
+          <p style="
+          color:#333;">FEMEPASHIDI esta enviando esta solicitud para registrar al siguiente participante como parte de su asociación.</p>
+          <p style="
+          color:#333;">Nombre: ${data.nombre}  ${data.apellido_paterno} ${data.apellido_materno}</p>
+          <p style="
+          color:#333;">Nivel: ${data.nivel_actual}</p>
+          <p style="
+          color:#333;">Categoria: ${data.categoria}</p>
+          <p style="
+          color:#333;">Fecha de nacimeinto: ${data.fecha_nacimiento}</p>
+          <p style="
+          color:#333;">Es necesario que dé su Visto Bueno para que esta solicitud sea enviada al Presidente de FEMEPASHIDI</p>
+            <a href="${server}api/v1/users/verification/${data.curp}/true" target="_self">
+              <img style="width:200px;" src="cid:aceptarImg" alt="Imagen Adjunta">
+            </a>
+            <a href="${server}api/v1/users/verification/${data.curp}/false" target="_self">
+              <img style="width:200px;" src="cid:rechazarImg" alt="Imagen Adjunta">
+            </a>
+            <p style="
+            color:#333;">Una vez realizada la autorización se notificara al participante que se acepto su registro</p>
+            <p style="
+            color:#333;">Saludos,</p>
+            <p style="
+            color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
+            <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
+          </div>
+      </body>
+      </html>
+
+
+      `;
+      const contenidoHtmlUsuario = `
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+          :root{
+            --primary-color-r:#268dee;
+            --background-input:#f0f0f0;
+            --font-input:#333;
+          }
+          body{
+            font-family: 'Nunito', sans-serif;
+          }
+
+          .container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            align-items: center;"
+          }
+
+            </style>
+      </head>
+      <body>
+        <div class="container">
+        <img style="width: 100%;" src="cid:encabezadoImg" alt="Imagen Adjunta">
+          <h2 style="
+          color:#268dee;">${data.nombre.toUpperCase()} ${data.apellido_paterno.toUpperCase()} ${data.apellido_materno.toUpperCase()}</h2>
+          <p style="color:#333;">FEMEPASHIDI ha recibido y esta gestionando tu solicitud de registro en nuestra plataforma. </p>
+          <p style="color:#333;">En cuanto se autorice por parte del presidente de tu asociación te enviaremos un correo notificando tu aceptación para que puedas inscribirte a las competencias vigentes.</p>
+          <p style="color:#333;">Te pedimos estes pendiente de tu correo.</p>
+
+          <p style="
+          color:#333;">Saludos,</p>
+          <p style="
+          color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
+          <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
+          </div>
+      </body>
+    </html>
+      `;
+      // Opciones del correo
+      const opcionesCorreo = {
+      // from:'luasjcr.3543@gmail.com',
+      from:'registros@femepashidi.com.mx',
+      to: destinatario,
+      subject: 'SOLICITUD DE REGISTRO FEMEPASHIDI A.C.',
+      html: contenidoHtml,
+      attachments:[
+        {
+        filename: 'ACEPTAR.png',  // Nombre del archivo adjunto
+        path: './uploads/others/ACEPTAR.png',  // Ruta a la imagen en tu sistema
+        cid: 'aceptarImg'  // Identificador único para la imagen, usado en el contenido HTML
+        },
+        {
+          filename: 'RECHAZAR.png',  // Nombre del archivo adjunto
+          path: './uploads/others/RECHAZAR.png',  // Ruta a la imagen en tu sistema
+          cid: 'rechazarImg'  // Identificador único para la imagen, usado en el contenido HTML
+          },
+          {
+            filename: 'encabezado.png',  // Nombre del archivo adjunto
+            path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
+            cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
+            }
+    ]
+      };
+
+      // Opciones del correo
+      const opcionesCorreoUsuario = {
+        from:'registros@femepashidi.com.mx',
+        to: usuarioMail,
+        subject: 'Registro FEMEPASHIDI A.C.',
+        html: contenidoHtmlUsuario,
+        attachments:[
+            {
+              filename: 'encabezado.png',  // Nombre del archivo adjunto
+              path: './uploads/others/encabezado.png',  // Ruta a la imagen en tu sistema
+              cid: 'encabezadoImg'  // Identificador único para la imagen, usado en el contenido HTML
+              }
+      ]
+        };
+      // Enviar el correo a la asociación
+      transporter.sendMail(opcionesCorreo, (error, info) => {
+        console.log('[ERROR MAIL ASOCIACION]',error);
+        console.log(info);
+      });
+
+      transporter.sendMail(opcionesCorreoUsuario, (error, info) => {
+        console.log('[ERROR MAIL USUARIO]',error);
+        console.log(info);
+      });
+
+
+    }
+
+
+
+  }
+  async update(curp,data){
+    console.log('Entrando al update')
+
+    const q = query(collection(db,'users'),where('curp','==',curp));
     const res = await getDocs(q);
     let obj ={}
     res.forEach(item=>{
       obj['id']=item.id;
       obj['data']=item.data();
     })
-    console.log(obj);
-    console.log(data);
+
+    let boolValue=true;
+    if(obj.data.verificacion === 'false'){ boolValue = false;};
+      obj.data['verificacion'] =boolValue
     let copy = obj['data'];
     obj['data']={
       ...copy,
       ...data}
+      console.log(obj)
     const actualizarUsuario = await updateDoc(doc(db,'users',obj.id),obj.data);
-    return {actualizarUsuario}
+    return {actualizarUsuario,message:'Actualizado'}
 
   }
   async delete(id){

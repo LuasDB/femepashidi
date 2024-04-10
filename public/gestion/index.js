@@ -82,7 +82,7 @@ const callPatinadoresList = async()=>{
         <button id="nuevo-patinador"><span class="material-symbols-outlined">
     add_circle
     </span>Nuevo</button>
-        <table id="tabla_patinadores">
+        <table>
           <thead>
             <tr>
               <th>CURP</th>
@@ -99,6 +99,24 @@ const callPatinadoresList = async()=>{
 
           </tbody>
         </table>
+
+        <table id="tabla_patinadores" class="hidden">
+          <thead>
+            <tr>
+              <th>ASOCIACION</th>
+              <th>CURP</th>
+              <th>NOMBRE</th>
+              <th>NIVEL</th>
+              <th>CATEGORIA</th>
+              <th>GENERO</th>
+            </tr>
+          </thead>
+          <tbody id="listado_users_excel">
+
+          </tbody>
+        </table>
+
+
       </section>`;
     data.documents.forEach(element => {
       let fila = nuevo('tr');
@@ -111,7 +129,6 @@ const callPatinadoresList = async()=>{
         <td id="${element.id}" class="blue"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
         <td class="blue" id="${element.id}_edit"><span class="material-symbols-outlined" id="${element.id}_edit">edit</span></td>
         <td id="${element.id}_delete" class="red"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>`;
-
         n('listado_users').appendChild(fila);
 
         n(element.id).onclick = ()=> visualizar(element,'users');
@@ -121,6 +138,45 @@ const callPatinadoresList = async()=>{
 
     });
     n('nuevo-patinador').onclick = ()=> nuevoRegistro('patinador');
+
+
+
+    //FUNCION PARA ORDENAMIENTO DE TABLA EXCEL
+    let conteo={}
+    let clave ='';
+    data.documents.forEach(element => {
+      clave=`${element.data.asociacion.nombre},${element.data.nivel_actual},${element.data.categoria},${element.data.sexo}`;
+      if(!conteo[clave]){
+        conteo[clave] = { total:0, participantes:{}}
+      }
+      conteo[clave].total +=1;
+    });
+    for (const clave in conteo) {
+      if (conteo.hasOwnProperty(clave)) {
+        data.documents.forEach(element=>{
+          let claveElement = `${element.data.asociacion.nombre},${element.data.nivel_actual},${element.data.categoria},${element.data.sexo}`;
+          if( clave === claveElement){
+
+            let genero= element.data.sexo ==='FEMENINO'?'FEMENIL':'VARONIL';
+
+             //Creacion de tabla para descarga en excel
+            let fila2 = nuevo('tr');
+            fila2.innerHTML=`
+              <td>${element.data.asociacion.nombre}</td>
+              <td>${element.data.curp}</td>
+              <td>${formatearNombre(element.data.nombre)} ${element.data.apellido_paterno.toUpperCase()} ${element.data.apellido_materno.toUpperCase()}</td>
+              <td>${element.data.nivel_actual}</td>
+              <td>${element.data.categoria}</td>
+              <td>${genero}</td>
+              `;
+              n('listado_users_excel').appendChild(fila2);
+
+          }
+        });
+
+      }
+    }
+
     n('descargar').onclick = ()=> {
       const tabla = document.getElementById('tabla_patinadores');
       const nombreArchivo = 'lista_patinadores.xlsx';
@@ -233,7 +289,6 @@ const callSolicitudesList = async()=>{
             if( clave === claveElement){
               let fila = nuevo('tr');
               let genero= element.data.user.sexo==='FEMENINO'?'FEMENIL':'VARONIL';
-
               fila.innerHTML = `
               <td>${element.data.event.nombre}</td>
               <td>${formatearNombre(element.data.user.nombre)} ${element.data.user.apellido_paterno.toUpperCase()} ${element.data.user.apellido_materno.toUpperCase()}</td>
@@ -528,8 +583,8 @@ const actualizarBd= (collection,id)=>{
           break;
         case 'communications': envioActualizarComunicados(id);
           break;
-        // case 'users': envioActualizarUsers(id);
-        //   break;
+        case 'users': envioActualizarUsers(id);
+          break;
 
 
         default:
@@ -817,85 +872,108 @@ const editar = (element,collection)=>{
   console.log(element.id);
   console.groupEnd();
 
-//   if(collection === 'users'){
-//     monitor.innerHTML =`
-// <datalist id="list_nivel">
-// <option value="Debutantes 1">Debutantes 1</option>
-// <option value="Debutantes 2">Debutantes 2</option>
-// <option value="Pre-Básicos">Pre-Básicos</option>
-// <option value="Básicos">Básicos</option>
-// <option value="Pre-preliminar">Pre-preliminar</option>
-// <option value="Preliminar">Preliminar</option>
-// <option value="Intermedios 1">Intermedios 1</option>
-// <option value="Intermedios 2">Intermedios 2</option>
-// <option value="Novicios">Novicios</option>
-// <option value="Avanzados 1">Avanzados 1</option>
-// <option value="Avanzados 2">Avanzados 2</option>
-// <option value="Adulto Bronce">Adulto Bronce</option>
-// <option value="Adulto Plata">Adulto Plata</option>
-// <option value="Adulto Oro">Adulto Oro</option>
-// <option value="Adulto Master">Adulto Master</option>
-// <option value="Adulto Master Elite">Adulto Master Elite</option>
-// <option value="ADULTO PAREJAS">ADULTO PAREJAS</option>
-// <option value="ADULTO PAREJAS INTERMEDIATE">ADULTO PAREJAS INTERMEDIATE</option>
-// <option value="ADULTO PAREJAS MASTER">ADULTO PAREJAS MASTER</option>
-// <option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
-// </datalist>
-// <datalist id="list_asoc">
+  if(collection === 'users'){
+    monitor.innerHTML =`
+<datalist id="list_nivel">
+<option value="Debutantes 1">Debutantes 1</option>
+<option value="Debutantes 1 Artistic">Debutantes 1 Artistic</option>
+<option value="Debutantes 2">Debutantes 2</option>
+<option value="Debutantes 2 Artistic">Debutantes 2 Artistic</option>
+<option value="Pre-Básicos">Pre-Básicos</option>
+<option value="Pre-Básicos Artistic">Pre-Básicos Artistic</option>
+<option value="Básicos">Básicos</option>
+<option value="Básicos Artistic">Básicos Artistic</option>
+<option value="Pre-preliminar">Pre-preliminar</option>
+<option value="Preliminar">Preliminar</option>
+<option value="Intermedios 1">Intermedios 1</option>
+<option value="Intermedios 2">Intermedios 2</option>
+<option value="Novicios">Novicios</option>
+<option value="Avanzados 1">Avanzados 1</option>
+<option value="Avanzados 2">Avanzados 2</option>
+<option value="Adulto Bronce">Adulto Bronce</option>
+<option value="Adulto Plata">Adulto Plata</option>
+<option value="Adulto Oro">Adulto Oro</option>
+<option value="Adulto Master">Adulto Master</option>
+<option value="Adulto Master Elite">Adulto Master Elite</option>
+<option value="ADULTO PAREJAS">ADULTO PAREJAS</option>
+<option value="ADULTO PAREJAS INTERMEDIATE">ADULTO PAREJAS INTERMEDIATE</option>
+<option value="ADULTO PAREJAS MASTER">ADULTO PAREJAS MASTER</option>
+<option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
+</datalist>
+<datalist id="list_categoria">
+<option value="PRE-INFANTIL A">PRE-INFANTIL A</option>
+<option value="PRE-INFANTIL B">PRE-INFANTIL B</option>
+<option value="INFANTIL A">INFANTIL A</option>
+<option value="INFANTIL B">INFANTIL B</option>
+<option value="INFANTIL C">INFANTIL C</option>
+<option value="JUVENIL A">JUVENIL A</option>
+<option value="JUVENIL B">JUVENIL B</option>
+<option value="JUVENIL C">JUVENIL C</option>
+<option value="MAYOR">MAYOR</option>
+<option value="ADULTO">ADULTO</option>
+</datalist>
+<datalist id="list_verification">
+<option value="true">true</option>
+<option value="false">false</option>
+</datalist>
+<form id="form_nuevo">
+<section class="card container-form">
+<h3>Datos del deportista</h3>
+  <div class="flex-container-input">
+    <label for="curp">
+      CURP
+      <input type="text" name="curp" class="envioDb" id="curp" value="${element.data.curp}">
+    </label>
+  </div>
 
-// </datalist>
-// <form id="form_nuevo">
-// <section class="card container-form">
-// <h3>Datos del deportista</h3>
-//   <div class="flex-container-input">
-//     <label for="curp">
-//       CURP
-//       <input type="text" name="curp" class="envioDb" id="curp" value="${element.data.curp}">
-//     </label>
-//   </div>
+  <div class="">
+    <div class="flex-container-input">
+      <label for="nombre"> Nombre
+        <input type="text" name="nombre" class="envioDb" value="${element.data.nombre}">
+      </label>
+      <label for="apellido_paterno"> Apellido paterno
+        <input type="text" name="apellido_paterno" class="envioDb" value="${element.data.apellido_paterno}">
+      </label><label for="apellido_materno"> Apellido materno
+        <input type="text" name="apellido_materno" class="envioDb" value="${element.data.apellido_materno}">
+      </label>
+    </div>
+    <div class="flex-container-input">
+      <label for="fecha_nacimiento"> Fecha de nacimiento
+        <input type="date" name="fecha_nacimiento" class="envioDb" value="${element.data.fecha_nacimiento}">
+      </label>
+      <label for="lugar_nacimiento"> Lugar de Nacimiento
+        <input type="text" name="lugar_nacimiento" class="envioDb" value="${element.data.lugar_nacimiento}">
+      </label>
+      <label for="sexo"> Sexo
+      <input type="text" name="sexo" class="envioDb" value="${element.data.sexo}">
+      </label>
+    </div>
+    <div class="flex-container-input">
+      <label for="correo"> Correo de contacto
+        <input type="text" name="correo" class="envioDb" value="${element.data.correo}">
+      </label>
+      <label for="telefono"> Teléfono/whatsapp
+        <input type="text" name="telefono" class="envioDb" value="${element.data.telefono}">
+      </label>
+    </div>
+  </div>
+  <div class="flex-container-input">
+    <label for="nivel_actual"> Nivel Actual
+      <input list="list_nivel" name="nivel_actual" class="envioDb" value="${element.data.nivel_actual}">
+    </label>
+    <label for="categoria"> Categoria
+      <input list="list_categoria" name="categoria" class="envioDb" value="${element.data.categoria}">
+  </label>
+  <label for="verificacion"> Verificación
+      <input list="list_verification" name="verificacion" class="envioDb" value="${element.data.verificacion}">
+  </label>
+  </div>
 
-//   <div class="">
-//     <div class="flex-container-input">
-//       <label for="nombre"> Nombre
-//         <input type="text" name="nombre" class="envioDb" value="${element.data.nombre}">
-//       </label>
-//       <label for="apellido_paterno"> Apellido paterno
-//         <input type="text" name="apellido_paterno" class="envioDb" value="${element.data.apellido_paterno}">
-//       </label><label for="apellido_materno"> Apellido materno
-//         <input type="text" name="apellido_materno" class="envioDb" value="${element.data.apellido_materno}">
-//       </label>
-//     </div>
-//     <div class="flex-container-input">
-//       <label for="fecha_nacimiento"> Fecha de nacimiento
-//         <input type="date" name="fecha_nacimiento" class="envioDb" value="${element.data.fecha_nacimiento}">
-//       </label>
-//       <label for="lugar_nacimiento"> Lugar de Nacimiento
-//         <input type="text" name="lugar_nacimiento" class="envioDb" value="${element.data.lugar_nacimiento}">
-//       </label>
-//       <label for="sexo"> Sexo
-//       <input type="text" name="sexo" class="envioDb" value="${element.data.sexo}">
-//       </label>
-//     </div>
-//     <div class="flex-container-input">
-//       <label for="correo"> Correo de contacto
-//         <input type="text" name="correo" class="envioDb" value="${element.data.correo}">
-//       </label>
-//       <label for="telefono"> Teléfono/whatsapp
-//         <input type="text" name="telefono" class="envioDb" value="${element.data.telefono}">
-//       </label>
-//     </div>
-//   </div>
-//   <div class="flex-container-input">
-//     <label for="nivel_actual"> Nivel Actual
-//       <input list="list_nivel" name="nivel_actual" class="envioDb" value="${element.data.nivel_actual}">
-//     </label>
-//   </div>
-
-//   <button id="guardar" type="button">Guardar</button>
-// </section>
-// </form>
-//     `;
-//   }
+  <button id="guardar" type="button">Guardar</button>
+</section>
+</form>
+    `;
+  }
 
   if(collection==='associations'){
     monitor.innerHTML = `
@@ -1318,5 +1396,33 @@ async function envioActualizarComunicados(id){
 
 }
 
+async function envioActualizarUsers(id){
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+  const curp = n('curp').value
+  for (let entry of formData.entries()) {
+    console.log(entry);
+  }
+  const envio = await fetch(`${API_USERS}${curp}`,{
+    method:'PATCH',
+    body:formData
+  })
+  const res = await envio.json();
+  if(res.message){
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El registro se ha ACTUALIZADO correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+
+
+}
 
 

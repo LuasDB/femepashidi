@@ -1,6 +1,8 @@
 // Mandamos a llamar express para poder utilizar el metodo Router
 const express = require('express');
-//Mandamos a llamar el servicio de Usuarios
+// Llamamos a multer para gestionar el uso de Formularios en el POTS
+const multer = require('multer');
+const upload = multer();
 
 //Agregamos el middleware Validation Handler
 const { validationHandler } = require('./../middleware/validator.hanlder');
@@ -55,6 +57,15 @@ router.get('/verification/:curp/:status',async(req,res,next)=>{
     next(error);
   }
 });
+router.get('/resend-email-register/:curp',async(req,res,next)=>{
+  const { curp }=req.params;
+  try {
+    const users = await usuario.resendMailRegister(curp);
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+});
 router.post('/',uploadUsers.single('archivo'),async(req,res,next)=>{
   try {
     const user = await usuario.create(req.body,req.file.filename);
@@ -63,9 +74,10 @@ router.post('/',uploadUsers.single('archivo'),async(req,res,next)=>{
     next(error);
   }
 });
-router.patch('/:id',async(req,res,next)=>{
+router.patch('/:curp',upload.none(),async(req,res,next)=>{
   try {
-    const user = await usuario.update(req.params.id,req.body);
+    console.log('El body:',req.body);
+    const user = await usuario.update(req.params.curp,req.body);
     res.status(201).json(user);
   } catch (error) {
     next(error);
