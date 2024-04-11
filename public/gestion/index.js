@@ -90,6 +90,7 @@ const callPatinadoresList = async()=>{
               <th>NIVEL</th>
               <th>FECHA DE NACIMIENTO</th>
               <th>ASOCIACION</th>
+              <th>STATUS</th>
               <th>VER</th>
               <th>EDITAR</th>
               <th>ELIMINAR</th>
@@ -126,6 +127,7 @@ const callPatinadoresList = async()=>{
         <td>${element.data.nivel_actual}</td>
         <td>${element.data.fecha_nacimiento}</td>
         <td>${element.data.asociacion.nombre}</td>
+        <td>${element.data.verificacion}</td>
         <td id="${element.id}" class="blue"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
         <td class="blue" id="${element.id}_edit"><span class="material-symbols-outlined" id="${element.id}_edit">edit</span></td>
         <td id="${element.id}_delete" class="red"><span class="material-symbols-outlined" id="${element.id}_delete">delete</span></td>`;
