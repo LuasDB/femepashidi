@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
  ***********************************************************************************************************/
 const server = 'https://femepashidi.siradiacion.com.mx/';
 // const server = 'http://localhost:3000/';
-// const server = 'https://femepashidiapi.onrender.com/'
+
 const API_USERS = `${server}api/v1/users/`;
 const API_ASSOCIATIONS = `${server}api/v1/associations/`;
 const API_REGISTERS = `${server}api/v1/register/`;

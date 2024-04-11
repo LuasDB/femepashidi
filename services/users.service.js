@@ -137,6 +137,11 @@ class User {
   }
 
   async create(data,img_name){
+    const exist = this.validateExist(data.curp);
+    if(exist.resultado){
+      console.log('YA EXISTE');
+      return { message:'Ya existe'}
+    }
 
     data['img']=img_name;
     const id_association = data.id_asociacion;

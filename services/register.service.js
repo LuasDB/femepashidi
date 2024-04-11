@@ -197,10 +197,17 @@ class Register {
   async confirmate(id){
     const registro = await getDoc(doc(db,'register',id));
     console.log('DATOS')
+    let obj=registro.data();
 
     console.log(registro.data())
-    if(registro.data() && registro.data().status === 'Preinscrito'){
-
+    if(obj.confirmado){
+      console.log('YA ESTABA CONFIRMADO NO SE ENVIA CORREO');
+      return {message:'Ya confirmado'}
+    }
+    if(obj && obj.status === 'Preinscrito'){
+      obj['confirmado']='confirmado';
+      await this.update(id,obj);
+      console.log('SE CONFIRMO')
       const destinatario=registro.data().association.correo;
 
       // Contenido HTML del correo al Competidor
@@ -286,9 +293,6 @@ class Register {
 
       });
       return {message:'Correo enviado'}
-
-
-
     }
   }
   async approval(params){

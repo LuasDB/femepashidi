@@ -11,7 +11,7 @@ const nuevo = (elemento)=> document.createElement(elemento);
 const server = 'https://femepashidi.siradiacion.com.mx/';
 
 // const server = 'http://localhost:3000/';
-// const server = 'https://femepashidiapi.onrender.com/'
+
 const API_COMMUNICATIONS = `${server}api/v1/communications/`;
 const API_EVENTS = `${server}api/v1/events/`;
 const SERVER_UPLOADS=`${server}images/`;

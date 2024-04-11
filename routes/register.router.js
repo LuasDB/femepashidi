@@ -51,6 +51,8 @@ router.get('/confirmation/:id',async(req,res,next)=>{
     const register = await registro.confirmate(id);
     if(register.message === 'Correo enviado'){
       res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html');
+    }else if(register.message === 'Ya confirmado'){
+      res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html');
     }
 
   } catch (error) {
