@@ -378,7 +378,12 @@ class User {
   async verification(curp,status){
 
     const user = await this.findOne(curp);
-    if(user.documents[0].data.verificacion){
+    let verification = true;
+    if(user.documents[0].data.verificacion === 'false'){
+      verification=false;
+    }
+
+    if(verification){
       console.log('YA REGISTRADO');
       return { message: 'Ya registrado'}
 
