@@ -19,19 +19,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Ejecutamos CORS, primero crearemos las url a las que le daremos acceso
-// const whitelist = ['http://127.0.0.1:5500','https://myapp.co'];
-// const options ={
-//   origin: (origin,callback)=>{
-//     if(whitelist.includes(origin) || !origin){
-//       callback(null,true);
-//     }else{
-//       callback(new Error('No permitido'));
-//     }
-//   }
-// }
+const whitelist = ['http://localhost:3000/','https://femepashidi.siradiacion.com.mx/','https://femepashidi.com.mx'];
+const options ={
+  origin: (origin,callback)=>{
+    if(whitelist.includes(origin) || !origin){
+      callback(null,true);
+    }else{
+      callback(new Error('No permitido'));
+    }
+  }
+}
 
-// app.use(cors(options));
-app.use(cors());
+app.use(cors(options));
+// para todas las url
+// app.use(cors());
 //Mandamos nuestra aplicación a las rutas
 routerApi(app);
 //Manejo de los Middlewares por parte de express, es importante el orden de los mismos

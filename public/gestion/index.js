@@ -267,6 +267,8 @@ const callSolicitudesList = async()=>{
               <th>ASOCIACIÓN</th>
               <th>STATUS</th>
               <th>VER SOLICITUD</th>
+              <th>EDITAR</th>
+
               <th>ELIMINAR</th>
             </tr>
           </thead>
@@ -300,6 +302,7 @@ const callSolicitudesList = async()=>{
               <td>${element.data.association.abreviacion}</td>
               <td class="${element.data.status.toLowerCase()}"><p>${element.data.status.toUpperCase()}</p></td>
               <td class="blue" id="${element.id}"><span class="material-symbols-outlined" id="${element.id}">visibility</span></td>
+              <td class="blue" id="${element.id}_editar"><span class="material-symbols-outlined" id="${element.id}">edit</span></td>
               <td class="red" id="${element.id}_delete"><span class="material-symbols-outlined" id="${element.id}_delete">
               delete
               </span></td>`;
@@ -307,6 +310,7 @@ const callSolicitudesList = async()=>{
 
              n(`${element.id}`).onclick = ()=> visualizar(element,'register');
              n(`${element.id}_delete`).onclick = ()=> eliminar(element,'register');
+             n(`${element.id}_editar`).onclick = ()=> editar(element,'register');
 
 
             }
@@ -727,6 +731,9 @@ const visualizar = async(element,collection)=>{
     <label for="">ESTATUS
       <p>${element.data.status.toUpperCase()}</p>
     </label>
+
+      <a href="${API_REGISTERS}approval/${element.id}/aprobado"></a>
+
   </div>
 
     `;
@@ -734,8 +741,10 @@ const visualizar = async(element,collection)=>{
   console.log(element);
   monitor.appendChild(visual);
 
-
+  // https://femepashidi.siradiacion.com.mx/api/v1/register/approval/RJsxKhJ3tECLyiRCKT5T/aprobado
   n('close_modal').onclick = () => cerrarModal(visual.id);
+
+
 
 }
 const eliminar = (element,collection)=>{
@@ -1172,6 +1181,8 @@ const editar = (element,collection)=>{
             reader.readAsDataURL(file);
           }});
 
+  }else if(collection === 'register'){
+    alert('Registro:',element)
   }
 
 
@@ -1184,7 +1195,7 @@ const cerrarModal = (id)=>{
   n(id).remove();
   $('section').classList.remove('hidden');
 }
-
+// Azalea CONTRERAS CALLEJA
 
 /****************************************************************************************************************
  * Funciones de envios
