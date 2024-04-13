@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Ejecutamos CORS, primero crearemos las url a las que le daremos acceso
-const whitelist = ['http://localhost:3000/','https://femepashidi.siradiacion.com.mx/','https://femepashidi.com.mx'];
+const whitelist = ['http://localhost:3000/','https://femepashidi.siradiacion.com.mx/','https://www.femepashidi.com.mx'];
 const options ={
   origin: (origin,callback)=>{
     if(whitelist.includes(origin) || !origin){
