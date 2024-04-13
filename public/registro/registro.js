@@ -402,11 +402,15 @@ const nuevoRegistro = async()=>{
         <select id="nivel_actual" name="nivel_actual" class="envioDb">
           <option value="Debutantes 1">Debutantes 1</option>
           <option value="Debutantes 1 Artistic">Debutantes 1 Artistic</option>
+          <option value="Debutantes 1 Especial">Debutantes 1 Especial</option>
           <option value="Debutantes 2">Debutantes 2</option>
           <option value="Debutantes 2 Artistic">Debutantes 2 Artistic</option>
+          <option value="Debutantes 2 Especial">Debutantes 2 Especial</option>
           <option value="Pre-Básicos">Pre-Básicos</option>
           <option value="Pre-Básicos Artistic">Pre-Básicos Artistic</option>
+          <option value="Pre-Básicos Especial">Pre-Básicos Especial</option>
           <option value="Básicos">Básicos</option>
+          <option value="Básicos Especial">Básicos Especial</option>
           <option value="Básicos Artistic">Básicos Artistic</option>
           <option value="Pre-preliminar">Pre-preliminar</option>
           <option value="Preliminar">Preliminar</option>
@@ -624,9 +628,13 @@ const buscarCurp=async()=>{
       <label for="nivel_actual">NIVEL ACTUAL
         <select id="nivel_actual" name="nivel_actual" class="envioDb" placeholder="Selecciona tu nivel">
           <option value="DEBUTANTES 1">DEBUTANTES 1</option>
+          <option value="DEBUTANTES 1 ESPECIAL">DEBUTANTES 1 ESPECIAL</option>
           <option value="DEBUTANTES 2">DEBUTANTES 2</option>
+          <option value="DEBUTANTES 2 ESPECIAL">DEBUTANTES 2 ESPECIAL</option>
           <option value="PRE-BASICOS">PRE-BASICOS</option>
+          <option value="PRE-BASICOS ESPECIAL">PRE-BASICOS ESPECIAL</option>
           <option value="NO-TEST">NO-TEST</option>
+          <option value="NO-TEST ESPECIAL">NO-TEST ESPECIAL</option>
           <option value="PRE-PRELIMINARY">PRE-PRELIMINARY</option>
           <option value="PRELIMINARY">PRELIMINARY</option>
           <option value="JUVENILE">JUVENILE</option>
@@ -736,9 +744,13 @@ const buscarCurp=async()=>{
     }else if(tipo_comp === 'Nacional'){
       n('nivel_actual').innerHTML=`
       <option value="DEBUTANTES 1">DEBUTANTES 1</option>
+      <option value="DEBUTANTES 1 ESPECIAL">DEBUTANTES 1 ESPECIAL</option>
           <option value="DEBUTANTES 2">DEBUTANTES 2</option>
+          <option value="DEBUTANTES 2 ESPECIAL">DEBUTANTES 2 ESPECIAL</option>
           <option value="PRE-BASICOS">PRE-BASICOS</option>
+          <option value="PRE-BASICOS ESPECIAL">PRE-BASICOS ESPECIAL</option>
           <option value="NO-TEST">NO-TEST</option>
+          <option value="NO-TEST ESPECIAL">NO-TEST ESPECIAL</option>
           <option value="PRE-PRELIMINARY">PRE-PRELIMINARY</option>
           <option value="PRELIMINARY">PRELIMINARY</option>
           <option value="JUVENILE">JUVENILE</option>
