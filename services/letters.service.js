@@ -39,7 +39,7 @@ const transporter = nodemailer.createTransport({
 
 
 const { PDFDocument, rgb ,StandardFonts } = require('pdf-lib');
-const fs = require('fs').promises;
+const fsP = fs.promises
 //Funcion para formateo de fechas
 function formatearFecha(date) {
   const meses = [
@@ -58,7 +58,7 @@ function formatearFecha(date) {
 async function modificarPDF({ letter }) {
   try {
     // Leer el archivo PDF original
-    const pdfBytes = await fs.readFile('./scripts/machote.pdf');
+    const pdfBytes = await fsP.readFile('./scripts/machote.pdf');
     const pdfDoc = await PDFDocument.load(pdfBytes);
 
     // Obtener la primera página del documento
@@ -172,7 +172,7 @@ async function modificarPDF({ letter }) {
 
     // Guardar el PDF modificado en un nuevo archivo
     const modifiedPdfBytes = await pdfDoc.save();
-    await fs.writeFile(`./uploads/lettersA/carta-${letter.folio}.pdf`, modifiedPdfBytes);
+    await fsP.writeFile(`./uploads/lettersA/carta-${letter.folio}.pdf`, modifiedPdfBytes);
 
     console.log('Archivo PDF modificado creado exitosamente.');
     return `carta-${letter.folio}.pdf`
