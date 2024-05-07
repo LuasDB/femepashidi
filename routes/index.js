@@ -6,6 +6,7 @@ const registerRouter = require('./register.router');
 const eventsRouter = require('./events.router');
 const communicationsRouter = require('./communications.router');
 const uploadsRouter = require('./uploads.router');
+const lettersRouter = require('./letters.router')
 
 function routerApi(app){
   const router = express.Router();
@@ -17,6 +18,8 @@ function routerApi(app){
   router.use('/events',eventsRouter);
   router.use('/communications',communicationsRouter);
   router.use('/upload',uploadsRouter);
+  router.use('/letters',lettersRouter);
+
 
 
 

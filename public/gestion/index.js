@@ -359,7 +359,7 @@ const callEventosList = async()=>{
   try {
     const resApi =await fetch(API_EVENTS);
     const data = await resApi.json();
-    console.log(data);
+    console.log('evento',data);
     monitor.innerHTML=`
     <section class="card bg-blue-100">
         <h3>Eventos</h3>
@@ -591,6 +591,8 @@ const actualizarBd= (collection,id)=>{
           break;
         case 'users': envioActualizarUsers(id);
           break;
+        case 'register': envioActualizarRegister(id);
+          break;
 
 
         default:
@@ -703,7 +705,7 @@ const visualizar = async(element,collection)=>{
   </div>
   <div class="flex-container-input">
     <label for="">ASOCIACION A LA QUE PERTENECE
-      <p>${element.data.user.asociacion.nombre}</p>
+      <p>${element.data.association.nombre}</p>
     </label>
     <label for="">NIVEL ACTUAL
       <p>${element.data.nivel_actual}</p>
@@ -732,10 +734,9 @@ const visualizar = async(element,collection)=>{
       <p>${element.data.status.toUpperCase()}</p>
     </label>
 
-      <a href="${API_REGISTERS}approval/${element.id}/aprobado"></a>
+      <a href="${API_REGISTERS}approval/${element.id}/aprobado" target="_blank">CLICK AQUI PARA APORBAR</a>
 
   </div>
-
     `;
   }
   console.log(element);
@@ -1162,7 +1163,7 @@ const editar = (element,collection)=>{
       </div>
       <button id="guardar" type="button">Guardar</button>
     </section>
-</form>`;
+    </form>`;
       let imgCom = n('img_user');
       //Funcionalidad para las imagenes
       n('file_input').addEventListener('change', (event) => {
@@ -1181,8 +1182,132 @@ const editar = (element,collection)=>{
             reader.readAsDataURL(file);
           }});
 
-  }else if(collection === 'register'){
-    alert('Registro:',element)
+  }
+  else if(collection === 'register'){
+
+
+    monitor.innerHTML=`
+    <form id="form_nuevo">
+      <section class="card container-form">
+
+      <h3>Datos del deportista</h3>
+  <div class="flex-container-input">
+    <label for="curp">
+      CURP
+      <input type="text" name="curp" class="envioDb" id="curp" value="${element.data.user.curp}">
+    </label>
+  </div>
+
+  <div class="">
+    <div class="flex-container-input">
+      <label for="nombre"> Nombre
+        <input type="text" name="nombre" class="envioDb" value="${element.data.user.nombre}">
+      </label>
+      <label for="apellido_paterno"> Apellido paterno
+        <input type="text" name="apellido_paterno" class="envioDb" value="${element.data.user.apellido_paterno}">
+      </label>
+      <label for="apellido_materno"> Apellido materno
+        <input type="text" name="apellido_materno" class="envioDb" value="${element.data.user.apellido_materno}">
+      </label>
+    </div>
+    <div class="flex-container-input">
+    <label for="sexo"> Sexo
+        <input type="text" name="sexo" class="envioDb" value="${element.data.user.sexo}">
+      </label>
+      <label for="img"> URL IMAGEN
+        <input type="text" name="img" class="envioDb" value="${element.data.user.img}">
+      </label>
+    </div>
+    <div class="flex-container-input">
+      <label for="fecha_nacimiento"> Fecha de nacimiento
+        <input type="date" name="fecha_nacimiento" class="envioDb" value="${element.data.user.fecha_nacimiento}">
+      </label>
+      <label for="lugar_nacimiento"> Lugar de Nacimiento
+        <input type="text" name="lugar_nacimiento" class="envioDb" value="${element.data.user.lugar_nacimiento}">
+      </label>
+
+    </div>
+    <div class="flex-container-input">
+      <label for="correo"> Correo de contacto
+        <input type="text" name="correo" class="envioDb" value="${element.data.user.correo}">
+      </label>
+      <label for="telefono"> Teléfono/whatsapp
+        <input type="text" name="telefono" class="envioDb" value="${element.data.user.telefono}">
+      </label>
+    </div>
+  </div>
+
+        <h3>Datos de la inscripcion</h3>
+        <div class="flex-container-input">
+        <label for="nivel_actual">
+          Nivel de inscripción
+          <input type="text" name="nivel_actual" class="envioDb"  value="${element.data.nivel_actual}">
+        </label>
+      </div>
+        <div class="flex-container-input">
+          <label for="categoria">
+            Categoria
+            <input type="text" id="categoria" name="categoria" class="envioDb" value="${element.data.categoria}">
+          </label>
+        </div>
+
+        <div class="flex-container-input">
+        <label for="abreviacion">
+          Abreviación
+          <input type="text" name="abreviacion" class="envioDb"  value="${element.data.association.abreviacion}">
+        </label>
+      </div> <div class="flex-container-input">
+      <label for="correo">
+        Correo
+        <input type="text" name="correo_a" class="envioDb"  value="${element.data.association.correo}" id="correo_asociacion">
+      </label>
+    </div>
+    <div class="flex-container-input">
+    <label for="nombre">
+      Nombre de asociacion
+      <input type="text" name="nombre_a" class="envioDb"  value="${element.data.association.nombre}" id="nombre_asociacion">
+    </label>
+  </div> <div class="flex-container-input">
+  <label for="representante">
+    Representante
+    <input type="text" name="representante" class="envioDb"  value="${element.data.association.representante}">
+  </label>
+</div>
+
+<h3>Datos de la competencia</h3>
+<div class="flex-container-input">
+<label for="fecha_inicio">
+  Fecha Inicio
+  <input type="text" name="fecha_inicio" class="envioDb"  value="${element.data.event.fecha_inicio}">
+</label>
+</div>
+<div class="flex-container-input">
+  <label for="fecha_fin">
+    Fecha Fin
+    <input type="text" id="fecha_fin" name="fecha_fin" class="envioDb" value="${element.data.event.fecha_fin}">
+  </label>
+</div>
+
+<div class="flex-container-input">
+<label for="lugar">
+  Lugar
+  <input type="text" name="lugar" class="envioDb"  value="${element.data.event.lugar}">
+</label>
+</div> <div class="flex-container-input">
+<label for="nombre">
+Nombre Competencia
+<input type="text" name="nombre_e" class="envioDb"  value="${element.data.event.nombre}" id="nombre_competencia">
+</label>
+</div>
+
+
+
+
+
+        <button id="guardar" type="button">Guardar</button>
+    </section>
+  </form>
+    `;
   }
 
 
@@ -1438,4 +1563,79 @@ async function envioActualizarUsers(id){
 
 }
 
+async function envioActualizarRegister(id){
+  const formulario = n('form_nuevo');
+  const formData = new FormData(formulario);
+  // Crear objeto para almacenar los datos
+const data = {};
+
+data['user']={}
+data['association']={}
+data['event']={}
+
+
+  formData.forEach((value,key)=>{
+    const input2 = formulario.querySelector(`[name="${key}"]`)
+   console.log(input2)
+
+    if(key==='curp' || key==='nombre' || key==='apellido_paterno' || key==='apellido_materno' || key==='fecha_nacimiento' || key==='lugar_nacimiento' || key==='correo' || key==='telefono' || key==='img' || key==='sexo'){
+
+      data.user[key] = value;
+    }else if(key ==='abreviacion' || key==='representante' || key==='status' || key==='correo_a' || key==='nombre_a'){
+      if( key==='correo_a'){
+        data.association['correo']=value;
+      }else if(key==='nombre_a'){
+        data.association['nombre']=value;
+      }else{
+        data.association[key]=value;
+      }
+
+
+    }
+    else if(key ==='fecha_fin' || key==='fecha_inicio' || key==='lugar' || key==='nombre_e'){
+      if(key==='nombre_e'){
+        data.event['nombre'] = value;
+    }else{
+      data.event[key] = value;
+
+    }
+    }else{
+      data[key] = value;
+    }
+
+  });
+
+  console.log(data)
+
+  await fetch(`${API_REGISTERS}/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(res => {
+    console.log(res);
+    Swal.fire({
+      title: `${res.message}`,
+      text: "El registro se ha ACTUALIZADO correctamente",
+      icon: "success",
+      showConfirmButton: true,
+    })
+    .then(res=>{
+      if(res.isConfirmed){
+        window.location.reload();
+      }
+    });
+  }
+  )
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+
+
+
+}
 
