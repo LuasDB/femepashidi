@@ -9,6 +9,8 @@ require('dotenv').config();
 
 //Configurar las carpetas para guardar las cartas permiso
 const fs = require('fs');
+const path = require('path');
+
 const uploadDirectoryLetter = './uploads/lettersA'
 // Verificar si la carpeta de subida existe, si no, crearla
 if (!fs.existsSync(uploadDirectoryLetter)) {
