@@ -7,6 +7,15 @@ const { connectStorageEmulator } = require('firebase/storage');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
+//Configurar las carpetas para guardar las cartas permiso
+const fs = require('fs');
+const uploadDirectoryLetter = './uploads/lettersA'
+// Verificar si la carpeta de subida existe, si no, crearla
+if (!fs.existsSync(uploadDirectoryLetter)) {
+  fs.mkdirSync(uploadDirectoryLetter);
+}
+
+
 
 const { mailParticipanteInicio,mailPresidenteInicio ,mailPresidenteFemepashidi,mailParticipanteAceptacion} = require('../scripts/cartasPermiso')
 function capitalizeFirstLetter(str) {
@@ -43,9 +52,7 @@ function formatearFecha(date) {
   return `${dia}-${mes}-${año}`;
 }
 //Funcion para formateo de nombre
-function capitalizeFirstLetter(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-}
+
 async function modificarPDF({ letter }) {
   try {
     // Leer el archivo PDF original
