@@ -8,14 +8,14 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 //Configurar las carpetas para guardar las cartas permiso
-const fs = require('fs');
-const path = require('path');
+  const fs = require('fs');
+  const path = require('path');
 
 const uploadDirectoryLetter = './uploads/lettersA'
 // Verificar si la carpeta de subida existe, si no, crearla
-if (!fs.existsSync(uploadDirectoryLetter)) {
-  fs.mkdirSync(uploadDirectoryLetter);
-}
+  if (!fs.existsSync(uploadDirectoryLetter)) {
+    fs.mkdirSync(uploadDirectoryLetter);
+  }
 
 
 
@@ -28,8 +28,8 @@ function capitalizeFirstLetter(str) {
 
 // Configuración del transporte de correo
 const transporter = nodemailer.createTransport({
-  host: 'mail.femepashidi.com.mx', // Reemplaza 'tudominio.com' con el nombre de tu servidor SMTP
-  port: 465, // Puerto SMTP seguro (reemplaza con el puerto adecuado)
+  host: 'mail.femepashidi.com.mx', // correo de  servidor SMTP
+  port: 465, // Puerto SMTP seguro
   secure: true, // Habilitar SSL/TLS
   auth: {
       user: 'registros@femepashidi.com.mx', // Reemplaza con tu dirección de correo electrónico
@@ -72,7 +72,7 @@ async function modificarPDF({ letter }) {
     page.drawText(`Mexico City,Mexico ${formatearFecha(fecha)}`, {
       x: 350,
       y: page.getHeight() - 100,
-      size: 13,
+      size: 14,
       color: rgb(0, 0, 0),
     });
 
@@ -90,27 +90,30 @@ async function modificarPDF({ letter }) {
      const xPos = (pageWidth - textSize) / 2;
     page.drawText(texto, {
       x: xPos+30,
-      y: page.getHeight() - 195,
-      size: 12,
+      y: page.getHeight() - 220,
+      size: 15,
       color: rgb(0, 0, 0),
       font: font
     });
 
-    page.drawText(`Therefore, she has the necessary authorization to participate`, {
-      x: 160,
-      y: page.getHeight() - 270,
-      size: 13,
+
+
+    page.drawText(`Therefore,${letter.user.sexo==='MASCULINO'?'he':'she'} has the necessary authorization to participate`, {
+      x: 150,
+      y: page.getHeight() - 315,
+      size: 15,
       color: rgb(0, 0, 0)
     });
     page.drawText(`in the following event:`, {
-      x: 160,
-      y: page.getHeight() - 285,
-      size: 13,
+      x: 150,
+      y: page.getHeight() - 330,
+      size: 15,
       color: rgb(0, 0, 0)
     });
     //Table
     let xData = 160
-    let yLine = 310
+    let yLine = 360
+    let carriet = 25
     page.drawText(`State game:`, {
       x: xData,
       y: page.getHeight() - yLine,
@@ -124,7 +127,7 @@ async function modificarPDF({ letter }) {
       size: 12,
       color: rgb(0, 0, 0)
     });
-    yLine=330
+    yLine=yLine+carriet
     page.drawText(`Address:`, {
       x: xData,
       y: page.getHeight() - yLine,
@@ -138,7 +141,7 @@ async function modificarPDF({ letter }) {
       size: 12,
       color: rgb(0, 0, 0)
     });
-    yLine=350
+    yLine=yLine+carriet
     page.drawText(`Dates:`, {
       x: xData,
       y: page.getHeight() - yLine,
@@ -154,7 +157,7 @@ async function modificarPDF({ letter }) {
       size: 12,
       color: rgb(0, 0, 0)
     });
-    yLine=370
+    yLine=yLine+carriet
     page.drawText(`Level:`, {
       x: xData,
       y: page.getHeight() - yLine,
