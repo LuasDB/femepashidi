@@ -63,6 +63,7 @@ async function modificarPDF({ letter }) {
 
     // Obtener la primera página del documento
     const page = pdfDoc.getPage(0);
+    console.log('Iniciado')
 
 
 
@@ -94,6 +95,14 @@ async function modificarPDF({ letter }) {
       size: 15,
       color: rgb(0, 0, 0),
       font: font
+    });
+
+    page.drawText(letter.association.abreviacion, {
+      x: 410,
+      y: page.getHeight() - 270,
+      size: 15,
+      color: rgb(0, 0, 0),
+
     });
 
 
