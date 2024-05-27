@@ -329,7 +329,7 @@ class Letters {
     }
     const opcionesCorreoPresidente = {
       from:'registros@femepashidi.com.mx',
-      to: letter.association.correo,
+      to: 'analuisa@femepashidi.com.mx',
       subject: `SOLICTUD CARTA PERMISO ${letter.folio}-${capitalizeFirstLetter(letter.user.nombre)} ${letter.user.apellido_paterno.toUpperCase()}`,
       html: htmlPresidencia,
       attachments:[
