@@ -107,7 +107,7 @@ async function modificarPDF({ letter }) {
 
     let renglon=20
 
-    page.drawText(`Therefore,${letter.user.sexo==='MASCULINO'?'he':'she'} has the necessary authorization to participate`, {
+    page.drawText(`Therefore, ${letter.user.sexo==='MASCULINO'?'he':'she'} has the necessary authorization to participate`, {
       x: 150,
       y: page.getHeight() - 315 -renglon,
       size: 15,
