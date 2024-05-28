@@ -98,9 +98,9 @@ async function modificarPDF({ letter }) {
     });
 
     page.drawText(letter.association.nombre, {
-      x: xPos-21,
+      x: 150,
       y: page.getHeight() - 292,
-      size: 15,
+      size: 14,
       color: rgb(0, 0, 0),
 
     });
