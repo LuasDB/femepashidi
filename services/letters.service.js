@@ -97,31 +97,31 @@ async function modificarPDF({ letter }) {
       font: font
     });
 
-    page.drawText(letter.association.abreviacion, {
-      x: 410,
-      y: page.getHeight() - 270,
+    page.drawText(letter.association.nombre, {
+      x: xPos-21,
+      y: page.getHeight() - 292,
       size: 15,
       color: rgb(0, 0, 0),
 
     });
 
-
+    let renglon=20
 
     page.drawText(`Therefore,${letter.user.sexo==='MASCULINO'?'he':'she'} has the necessary authorization to participate`, {
       x: 150,
-      y: page.getHeight() - 315,
+      y: page.getHeight() - 315 -renglon,
       size: 15,
       color: rgb(0, 0, 0)
     });
     page.drawText(`in the following event:`, {
       x: 150,
-      y: page.getHeight() - 330,
+      y: page.getHeight() - 330 -renglon,
       size: 15,
       color: rgb(0, 0, 0)
     });
     //Table
     let xData = 160
-    let yLine = 360
+    let yLine = 360+renglon
     let carriet = 25
     page.drawText(`State game:`, {
       x: xData,
