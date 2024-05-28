@@ -120,7 +120,7 @@ async function modificarPDF({ letter }) {
       color: rgb(0, 0, 0)
     });
     //Table
-    let xData = 160
+    let xData = 150
     let yLine = 360+renglon
     let carriet = 25
     page.drawText(`State game:`, {
