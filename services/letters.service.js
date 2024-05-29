@@ -71,8 +71,8 @@ async function modificarPDF({ letter }) {
     const fecha = new Date();
 
     page.drawText(`Mexico City,Mexico ${formatearFecha(fecha)}`, {
-      x: 350,
-      y: page.getHeight() - 100,
+      x: 360,
+      y: page.getHeight() - 120,
       size: 14,
       color: rgb(0, 0, 0),
     });
@@ -91,17 +91,19 @@ async function modificarPDF({ letter }) {
      const xPos = (pageWidth - textSize) / 2;
     page.drawText(texto, {
       x: xPos+30,
-      y: page.getHeight() - 220,
+      y: page.getHeight() - 210,
       size: 15,
       color: rgb(0, 0, 0),
       font: font
     });
 
+
     page.drawText(letter.association.nombre, {
       x: 150,
-      y: page.getHeight() - 292,
-      size: 14,
+      y: page.getHeight() - 272,
+      size: 13,
       color: rgb(0, 0, 0),
+      font:font
 
     });
 
@@ -120,48 +122,31 @@ async function modificarPDF({ letter }) {
       color: rgb(0, 0, 0)
     });
     //Table
-    let xData = 150
+    let xData = 190
     let yLine = 360+renglon
     let carriet = 25
-    page.drawText(`State game:`, {
-      x: xData,
-      y: page.getHeight() - yLine,
-      size: 12,
-      color: rgb(0, 0, 0),
-      font: font
-    });
+
     page.drawText(`${letter.nombreCompetencia.toUpperCase()}`, {
-      x: xData +70,
-      y: page.getHeight() - yLine,
-      size: 12,
-      color: rgb(0, 0, 0)
-    });
-    yLine=yLine+carriet
-    page.drawText(`Address:`, {
-      x: xData,
+      x: xData ,
       y: page.getHeight() - yLine,
       size: 12,
       color: rgb(0, 0, 0),
-      font: font
+      font:font
     });
+    yLine=yLine+carriet
+
     page.drawText(`${letter.domicilioCompetencia.toUpperCase()}`, {
-      x: xData +55,
+      x: xData,
       y: page.getHeight() - yLine,
       size: 12,
       color: rgb(0, 0, 0)
     });
     yLine=yLine+carriet
-    page.drawText(`Dates:`, {
-      x: xData,
-      y: page.getHeight() - yLine,
-      size: 12,
-      color: rgb(0, 0, 0),
-      font: font
-    });
+
     const fechaI=new Date(letter.fechaInicialCompetencia)
     const fechaF=new Date(letter.fechaFinalCompetencia)
     page.drawText(`${formatearFecha(fechaI)} to ${formatearFecha(fechaF)}`, {
-      x: xData +55,
+      x: xData,
       y: page.getHeight() - yLine,
       size: 12,
       color: rgb(0, 0, 0)
