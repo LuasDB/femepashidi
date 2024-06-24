@@ -272,7 +272,7 @@ class Letters {
 
 
 
-      return {
+      return {success:true,
         message:'Creado',
         data:register,id:create.id
       }
@@ -343,7 +343,7 @@ class Letters {
 
       transporter.sendMail(opcionesCorreoPresidente, (error, info) => {
       });
-      return {message:mensaje}
+      return {message:mensaje, success:true}
   }
 
   async update(id,data){
@@ -386,7 +386,7 @@ class Letters {
       if(carta){
         transporter.sendMail(opcionesCorreoUsuario, (error, info) => {
         });
-        return {message:'A crear la carta y enviarla',...letter}
+        return {message:'A crear la carta y enviarla',...letter,success:true}
 
       }
     }

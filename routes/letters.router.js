@@ -27,19 +27,24 @@ const letters = new Letters();
 router.post('/',multerLeters.single('archivo'),async(req,res)=>{
   const { body,file } = req
   const newLetter = await letters.create(body,file);
-
-  res.status(201).json(newLetter);
+  if(newLetter.success){
+    res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html')
+  }
 });
 router.get('/verification/:id/:status',async(req,res)=>{
   const {id, status} = req.params
   const presidentLetter = await letters.verification(id,status);
-  res.status(201).json(presidentLetter);
+  if(presidentLetter.success){
+    res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html')
+  }
 })
 
 router.get('/approve/:id/:status',async(req,res)=>{
   const {id, status} = req.params
   const presidentLetter = await letters.approve(id,status);
-  res.status(201).json(presidentLetter);
+  if(presidentLetter.success){
+    res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html')
+  }
 })
 
 //Retornamos el router
