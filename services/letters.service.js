@@ -40,19 +40,29 @@ const transporter = nodemailer.createTransport({
 
 const { PDFDocument, rgb ,StandardFonts } = require('pdf-lib');
 const fsP = fs.promises
-//Funcion para formateo de fechas
+
+
 function formatearFecha(date) {
   const meses = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
 
-  const dia = date.getDate();
-  const mes = meses[date.getMonth()];
-  const año = date.getFullYear();
+  console.log("Fecha original:", date);
+  const newDate = new Date(date);
+  console.log("Fecha interpretada por new Date:", newDate);
+
+  const dia = newDate.getUTCDate();
+  const mes = meses[newDate.getUTCMonth()];
+  const año = newDate.getUTCFullYear();
+  console.log("Fecha formateada:", `${dia}-${mes}-${año}`);
 
   return `${dia}-${mes}-${año}`;
 }
+
+// Prueba la función con diferentes valores de fecha
+console.log(formatearFecha("2023-08-15"));
+
 //Funcion para formateo de nombre
 
 async function modificarPDF({ letter }) {
