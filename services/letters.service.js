@@ -65,8 +65,6 @@ async function modificarPDF({ letter }) {
     const page = pdfDoc.getPage(0);
     console.log('Iniciado')
 
-
-
     // Fecha
     const fecha = new Date();
 
@@ -268,6 +266,7 @@ class Letters {
       transporter.sendMail(opcionesCorreoUsuario, (error, info) => {
       });
       transporter.sendMail(opcionesCorreoPresidente, (error, info) => {
+
       });
 
 

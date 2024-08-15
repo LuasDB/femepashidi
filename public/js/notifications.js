@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const comunicados = n('communications_container');
     comunicados.innerHTML=''
     data.documents.forEach(element=>{
+      if(element.data.status === 'Baja') return
       let card = nuevo('article');
       card.classList.add('card');
       card.classList.add('notifications');

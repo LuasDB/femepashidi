@@ -25,11 +25,13 @@ const letters = new Letters();
 
 
 router.post('/',multerLeters.single('archivo'),async(req,res)=>{
+  console.log('[ENTRANDO A LA GENERACIÓN CARTAS]')
   const { body,file } = req
   const newLetter = await letters.create(body,file);
-  if(newLetter.success){
-    res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html')
-  }
+  // if(newLetter.success){
+  //   res.redirect('https://www.femepashidi.com.mx/inicio/respuesta.html')
+  // }
+  res.status(201).json(newLetter)
 });
 router.get('/verification/:id/:status',async(req,res)=>{
   const {id, status} = req.params
