@@ -49,6 +49,7 @@ class Register {
   }
   async create(data){
     console.log('Se manda inscripcion')
+
     const { id_user, id_association,id_events,fecha_solicitud,status, nivel_actual,categoria} = data;
     const user = await db.collection('users').doc(id_user).get()
     const association = await db.collection('associations').doc(id_association).get()

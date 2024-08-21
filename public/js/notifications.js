@@ -12,8 +12,8 @@ const server = 'https://femepashidi.siradiacion.com.mx/';
 
 // const server = 'http://localhost:3000/';
 
-const API_COMMUNICATIONS = `${server}api/v1/communications/`;
-const API_EVENTS = `${server}api/v1/events/`;
+const API_COMMUNICATIONS = `${server}api/v1/managment/communications/`;
+const API_EVENTS = `${server}api/v1/managment/events/`;
 const SERVER_UPLOADS=`${server}images/`;
 
 const meses = {
@@ -46,42 +46,42 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log(data);
     const comunicados = n('communications_container');
     comunicados.innerHTML=''
-    data.documents.forEach(element=>{
-      if(element.data.status === 'Baja') return
+    data.data.forEach(element=>{
+      if(element.status === 'Baja') return
       let card = nuevo('article');
       card.classList.add('card');
       card.classList.add('notifications');
       card.innerHTML = `
       <figure>
-        <img alt="Mensaje 1" id="${SERVER_UPLOADS}communications/${element.data.img}">
+        <img alt="Mensaje 1" id="${SERVER_UPLOADS}communications/${element.img}">
       </figure>
-      <p class="negro">${element.data.titulo}</p>`;
-      if(element.data.texto1 != ""){
+      <p class="negro">${element.titulo}</p>`;
+      if(element.texto1 != ""){
         card.innerHTML +=`
-        <p>${element.data.texto1}</p>`;
+        <p>${element.texto1}</p>`;
       }
-      if(element.data.texto2 != ""){
+      if(element.texto2 != ""){
         card.innerHTML +=`
-        <p>${element.data.texto2}</p>`;
+        <p>${element.texto2}</p>`;
       }
-      if(element.data.texto3 != ""){
+      if(element.texto3 != ""){
         card.innerHTML +=`
-        <p>${element.data.texto3}</p>`;
+        <p>${element.texto3}</p>`;
       }
-      if(element.data.texto4 != ""){
+      if(element.texto4 != ""){
         card.innerHTML +=`
-        <p>${element.data.texto4}</p>`;
+        <p>${element.texto4}</p>`;
       }
-      if(element.data.texto5 != ""){
+      if(element.texto5 != ""){
         card.innerHTML +=`
-        <p>${element.data.texto5}</p>`;
+        <p>${element.texto5}</p>`;
       }
       card.innerHTML+=`
-      <a class="button button-blue" id="${element.data.img}">DESCARGAR</a>`
+      <a class="button button-blue" id="${element.img}">DESCARGAR</a>`
       comunicados.appendChild(card);
 
-      const img = n(`${SERVER_UPLOADS}communications/${element.data.img}`);
-      img.src=`${SERVER_UPLOADS}communications/${element.data.img}`;
+      const img = n(`${SERVER_UPLOADS}communications/${element.img}`);
+      img.src=`${SERVER_UPLOADS}communications/${element.img}`;
 
      n(element.data.img).onclick = ()=> showPdf(element.data.doc);
 
@@ -97,20 +97,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log(data);
     const events = n('events_container');
     events.innerHTML=''
-    data.documents.forEach(element=>{
-      if(element.data.status!='Activo'){
+    data.data.forEach(element=>{
+      if(element.status!='Activo'){
         console.log('NO ESTA ACTIVO')
       }else{
       let card = nuevo('div');
       card.classList.add('carrusel-item');
       card.innerHTML = `
       <article class="card">
-        <h1 class="article__tittle_black">${element.data.nombre}</h1>
-        <p><span>Lugar:</span> ${element.data.lugar}</p>
-        <p><span>Fecha de inicio:</span>${fechaLarga(element.data.fecha_inicio)}</p>
-        <p><span>Fecha de termino:</span>${fechaLarga(element.data.fecha_fin)}</p>
-        <p><span>Descripción:</span>${String(element.data.texto)}</p>
-        <a href="./registro" class="button button-50 button-blue">Registrarme</a>
+        <h1 class="article__tittle_black">${element.nombre}</h1>
+        <p><span>Lugar:</span> ${element.lugar}</p>
+        <p><span>Fecha de inicio:</span>${fechaLarga(element.fecha_inicio)}</p>
+        <p><span>Fecha de termino:</span>${fechaLarga(element.fecha_fin)}</p>
+        <p><span>Descripción:</span>${String(element.texto)}</p>
+        <a href="./inscripciones/inscripcion" class="button button-50 button-blue">Inscribirme</a>
       </article>
       `;
       events.appendChild(card);

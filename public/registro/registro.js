@@ -6,8 +6,8 @@ const $a = (elemento)=> document.querySelectorAll(elemento);
 const n = (elemento)=> document.getElementById(elemento);
 const nuevo = (elemento)=> document.createElement(elemento);
 
-const btn_curp = document.getElementById('buscar_curp');
-btn_curp.onclick = ()=> buscarCurp();
+// const btn_curp = document.getElementById('buscar_curp');
+// btn_curp.onclick = ()=> buscarCurp();
 const nuevo_registro = document.getElementById('nuevo_registro');
 nuevo_registro.onclick= ()=> nuevoRegistro();
 const monitor = document.getElementById('monitor');
@@ -17,7 +17,7 @@ const inicio = ` <section class="card">
   <label for="curp">CURP</label>
   <input type="text" placeholder="Tu CURP" id="curp">
   <button class="btn-form item-center" id="buscar_curp">Buscar</button>
-  <a id="nuevo_registro" class="link">Registrarme</a>
+  <a id="nuevo_registro" class="link btn-form item-center">Registrarme</a>
 </div>
 <div class="toggle-container area-description ">
   <div class="toogle-left ">
