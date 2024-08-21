@@ -103,9 +103,9 @@ class Register {
           color:#268;">HOLA ${user.data().nombre}</h2>
 
         <p style="
-        color:#333;">Recibimos tu solicitud de registro para la competencia ${event.data().nombre} que se llevará a cabo del ${fechaLarga(event.data().fecha_inicio)} al ${fechaLarga(event.data().fecha_fin)}</p>
+        color:#333;">Recibimos tu solicitud de inscripcion para la competencia ${event.data().nombre} que se llevará a cabo del ${fechaLarga(event.data().fecha_inicio)} al ${fechaLarga(event.data().fecha_fin)}</p>
         <p style="
-        color:#333;">Haz click en el siguiente boton para confirmar tu registro y continuar con tu proceso</p>
+        color:#333;">Haz click en el siguiente boton para confirmar tu inscripción y continuar con tu proceso</p>
 
           <a href="${server}api/v1/register/confirmation/${res.id}" target="_self"
           style="
@@ -116,12 +116,12 @@ class Register {
           color: #f0f0f0;
           text-decoration: none;
           text-align: center;">
-            CONFIRMAR MI REGISTRO
+            CONFIRMAR MI Inscripción
           </a>
         </div>
         <br>
         <p style="
-        color:#333;">Una vez que confirmes tu registro tendras que esperar a que te enviemos un correo confirmando la aceptación por parte del presidente de tu asociación. Te recomendamos estar pendiente de tu correo</p>
+        color:#333;">Una vez que confirmes tu inscripción tendras que esperar a que te enviemos un correo confirmando la aceptación por parte del presidente de tu asociación. Te recomendamos estar pendiente de tu correo</p>
 
 
       </body>
@@ -336,7 +336,7 @@ class Register {
           color:#268;">FELICIDADES ${register.user.nombre.toUpperCase()}</h2>
 
         <p style="
-        color:#333;">Nos complace informarte que se ha aceptado tu registro para competir en:</p>
+        color:#333;">Nos complace informarte que se ha aceptada tu inscripción para competir en:</p>
 
         <p style="
         color:#333;">${register.event.nombre} que se llevará a cabo del ${fechaLarga(register.event.fecha_inicio)} al ${fechaLarga(register.event.fecha_fin)}</p>
