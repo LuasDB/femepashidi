@@ -472,8 +472,6 @@ const nuevoRegistro = async()=>{
     }
   });
 
-
-
   //Buscamos las asociaciones vigentes
   const res = await fetch(API_ASSOCIATIONS);
   const data_associations=await res.json();

@@ -67,6 +67,71 @@ body{
 section{
   scroll-behavior: smooth;
 }
+  Estilos del contenedor del menú desplegable
+  .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilos del menú desplegable */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #68a4f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    flex-direction: column;
+}
+
+/* Mostrar el menú desplegable al hacer hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #57a4e4;
+}
+ /* Media Query para dispositivos móviles */
+ @media (max-width: 768px) {
+  .nav-menus {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .dropdown-content {
+      position: static;
+      display: block;
+      box-shadow: none;
+      background-color: #b0c7e6;
+
+
+  }
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+
+  .nav-menus a {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+  }
+
+  .nav-menus a:last-child {
+      border-bottom: none;
+  }
+}
+
+
+
+
 .section-container{
 padding-top: 13vh;
 width: 80%;

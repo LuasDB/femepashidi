@@ -28,8 +28,8 @@ function capitalizeFirstLetter(str) {
 
 // Configuración del transporte de correo
 const transporter = nodemailer.createTransport({
-  host: 'mail.femepashidi.com.mx', // correo de  servidor SMTP
-  port: 465, // Puerto SMTP seguro
+  host: process.env.EMAIL_HOST, // correo de  servidor SMTP
+  port: process.env.EMAIL_PORT, // Puerto SMTP seguro
   secure: true, // Habilitar SSL/TLS
   auth: {
       user: 'registros@femepashidi.com.mx', // Reemplaza con tu dirección de correo electrónico

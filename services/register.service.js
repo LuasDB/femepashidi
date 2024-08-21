@@ -48,19 +48,23 @@ class Register {
 
   }
   async create(data){
+    console.log('Se manda inscripcion')
     const { id_user, id_association,id_events,fecha_solicitud,status, nivel_actual,categoria} = data;
-    const user = await getDoc(doc(db,'users',id_user));
-    const association = await getDoc(doc(db,'associations',id_association));
-    const event =await getDoc(doc(db,'events',id_events));
-    const res = await addDoc(collection(db,'register'),{
-      user:user.data(),
-      association:association.data(),
-      event:event.data(),
+    const user = await db.collection('users').doc(id_user).get()
+    const association = await db.collection('associations').doc(id_association).get()
+    const event = await db.collection('events').doc(id_events).get()
+    const register ={
+      user:{id:user.id,...user.data()},
+      association:{id:association.id,...association.data()},
+      event:{id:event.id,...event.data()},
       fecha_solicitud,
       status,nivel_actual,categoria
-    });
+    }
+    console.log(register)
+    const res = await db.collection('register').add(register);
     if(res.id){
       const destinatario=user.data().correo;
+      console.log(res.id)
 
       // Contenido HTML del correo al Competidor
       const contenidoHtml = `
@@ -128,7 +132,7 @@ class Register {
       const opcionesCorreo = {
       from:'registros@femepashidi.com.mx',
       to: destinatario,
-      subject: 'Registro a competencia FEMEPASHIDI A.C.',
+      subject: 'Inscripcion a competencia FEMEPASHIDI A.C.',
       html: contenidoHtml
       };
       // Enviar el correo
@@ -137,7 +141,7 @@ class Register {
 
       });
     }
-    return {message:'Creado',id:res.id}
+    return {message:'Creado',id:res.id, success:true}
   }
   async findAll(){
     const resfirebase = await getDocs(collection(db,'register'));
@@ -157,32 +161,19 @@ class Register {
     }
   }
   async findOne(id){
-    const q = doc(db,'register',id);
-    const document = await getDoc(q);
-
-    if(document.exists()){
-    return { message:'UNO', data:document.data()}
-
-    }else{
-      throw boom.notFound('Usuario no encontrado');
+    try {
+      const register = await db.collection('register').doc(id).get()
+      return {id:register.id,...register.data()}
+    } catch (error) {
+      return {success:false,message:error}
     }
   }
   async update(id,data){
-    const q = doc(db,'register',id);
-    const document = await getDoc(q);
-    if(document.exists()){
-      let obj ={}
-      obj['data']=document.data();
-      let copy = obj['data'];
-      obj['data']={
-        ...copy,
-        ...data
-      }
-      const actualizar = await updateDoc(doc(db,'register',id),obj.data);
-      return {actualizar}
-
-    }else{
-      throw boom.notFound('No se encontro la asociacion');
+    try {
+      const update = await db.collection('register').doc(id).update(data)
+      return{ success:true}
+    } catch (error) {
+      return { success:false,message:error}
     }
 
 
@@ -195,19 +186,24 @@ class Register {
   }
 
   async confirmate(id){
-    const registro = await getDoc(doc(db,'register',id));
-    console.log('DATOS')
+    const registro = await db.collection('register').doc(id).get()
+
     let obj=registro.data();
 
-    console.log(registro.data())
+    console.log('En confirmate',obj)
+
+
+
     if(obj.confirmado){
       console.log('YA ESTABA CONFIRMADO NO SE ENVIA CORREO');
       return {message:'Ya confirmado'}
     }
     if(obj && obj.status === 'Preinscrito'){
       obj['confirmado']='confirmado';
-      await this.update(id,obj);
-      console.log('SE CONFIRMO')
+      const res = await this.update(id,{confirmado:'confirmado'});
+      if(!res.success){
+        return {success:false}
+      }
       const destinatario=registro.data().association.correo;
 
       // Contenido HTML del correo al Competidor
@@ -298,10 +294,10 @@ class Register {
   async approval(params){
     const { id, status } = params;
     const register =await this.findOne(id)
-    console.log(register)
-    this.update(id,{status:status});
 
-    const destinatario=register.data.user.correo;
+    await this.update(id,{status:status});
+
+    const destinatario=register.user.correo;
 
       // Contenido HTML del correo al Competidor
       const contenidoHtml = `
@@ -336,17 +332,15 @@ class Register {
       <body>
         <div class="container">
           <h2 style="
-          color:#268;">FELICIDADES ${register.data.user.nombre.toUpperCase()}</h2>
+          color:#268;">FELICIDADES ${register.user.nombre.toUpperCase()}</h2>
 
         <p style="
         color:#333;">Nos complace informarte que se ha aceptado tu registro para competir en:</p>
 
         <p style="
-        color:#333;">${register.data.event.nombre} que se llevará a cabo del ${fechaLarga(register.data.event.fecha_inicio)} al ${fechaLarga(register.data.event.fecha_fin)}</p>
+        color:#333;">${register.event.nombre} que se llevará a cabo del ${fechaLarga(register.event.fecha_inicio)} al ${fechaLarga(register.event.fecha_fin)}</p>
         <p style="
-        color:#333;">En el nivel : ${register.data.nivel_actual} categoria  ${register.data.categoria}</p>
-
-
+        color:#333;">En el nivel : ${register.nivel_actual} categoria  ${register.categoria}</p>
         </div>
 
       </body>
