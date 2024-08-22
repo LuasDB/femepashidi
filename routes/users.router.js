@@ -9,7 +9,6 @@ const router = express.Router();
 const user = new User();
 
 router.post('/', configureUploadUsers ,(req,res,next)=>{
-
   const uploadMiddleware = req.upload.any()
 
   uploadMiddleware(req,res,async(err)=>{
@@ -18,6 +17,7 @@ router.post('/', configureUploadUsers ,(req,res,next)=>{
     }
 
     const { body, files } = req
+
     let data ={}
     if(files){
       files.forEach(item=>{

@@ -127,6 +127,9 @@ class User {
   }
 
   async create(data){
+
+
+
     try {
       const searchOne = await this.getByCurp(data.curp)
 
@@ -134,6 +137,7 @@ class User {
       return {success:false}
 
       }
+
       const asociacion = await db.collection('associations').doc(data.id_asociacion).get()
 
 
@@ -430,7 +434,7 @@ class User {
                 <p style="color:#333;">Se ha confirmado tu registro en nuestra plataforma!!!! </p>
                 <p style="color:#333;">Accede al siguiente link y accede con tu CURP para poder inscribirte a nuestras competencias vigentes!</p>
 
-                <a href="https://www.femepashidi.com.mx/inicio/registro/" target="_self">
+                <a href="https://www.femepashidi.com.mx/inicio/" target="_self">
                     <img style="width:200px;" src="cid:registroImg" alt="Imagen Adjunta">
                   </a>
 
