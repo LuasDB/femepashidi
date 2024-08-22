@@ -43,11 +43,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   await fetch(API_COMMUNICATIONS)
   .then(response => response.json())
   .then(data=>{
-    console.log(data);
+    console.log('COMUNICADOS',data);
     const comunicados = n('communications_container');
     comunicados.innerHTML=''
     data.data.forEach(element=>{
-      if(element.status === 'Baja') return
+      console.log('Comunicado',element)
+      if(element.status === 'Activo'){
+      console.log('ComunicadoRENDER',element)
+
       let card = nuevo('article');
       card.classList.add('card');
       card.classList.add('notifications');
@@ -83,8 +86,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       const img = n(`${SERVER_UPLOADS}communications/${element.img}`);
       img.src=`${SERVER_UPLOADS}communications/${element.img}`;
 
-     n(element.data.img).onclick = ()=> showPdf(element.data.doc);
-
+     n(element.img).onclick = ()=> showPdf(element.doc);
+    }
     });
 
 

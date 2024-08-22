@@ -49,7 +49,7 @@ const server = 'https://femepashidi.siradiacion.com.mx/api/v1/'
 
 const API_USERS = `${server}users/`;
 const API_EVENTS = `${server}events`;
-const API_ASSOCIATIONS =`${server}associations`;
+const API_ASSOCIATIONS =`${server}managment/associations`;
 const API_REGISTER =`${server}register`;
 
 const estados = {
@@ -401,17 +401,17 @@ const nuevoRegistro = async()=>{
       <label for="nivel_actual">NIVEL ACTUAL
         <select id="nivel_actual" name="nivel_actual" class="envioDb">
           <option value="Debutantes 1">Debutantes 1</option>
-          <option value="Debutantes 1 Artistic">Debutantes 1 Artistic</option>
+
           <option value="Debutantes 1 Especial">Debutantes 1 Especial</option>
           <option value="Debutantes 2">Debutantes 2</option>
-          <option value="Debutantes 2 Artistic">Debutantes 2 Artistic</option>
+
           <option value="Debutantes 2 Especial">Debutantes 2 Especial</option>
           <option value="Pre-Básicos">Pre-Básicos</option>
-          <option value="Pre-Básicos Artistic">Pre-Básicos Artistic</option>
+
           <option value="Pre-Básicos Especial">Pre-Básicos Especial</option>
           <option value="Básicos">Básicos</option>
           <option value="Básicos Especial">Básicos Especial</option>
-          <option value="Básicos Artistic">Básicos Artistic</option>
+
           <option value="Pre-preliminar">Pre-preliminar</option>
           <option value="Preliminar">Preliminar</option>
           <option value="Intermedios 1">Intermedios 1</option>
@@ -475,14 +475,14 @@ const nuevoRegistro = async()=>{
   //Buscamos las asociaciones vigentes
   const res = await fetch(API_ASSOCIATIONS);
   const data_associations=await res.json();
-  const associations = data_associations.documents;
-  if(data_associations.message != "TODOS"){
+  const associations = data_associations.data;
+  if(!data_associations.success){
     return;
   }
   const asociaciones = n('asociacion');
   associations.forEach(association =>{
     const option = document.createElement('option');
-    option.innerHTML=association.data.nombre;
+    option.innerHTML=association.nombre;
     option.value=association.id;
     asociaciones.appendChild(option);
   })
@@ -823,11 +823,12 @@ const envioNuevoRegistro=async ()=>{
       //Validacion de curp existente
       let curp =n('curp').value;
       const curpVal = curp.toUpperCase();
-      await fetch(`${API_USERS}validate/${curpVal}`)
+      await fetch(`${server}users/${curpVal}`)
       .then(response => response.json() )
       .then(async(result) =>{
+        console.log(result.data.length)
 
-        if(result.resultado){
+        if(result.data.length > 0){
           Swal.fire({
             title: `Este usuario ya ha sido dado de alta`,
             text: "Revisa tu correo de confirmación",
@@ -862,13 +863,13 @@ const envioNuevoRegistro=async ()=>{
                 return;
             }
 
-          await fetch(API_USERS,{
+          await fetch(`${server}/users`,{
             method:'POST',
             body:formData
           })
           .then(response => response.json())
           .then(data => {
-              if(data.id){
+              if(data.success){
                 Swal.fire({
                   title: `${data.message}`,
                   text: "Tu información se guardo correctamente, te enviamos un correo para confirmar tu registro",

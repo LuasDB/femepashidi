@@ -318,8 +318,7 @@ class User {
       }
 
     } catch (error) {
-      console.log(error)
-      throw new Error(`Algo salio mal al Crear el registro: ${error.message}`);
+      return { dataError:error, message: 'se envia falla'};
     }
   }
 
