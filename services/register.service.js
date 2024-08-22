@@ -365,6 +365,20 @@ class Register {
 
 
   }
+  async findOneByName(name){
+    try {
+      console.log('EN EL PUNTO',name)
+      const events =await db.collection('register').where('event.nombre','==',name).get()
+      if(events.empty){
+        return null
+      }
+      const data = events.docs.map(item=>({id:item.id,...item.data()}))
+      return [...data];
+    } catch (error) {
+      console.log('EL ERROR ES',error)
+      return { success:false,message:error}
+    }
+  }
 }
 
 module.exports = { Register }

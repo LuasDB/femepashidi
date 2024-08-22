@@ -70,6 +70,19 @@ router.get('/approval/:id/:status',async(req,res,next)=>{
     next(error);
   }
 });
+router.get('/get/event/by/:name',async(req,res,next)=>{
+  const { name }=req.params;
+
+  try {
+    const events = await registro.findOneByName(name);
+    res.status(200).json({
+      success:true,
+      data:events
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 router.patch('/:id',async(req,res,next)=>{
   try {
     const user = await registro.update(req.params.id,req.body);
