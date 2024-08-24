@@ -529,6 +529,35 @@ class User {
     }
   }
 
+  async getByCurpA(curp){
+    const user = await this.getByCurp(curp)
+    const data = user[0]
+
+    const associacion = await db.collection('associations').doc(data.id_asociacion).get()
+    console.log(associacion.data())
+    await this.update(data.id,{asociacion:associacion.data()})
+
+
+
+
+  }
+  async validateExist(curp){
+
+    try {
+      const user = await this.getByCurp(curp)
+      console.log(user)
+
+      if(user[0].verificacion){
+        return [...user]
+      }else{
+        return null
+      }
+    } catch (error) {
+      throw new Error("Error en la busqueda");
+
+    }
+
+  }
 
 
 

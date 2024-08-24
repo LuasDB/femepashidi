@@ -98,17 +98,42 @@ router.get('/verification/:curp/:status',async(req,res,next)=>{
 
 
 
+router.get('/para/la/correccion/de/assoc/:curp',async(req,res,next)=>{
+  const { curp }=req.params;
+
+  try {
+    const oneUser = await user.getByCurpA(curp)
+    if(!oneUser){
+      return next(Boom.notFound('Registro no encontrado'));
+    }
+    res.status(200).json({
+      success:true,
+      data:oneUser
+    })
+  } catch (error) {
+    next(Boom.internal('Algo salio mal al intentar obtener el registro', error));
+  }
+});
 
 
-// router.get('/validate/:curp',async(req,res,next)=>{
-//   const { curp }=req.params;
-//   try {
-//     const users = await usuario.validateExist(curp);
-//     res.status(200).json(users);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+
+
+router.get('/validate/:curp',async(req,res,next)=>{
+  const { curp }=req.params;
+  try {
+    const dataUser = await user.validateExist(curp);
+    let ressult = true
+    if(!dataUser){
+      ressult=false
+    }
+    res.status(200).json({
+      success:ressult,
+      data:dataUser
+    })
+  } catch (error) {
+    next(error);
+  }
+});
 //
 // router.get('/resend-email-register/:curp',async(req,res,next)=>{
 //   const { curp }=req.params;

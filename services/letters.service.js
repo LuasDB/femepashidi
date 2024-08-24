@@ -194,9 +194,9 @@ class Letters {
 
   async create(data,file){
 
-    const getUser = await getDoc(doc(db,'users',data.id_user))
+    const getUser = await db.collection('users').doc(data.id_user).get()
     const user = await getUser.data()
-    const getAssociation = await getDoc(doc(db,'associations',user.id_asociacion));
+    const getAssociation = await db.collection('associations').doc(user.id_asociacion).get()
     const association = await getAssociation.data()
 
 
@@ -210,9 +210,12 @@ class Letters {
       folio:folio
     }
 
-    const create = await addDoc(collection(db,'letters'),register)
+    const create = await db.collection('letters').add(register)
 
     if(create.id){
+
+      console.log('[EMAIL USER]',user.correo)
+      console.log('[EMAIL ASSOC]',association.correo)
 
       //Creamos el contenido HTML
       const htmlUser = mailParticipanteInicio({
@@ -274,9 +277,12 @@ class Letters {
 
         // Enviar el correo al usuario y presidente
       transporter.sendMail(opcionesCorreoUsuario, (error, info) => {
+        console.log('[INFO USER]',info)
+        console.log('[ERROR USER]',error)
       });
       transporter.sendMail(opcionesCorreoPresidente, (error, info) => {
-
+        console.log('[INFO PRESIDENT]',info)
+        console.log('[ERROR PRESIDENT]',error)
       });
 
 
@@ -292,7 +298,7 @@ class Letters {
   }
 
   async findOne(id){
-    const getLetter = await getDoc(doc(db,'letters',id));
+    const getLetter = await db.collection('letters').doc(id).get()
     const letter = getLetter.data();
     return letter
   }
@@ -357,12 +363,13 @@ class Letters {
 
   async update(id,data){
     const actualLetter = this.findOne(id);
-    const actualizar = await updateDoc(doc(db,'letters',id),{...actualLetter,...data});
+    const actualizar = await db.collection('letters').doc(id).update({...actualLetter,...data});
     return { message:'Actualizado', nuevo:actualizar}
   }
   async approve(id,status){
     const letter =await this.findOne(id);
     letter['verificacionPresidencia']=status
+
 
     if(status === 'true'){
       const carta = await modificarPDF({letter})

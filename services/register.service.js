@@ -171,6 +171,7 @@ class Register {
   }
   async update(id,data){
     try {
+
       const update = await db.collection('register').doc(id).update(data)
       return{ success:true}
     } catch (error) {
