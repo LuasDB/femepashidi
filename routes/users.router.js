@@ -62,8 +62,24 @@ router.get('/',async(req,res,next)=>{
 
   }
 });
+router.get('/:id', async (req, res, next) => {
+  const { id } = req.params;
+console.log('entrando al get id')
+  try {
+    const doc = await user.getOneById(id);
+    if (!doc) {
+      return next(Boom.notFound('Registro no encontrado'));
+    }
+    res.status(200).json({
+      success: true,
+      data: doc
+    });
+  } catch (error) {
+    next(Boom.internal('Algo salio mal al intentar obtener el registro', error));
+  }
+});
 
-router.get('/:curp',async(req,res,next)=>{
+router.get('/obtain/by/curp/one/user/:curp',async(req,res,next)=>{
   const { curp }=req.params;
 
   try {
@@ -129,21 +145,45 @@ router.get('/validate/:curp',async(req,res,next)=>{
   }
 });
 
-router.patch('/',async(req,res,next)=>{
+router.patch('/:id',configureUploadUsers,async(req,res,next)=>{
+  const uploadMiddleware = req.upload.any()
 
-
-  try {
-    const oneUser = await user.updateOne(req.body)
-    if(!oneUser){
-      return next(Boom.notFound('Registro no encontrado'));
+  uploadMiddleware(req,res,async(err)=>{
+    if(err){
+      return next(Boom.badRequest(err.message))
     }
-    res.status(200).json({
-      success:true,
-      data:oneUser
-    })
-  } catch (error) {
-    next(Boom.internal('Algo salio mal al intentar obtener el registro', error));
-  }
+
+    const { body, files } = req
+    const {id} = req.params
+
+    let data ={}
+    if(files){
+      files.forEach(item=>{
+        data[item.fieldname] = `${item.filename}`
+      })
+    }
+    data ={...body,...data}
+
+    try {
+      const create = await user.updateOne(id,data)
+      if(!create.success){
+        res.status(404).json({
+          success:false,
+          message:'El usuario No encontrado',
+
+        })
+        return
+      }
+      res.status(201).json({
+        success:true,
+        message:'Registro creado correctamente',
+        data:create
+      })
+    } catch (error) {
+      next(Boom.internal('Algo salio mal al intentar crear el registro',error.message))
+    }
+  })
+
 });
 
 //

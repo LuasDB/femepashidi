@@ -572,6 +572,33 @@ class User {
     }
 
   }
+  async updateOne(id,data){
+    console.log('[UPDATE]',data)
+    try {
+      const asociacion = await db.collection('associations').doc(data.id_asociacion).get()
+      data['asociacion'] = asociacion.data()
+    await this.update(id,data)
+
+
+      return { success:true, message:'Registro Actualizado'}
+    } catch (error) {
+      return { success:true, message:'Registro No Actualizado'}
+
+    }
+  }
+
+  async getOneById(id){
+    try {
+      const doc = await db.collection('users').doc(id).get();
+      console.log(doc)
+      if (!doc.exists) {
+        return null;
+      }
+      return { id: doc.id, ...doc.data() };
+    } catch (error) {
+      throw new Error(`Algo salio mal al obtener el registro: ${error.message}`);
+    }
+  }
 
 
 

@@ -823,7 +823,7 @@ const envioNuevoRegistro=async ()=>{
       //Validacion de curp existente
       let curp =n('curp').value;
       const curpVal = curp.toUpperCase();
-      await fetch(`${server}users/${curpVal}`)
+      await fetch(`${server}users/obtain/by/curp/one/user/${curpVal}`)
       .then(response => response.json() )
       .then(async(result) =>{
         console.log(result.data.length)
