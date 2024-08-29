@@ -48,7 +48,7 @@ class Register {
 
   }
   async create(data){
-    console.log('Se manda inscripcion')
+
 
     const { id_user, id_association,id_events,fecha_solicitud,status, nivel_actual,categoria} = data;
     const user = await db.collection('users').doc(id_user).get()
@@ -61,8 +61,10 @@ class Register {
       fecha_solicitud,
       status,nivel_actual,categoria
     }
-    console.log(register)
-    if(user.verificacion === 'true' || user.verificacion === true){
+    if(user.verificacion === 'true' || user.verificacion === true || !user.verificacion){
+      console.log('Se manda inscripcion')
+      console.log(register)
+      console.log('ESTA VERIFICADO PARA INSCRIPOCION')
       const res = await db.collection('register').add(register);
       if(res.id){
         const destinatario=user.data().correo;
