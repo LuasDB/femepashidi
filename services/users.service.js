@@ -258,6 +258,11 @@ class User {
 
           <p style="
           color:#333;">Saludos,</p>
+           <p style="
+        color:#333;">
+         Por favor, no responda a este correo electrónico, ya que no podemos responder a los mensajes enviados a esta dirección. Para cualquier consulta, póngase en contacto con su asociación o con su entrenador.
+         </p>
+
           <p style="
           color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
           <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
@@ -356,8 +361,7 @@ class User {
   }
 
   async update(id,newData){
-    console.log(id)
-    console.log(newData)
+
     try {
       await db.collection(this.collection).doc(id).update(newData)
       return { status: 'ok'}
@@ -444,6 +448,11 @@ class User {
 
                 <p style="
                 color:#333;">Saludos,</p>
+                 <p style="
+        color:#333;">
+         Por favor, no responda a este correo electrónico, ya que no podemos responder a los mensajes enviados a esta dirección. Para cualquier consulta, póngase en contacto con su asociación o con su entrenador.
+         </p>
+
                 <p style="
                 color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
                 <a href="https://www.femepashidi.com.mx/sistema/">https://www.femepashidi.com.mx/sistema/</a>
@@ -506,6 +515,11 @@ class User {
 
                  <p style="
                   color:#333;">Saludos,</p>
+                   <p style="
+        color:#333;">
+         Por favor, no responda a este correo electrónico, ya que no podemos responder a los mensajes enviados a esta dirección. Para cualquier consulta, póngase en contacto con su asociación o con su entrenador.
+         </p>
+
                   <p style="
                   color:black;">Federación Mexicana de Patinaje Sobre Hielo y Deportes de Invierno,A.C.</p>
                   <a href="https://www.femepashidi.com.mx/">https://www.femepashidi.com.mx/</a>
@@ -558,6 +572,9 @@ class User {
     }
 
   }
+
+
+
 
 
 

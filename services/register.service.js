@@ -62,87 +62,100 @@ class Register {
       status,nivel_actual,categoria
     }
     console.log(register)
-    const res = await db.collection('register').add(register);
-    if(res.id){
-      const destinatario=user.data().correo;
-      console.log(res.id)
+    if(user.verificacion === 'true' || user.verificacion === true){
+      const res = await db.collection('register').add(register);
+      if(res.id){
+        const destinatario=user.data().correo;
+        console.log(res.id)
 
-      // Contenido HTML del correo al Competidor
-      const contenidoHtml = `
-      <!DOCTYPE html>
-      <html lang="es">
+        // Contenido HTML del correo al Competidor
+        const contenidoHtml = `
+        <!DOCTYPE html>
+        <html lang="es">
 
-      <head>
-        <meta charset="UTF-8">
-        <style>
-          @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
-          :root{
-            --primary-color-r:#268dee;
-            --background-input:#f0f0f0;
-            --font-input:#333;
-          }
-          body{
-            font-family: 'Nunito', sans-serif;
-          }
-          a:hover{
-            color:red;
-          }
-          .container{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            justify-content: center;
-            align-items: center;"
-          }
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&family=Rubik+Maps&display=swap');
+            :root{
+              --primary-color-r:#268dee;
+              --background-input:#f0f0f0;
+              --font-input:#333;
+            }
+            body{
+              font-family: 'Nunito', sans-serif;
+            }
+            a:hover{
+              color:red;
+            }
+            .container{
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              justify-content: center;
+              align-items: center;"
+            }
 
-            </style>
-      </head>
-      <body>
-        <div class="container">
-          <h2 style="
-          color:#268;">HOLA ${user.data().nombre}</h2>
+              </style>
+        </head>
+        <body>
+          <div class="container">
+            <h2 style="
+            color:#268;">HOLA ${user.data().nombre}</h2>
 
-        <p style="
-        color:#333;">Recibimos tu solicitud de inscripcion para la competencia ${event.data().nombre} que se llevará a cabo del ${fechaLarga(event.data().fecha_inicio)} al ${fechaLarga(event.data().fecha_fin)}</p>
-        <p style="
-        color:#333;">Haz click en el siguiente boton para confirmar tu inscripción y continuar con tu proceso</p>
+          <p style="
+          color:#333;">Recibimos tu solicitud de inscripcion para la competencia ${event.data().nombre} que se llevará a cabo del ${fechaLarga(event.data().fecha_inicio)} al ${fechaLarga(event.data().fecha_fin)}</p>
+          <p style="
+          color:#333;">Haz click en el siguiente boton para confirmar tu inscripción y continuar con tu proceso</p>
 
-          <a href="${server}api/v1/register/confirmation/${res.id}" target="_self"
-          style="
-          width: 50%;
-          padding: 10px;
-          background-color:#268dee;
-          border-radius: 1rem;
-          color: #f0f0f0;
-          text-decoration: none;
-          text-align: center;">
-            CONFIRMAR MI Inscripción
-          </a>
-        </div>
-        <br>
-        <p style="
-        color:#333;">Una vez que confirmes tu inscripción tendras que esperar a que te enviemos un correo confirmando la aceptación por parte del presidente de tu asociación. Te recomendamos estar pendiente de tu correo</p>
-
-
-      </body>
-      </html>
+            <a href="${server}api/v1/register/confirmation/${res.id}" target="_self"
+            style="
+            width: 50%;
+            padding: 10px;
+            background-color:#268dee;
+            border-radius: 1rem;
+            color: #f0f0f0;
+            text-decoration: none;
+            text-align: center;">
+              CONFIRMAR MI Inscripción
+            </a>
+          </div>
+          <br>
+          <p style="
+          color:#333;">Una vez que confirmes tu inscripción tendras que esperar a que te enviemos un correo confirmando la aceptación por parte del presidente de tu asociación. Te recomendamos estar pendiente de tu correo</p>
 
 
-      `;
-      // Opciones del correo
-      const opcionesCorreo = {
-      from:'registros@femepashidi.com.mx',
-      to: destinatario,
-      subject: 'Inscripcion a competencia FEMEPASHIDI A.C.',
-      html: contenidoHtml
-      };
-      // Enviar el correo
-      transporter.sendMail(opcionesCorreo, (error, info) => {
+          <p style="
+          color:#333;">
+           Por favor, no responda a este correo electrónico, ya que no podemos responder a los mensajes enviados a esta dirección. Para cualquier consulta, póngase en contacto con su asociación o con su entrenador.
+           </p>
 
 
-      });
+
+
+        </body>
+        </html>
+
+
+        `;
+        // Opciones del correo
+        const opcionesCorreo = {
+        from:'registros@femepashidi.com.mx',
+        to: destinatario,
+        subject: 'Inscripcion a competencia FEMEPASHIDI A.C.',
+        html: contenidoHtml
+        };
+        // Enviar el correo
+        transporter.sendMail(opcionesCorreo, (error, info) => {
+
+
+        });
+      }
+      return {message:'Creado',id:res.id, success:true}
+    }else{
+      return {message:'Este usuario no ha sido autorizado en el registro a nuestra plataforma, contacte a su asociación',success:false}
     }
-    return {message:'Creado',id:res.id, success:true}
+
   }
   async findAll(){
     const resfirebase = await getDocs(collection(db,'register'));
@@ -208,7 +221,7 @@ class Register {
       }
       const destinatario=registro.data().association.correo;
 
-      // Contenido HTML del correo al Competidor
+      // Contenido HTML del correo
       const contenidoHtml = `
       <!DOCTYPE html>
       <html lang="es">
@@ -344,6 +357,9 @@ class Register {
         <p style="
         color:#333;">En el nivel : ${register.nivel_actual} categoria  ${register.categoria}</p>
         </div>
+        <p>
+        Por favor, no responda a este correo electrónico, ya que no podemos responder a los mensajes enviados a esta dirección. Para cualquier consulta, póngase en contacto con su asociación o con su entrenador.
+        </p>
 
       </body>
       </html>
