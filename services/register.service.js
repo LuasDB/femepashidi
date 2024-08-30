@@ -197,9 +197,12 @@ class Register {
 
   }
   async delete(id){
-    const q = doc(db,'register',id);
-    const eleiminar=await deleteDoc(q);
-    return {message:'Eliminado',id,eleiminar}
+    try {
+      await db.collection('register').doc(id).delete()
+      return {success:true,message:'Registro eliminado'}
+    } catch (error) {
+      return { success:false, message: 'No se puede eliminar'}
+    }
   }
 
   async confirmate(id){
