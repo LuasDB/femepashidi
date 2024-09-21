@@ -62,6 +62,7 @@ router.get('/',async(req,res,next)=>{
 
   }
 });
+
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
 console.log('entrando al get id')
@@ -95,7 +96,6 @@ router.get('/obtain/by/curp/one/user/:curp',async(req,res,next)=>{
     next(Boom.internal('Algo salio mal al intentar obtener el registro', error));
   }
 });
-
 
 router.get('/verification/:curp/:status',async(req,res,next)=>{
     const { curp,status }=req.params;

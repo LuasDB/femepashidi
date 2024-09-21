@@ -100,8 +100,5 @@ router.delete('/:id',async(req,res,next)=>{
   }
 });
 
-
-
-
 //Retornamos el router
 module.exports = router;

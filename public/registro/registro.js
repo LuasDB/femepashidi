@@ -428,6 +428,7 @@ const nuevoRegistro = async()=>{
           <option value="ADULTO PAREJAS INTERMEDIATE">ADULTO PAREJAS INTERMEDIATE</option>
           <option value="ADULTO PAREJAS MASTER">ADULTO PAREJAS MASTER</option>
           <option value="ADULTO PAREJAS MASTER ELITE">ADULTO PAREJAS MASTER ELITE</option>
+          <option value="Danza">Danza</option>
         </select>
       </label>
       <label for="asociacion">ASOCIACIÓN

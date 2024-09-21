@@ -9,26 +9,23 @@ class StreamConf{
 
   }
   async get(id){
-    const res = await getDoc(doc(db,'stream',id));
-    console.log(res.data())
-    if(res.data()){
-      return {message:'Configuracion',data:res.data()}
-    }
-    else{
-      return { message:'No se encontro'}
+    try {
+      const data = await db.collection('stream').doc(id).get()
+
+      return { ...data.data() }
+
+    } catch (error) {
+      return { message:'Error al obtener datos'}
     }
   }
+
   async update(id,data){
-
-    const getData = await getDoc(doc(db,'stream',id))
-    const lastData = getData.data()
-    console.log('update',data)
-
-    const update = await updateDoc(doc(db,'stream',id),{...lastData,...data});
-    console.log(update)
-    return {message:'Actualizado', res:update}
-
-
+    try {
+      await db.collection('stream').doc(id).update(data)
+      return { message:'Actualizado' }
+    } catch (error) {
+      return { message:'Error al actualizar'}
+    }
   }
 }
 

@@ -13,5 +13,10 @@ const configureUploadUsers = (req, res, next) => {
   next();
 };
 
+const configureStream = (req, res, next) => {
 
-module.exports = {configureUpload,configureUploadUsers}
+  req.upload = upload('stream');
+  next();
+};
+
+module.exports = {configureUpload,configureUploadUsers,configureStream}
