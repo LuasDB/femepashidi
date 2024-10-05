@@ -154,45 +154,8 @@ window.addEventListener("scroll", handleScroll);
 });
 
 /* Para modal de galeria */
- // Obtener el modal
- const modal = document.getElementById("myModal");
- const modalPdf =document.getElementById("myModalPdf");
 
- // Obtener la imagen y añadir el modal
- const images = document.querySelectorAll(".image");
- const modalImg = document.getElementById("img01");
- images.forEach(function(image) {
-  console.log('entrando a ponerles onclick')
-   const img = image.querySelector("img");
-   img.onclick = function() {
-     modal.style.display = "block";
-     modalImg.src = this.src;
-   }
- });
 
- // Obtener el span que cierra el modal
-  const span = document.getElementById('close_modal');
-  const spanPdf = document.getElementById("close_modalPdf")
-
- // Cerrar el modal al hacer clic en el span
- span.onclick = function() {
-  console.log('Close modal')
-   modal.style.display = "none";
-   modalPdf.style.display = "none";
- }
- spanPdf.onclick = function() {
-
-  modalPdf.style.display = "none";
-}
-
- // Cerrar el modal al hacer clic fuera de la imagen
- window.onclick = function(event) {
-  console.log('EVENTO DE MODAL')
-   if (event.target === modal || event.target === modalPdf ) {
-     modal.style.display = "none";
-     modalPdf.style.display = "none";
-   }
- }
 
 
 

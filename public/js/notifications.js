@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         <p><span>Fecha de inicio:</span>${fechaLarga(element.fecha_inicio)}</p>
         <p><span>Fecha de termino:</span>${fechaLarga(element.fecha_fin)}</p>
         <p><span>Descripción:</span>${String(element.texto)}</p>
-        <a href="./inscripciones/inscripcion" class="button button-50 button-blue">Inscribirme</a>
+        <a href="./femepashidi/inscripcion" class="button button-50 button-blue">Inscribirme</a>
       </article>
       `;
       events.appendChild(card);

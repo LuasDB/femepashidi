@@ -9,6 +9,7 @@ const lettersRouter = require('./letters.router')
 const streamingRouter = require('./streaming.router')
 const managmentRouter = require('./managment.router')
 const authRouter = require('./auth.router')
+const galleryRouter = require('./gallery.router')
 
 function routerApi(app){
   const router = express.Router();
@@ -24,6 +25,7 @@ function routerApi(app){
   router.use('/streaming',streamingRouter);
   router.use('/managment',managmentRouter);
   router.use('/auth',authRouter);
+  router.use('/gallery',galleryRouter);
 
 }
 
