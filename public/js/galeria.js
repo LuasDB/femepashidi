@@ -1,13 +1,14 @@
-let fotos = []
+
 
 const getFotos = async()=>{
-  const res = await fetch('http://localhost:3000/api/v1/gallery/gallery/6fzcCXDa5AZ3w13m5T9e')
+  const res = await fetch('https://femepashidi.siradiacion.com.mx/api/v1/gallery/gallery/6fzcCXDa5AZ3w13m5T9e')
   const data = await res.json()
 
   if(data.success){
+    document.getElementById('titulo_galeria').innerHTML=data.data.titulo
     const newImageData = data.data.fotos.map((src) => {
       const img = new Image();
-      img.src = `http://localhost:3000/images/gallery/${src}`;
+      img.src = `https://femepashidi.siradiacion.com.mx/images/gallery/${src}`;
       // Detectamos si la imagen es horizontal o vertical
       return new Promise((resolve) => {
         img.onload = () => {
@@ -27,7 +28,7 @@ const getFotos = async()=>{
           const divImg = document.createElement('div')
           divImg.classList.add('image')
           const img = document.createElement('img')
-          img.src = `http://localhost:3000/images/gallery/${element.src}`
+          img.src = `https://femepashidi.siradiacion.com.mx/images/gallery/${element.src}`
           console.log('[IMAGES]',img.src)
 
           divImg.appendChild(img)
@@ -42,7 +43,7 @@ const getFotos = async()=>{
           const divImg = document.createElement('div')
           divImg.classList.add('image')
           const img = document.createElement('img')
-          img.src = `http://localhost:3000/images/gallery/${element.src}`
+          img.src = `https://femepashidi.siradiacion.com.mx/images/gallery/${element.src}`
           console.log('[IMAGES]',img.src)
 
           divImg.appendChild(img)

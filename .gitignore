@@ -139,3 +139,6 @@ public/img/galery/videos/
 .env
 credentials.json
 credentialsFemepashidi.json
+
+#Archivos de muestra
+DT_PARTIC.xml

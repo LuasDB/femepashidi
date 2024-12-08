@@ -67,7 +67,7 @@ body{
 section{
   scroll-behavior: smooth;
 }
-  Estilos del contenedor del menú desplegable
+  /* Estilos del contenedor del menú desplegable */
   .dropdown {
     position: relative;
     display: inline-block;

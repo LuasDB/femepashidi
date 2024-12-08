@@ -6,7 +6,7 @@ const { connectStorageEmulator } = require('firebase/storage');
 //Traemos nodemailer para los correos automaticos
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-
+const fontkit = require('fontkit'); // Importa fontkit
 //Configurar las carpetas para guardar las cartas permiso
   const fs = require('fs');
   const path = require('path');
@@ -70,6 +70,7 @@ async function modificarPDF({ letter }) {
     // Leer el archivo PDF original
     const pdfBytes = await fsP.readFile('./scripts/machote.pdf');
     const pdfDoc = await PDFDocument.load(pdfBytes);
+    pdfDoc.registerFontkit(fontkit);
 
     // Obtener la primera página del documento
     const page = pdfDoc.getPage(0);
@@ -84,8 +85,8 @@ async function modificarPDF({ letter }) {
       size: 14,
       color: rgb(0, 0, 0),
     });
-
-    const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const fontBytes = await fsP.readFile('./scripts/RobotoMono-Bold.ttf')
+    const font = await pdfDoc.embedFont(fontBytes);
      // Texto a centrar
      const texto = `${capitalizeFirstLetter(letter.user.nombre)} ${letter.user.apellido_paterno.toUpperCase()} ${letter.user.apellido_materno.toUpperCase()}`
 
@@ -304,7 +305,7 @@ class Letters {
   }
 
   async verification(id, status){
-
+    console.log('Entrando a verificacion')
     const letter =await this.findOne(id);
     letter['verificacionAsociacion']=status
     this.update(id,letter)
@@ -357,6 +358,11 @@ class Letters {
       };
 
       transporter.sendMail(opcionesCorreoPresidente, (error, info) => {
+        if(error){
+          console.error(error)
+        }else{
+          console.log(info)
+        }
       });
       return {message:mensaje, success:true}
   }
