@@ -70,6 +70,7 @@ router.get('/:collection/:id', async (req, res, next) => {
     if (!doc) {
       return next(Boom.notFound('Registro no encontrado'));
     }
+    console.log('Respuesta',doc)
     res.status(200).json({
       success: true,
       data: doc
@@ -162,5 +163,19 @@ router.get('/new/comienso/para/export/nuevo/', async (req, res, next) => {
     console.log(error)
   }
 });
+
+router.get('/new/comienso/para/export/nuevo/importacion/detodos', async (req, res, next) => {
+  try {
+   const importacion = await managment.import()
+   res.status(200).json({
+    message:'importado',importacion
+   })
+  } catch (error) {
+    console.log(error)
+    next()
+  }
+});
+
+
 
 module.exports = router

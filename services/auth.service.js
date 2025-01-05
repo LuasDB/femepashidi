@@ -63,54 +63,54 @@ class Auth {
 
 
       const htmlToSend =`
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <style>
-              .button {
-                  display: inline-block;
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                .button {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #007BFF;
+                    text-decoration: none;
+                    border-radius: 5px;
+                }
+                .container {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    max-width: 600px;
+                    margin: auto;
+                    padding: 20px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+                .header {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">Establecer Contraseña</div>
+                <p>Hola ${nombre},</p>
+                <p>Te has registrado exitosamente. Por favor, restablece tu contraseña usando el siguiente enlace:</p>
+                <p><a href="${resetLink}" style="display: inline-block;
                   padding: 10px 20px;
                   font-size: 16px;
-                  color: #fff;
+                  color: #ffff;
                   background-color: #007BFF;
                   text-decoration: none;
-                  border-radius: 5px;
-              }
-              .container {
-                  font-family: Arial, sans-serif;
-                  line-height: 1.6;
-                  max-width: 600px;
-                  margin: auto;
-                  padding: 20px;
-                  border: 1px solid #ddd;
-                  border-radius: 5px;
-                  background-color: #f9f9f9;
-              }
-              .header {
-                  font-size: 24px;
-                  margin-bottom: 20px;
-              }
-          </style>
-      </head>
-      <body>
-          <div class="container">
-              <div class="header">Establecer Contraseña</div>
-              <p>Hola ${nombre},</p>
-              <p>Te has registrado exitosamente. Por favor, restablece tu contraseña usando el siguiente enlace:</p>
-              <p><a href="${resetLink}" style="display: inline-block;
-                padding: 10px 20px;
-                font-size: 16px;
-                color: #ffff;
-                background-color: #007BFF;
-                text-decoration: none;
-                border-radius: 5px;">Restablecer Contraseña</a></p>
-              <p>Saludos,<br>Equipo de Soporte</p>
-          </div>
-      </body>
-      </html>
-      `
+                  border-radius: 5px;">Restablecer Contraseña</a></p>
+                <p>Saludos,<br>Equipo de Soporte</p>
+            </div>
+        </body>
+        </html>
+        `
        // Configurar el correo electrónico
        let mailOptions = {
         from: process.env.EMAIL_USER,
@@ -130,7 +130,8 @@ class Auth {
         console.log('[INFO MAIL]',info)
        });
 
-      return { success: true, status: 201, message: 'El usuario se creó correctamente se le envio un correo' };
+      
+       return { success: true, status: 201, message: 'El usuario se creó correctamente se le envio un correo' };
     } catch (error) {
       return { success: false, status: 500, message: 'Error al crear el usuario', error };
     }
@@ -257,46 +258,46 @@ class Auth {
 
 
     const htmlToSend =`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
 
-            .container {
+              .container {
 
-            }
-            .header {
+              }
+              .header {
 
-            }
-        </style>
-    </head>
-    <body>
-        <div  style=" font-family: Arial, sans-serif;
-                line-height: 1.6;
-                max-width: 600px;
-                margin: auto;
-                padding: 20px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                background-color: #f9f9f9;">
-            <div style=" font-size: 24px;
-                margin-bottom: 20px;">Restablecimiento de Contraseña</div>
-            <p>Hola ${user.nombre},</p>
-            <p>Has solicitado un reestablecimiento de contraseña. Por favor, restablece tu contraseña usando el siguiente enlace:</p>
-            <p><a href="${resetLink}" style="display: inline-block;
-                padding: 10px 20px;
-                font-size: 16px;
-                color: #ffff;
-                background-color: #007BFF;
-                text-decoration: none;
-                border-radius: 5px;">Restablecer Contraseña</a></p>
-            <p>Saludos,<br>Equipo de Soporte</p>
-        </div>
-    </body>
-    </html>
-    `
+              }
+          </style>
+      </head>
+      <body>
+          <div  style=" font-family: Arial, sans-serif;
+                  line-height: 1.6;
+                  max-width: 600px;
+                  margin: auto;
+                  padding: 20px;
+                  border: 1px solid #ddd;
+                  border-radius: 5px;
+                  background-color: #f9f9f9;">
+              <div style=" font-size: 24px;
+                  margin-bottom: 20px;">Restablecimiento de Contraseña</div>
+              <p>Hola ${user.nombre},</p>
+              <p>Has solicitado un reestablecimiento de contraseña. Por favor, restablece tu contraseña usando el siguiente enlace:</p>
+              <p><a href="${resetLink}" style="display: inline-block;
+                  padding: 10px 20px;
+                  font-size: 16px;
+                  color: #ffff;
+                  background-color: #007BFF;
+                  text-decoration: none;
+                  border-radius: 5px;">Restablecer Contraseña</a></p>
+              <p>Saludos,<br>Equipo de Soporte</p>
+          </div>
+      </body>
+      </html>
+      `
      // Configurar el correo electrónico
      let mailOptions = {
       from: process.env.EMAIL_USER,

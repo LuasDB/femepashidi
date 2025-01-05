@@ -61,7 +61,7 @@ router.get('/',async(req,res,next)=>{
     return next(Boom.internal('Algo salio mal al buscar los registros', error))
 
   }
-});
+});//lISTO
 
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
@@ -78,7 +78,7 @@ console.log('entrando al get id')
   } catch (error) {
     next(Boom.internal('Algo salio mal al intentar obtener el registro', error));
   }
-});
+});//lISTO
 
 router.get('/obtain/by/curp/one/user/:curp',async(req,res,next)=>{
   const { curp }=req.params;
@@ -95,7 +95,7 @@ router.get('/obtain/by/curp/one/user/:curp',async(req,res,next)=>{
   } catch (error) {
     next(Boom.internal('Algo salio mal al intentar obtener el registro', error));
   }
-});
+});//lISTO
 
 router.get('/verification/:curp/:status',async(req,res,next)=>{
     const { curp,status }=req.params;
@@ -109,7 +109,7 @@ router.get('/verification/:curp/:status',async(req,res,next)=>{
     } catch (error) {
       next(error);
     }
-});
+});//LISTO
 
 router.get('/para/la/correccion/de/assoc/:curp',async(req,res,next)=>{
   const { curp }=req.params;
@@ -126,7 +126,7 @@ router.get('/para/la/correccion/de/assoc/:curp',async(req,res,next)=>{
   } catch (error) {
     next(Boom.internal('Algo salio mal al intentar obtener el registro', error));
   }
-});
+});//Listo
 
 router.get('/validate/:curp',async(req,res,next)=>{
   const { curp }=req.params;
@@ -143,7 +143,7 @@ router.get('/validate/:curp',async(req,res,next)=>{
   } catch (error) {
     next(error);
   }
-});
+});//lISTO
 
 router.patch('/:id',configureUploadUsers,async(req,res,next)=>{
   const uploadMiddleware = req.upload.any()
@@ -184,7 +184,8 @@ router.patch('/:id',configureUploadUsers,async(req,res,next)=>{
     }
   })
 
-});
+});//Listo
+
 
 //
 // router.get('/resend-email-register/:curp',async(req,res,next)=>{

@@ -1,17 +1,33 @@
+const { collection } = require('firebase/firestore')
 const { db,server } = require('../db/firebase')
+const { generateUID } = require('./../functions/generales')
 
 class Managment{
   constructor(){
 
   }
   async create(collection, data){
-
     try {
       data['createdAt']= new Date().toISOString()
+      data['id'] = generateUID(20)
 
-      const newDoc = await db.collection(collection).add(data)
+      const list = await db.collection('femepashidi').doc(collection).get()
+      if(!list.exists){
+
+        await db.collection('femepashidi').doc(collection).set({
+          [`${collection}List`]:[data]
+        })
+      }else{
+        const newArray = list.data()[`${collection}List`] || [];
+        newArray.push(data);
+
+        await db.collection('femepashidi').doc(collection).update({
+            [`${collection}List`]: newArray
+        });
+
+      }
       return {
-        id:newDoc.id
+        id:data.id
       }
     } catch (error) {
       throw new Error(`Failed to create document: ${error.message}`);
@@ -20,11 +36,11 @@ class Managment{
   async getAll(collection) {
     console.log(collection)
     try {
-      const docs = await db.collection(collection).get();
-      if(docs.empty){
+      const docs = await db.collection('femepashidi').doc(collection).get();
+      if(!docs.exists){
         return null
       }
-      const data = docs.docs.map(item=>({id:item.id,...item.data()}))
+      const data = docs.data()[`${collection}List`]
       return [...data];
     } catch (error) {
       throw new Error(`Algo salio mal al obtener los registros: ${error.message}`);
@@ -33,11 +49,9 @@ class Managment{
 
   async getOne(collection, id) {
     try {
-      const doc = await db.collection(collection).doc(id).get();
-      if (!doc.exists) {
-        return null;
-      }
-      return { id: doc.id, ...doc.data() };
+      const getAll = await this.getAll(collection)
+      const doc = getAll.filter(item => item.id === id)
+      return { ...doc[0] };
     } catch (error) {
       throw new Error(`Algo salio mal al obtener el registro: ${error.message}`);
     }
@@ -45,54 +59,79 @@ class Managment{
 
   async update(collection, id, updates) {
     try {
-      const docRef = db.collection(collection).doc(id);
-      await docRef.update(updates);
-      const updatedDoc = await docRef.get();
-      if (!updatedDoc.exists) {
-        return null;
+      const doc = await db.collection('femepashidi').doc(collection).get();
+      if (!doc.exists) {
+        throw new Error(`Collection ${collection} does not exist.`);
       }
-      return { id: updatedDoc.id, ...updatedDoc.data() };
+
+      const list = doc.data()[`${collection}List`] || [];
+      const index = list.findIndex(item => item.id === id);
+
+      if (index === -1) {
+        throw new Error(`Document with id ${id} not found in collection ${collection}.`);
+      }
+
+      // Update the specific item
+      list[index] = { ...list[index], ...updates, updatedAt: new Date().toISOString() };
+
+      await db.collection('femepashidi').doc(collection).update({
+        [`${collection}List`]: list
+      });
+
+      return { id, ...list[index] };
     } catch (error) {
-      throw new Error(`Failed to update document: ${error.message}`);
+      throw new Error(`Failed to update document in ${collection}: ${error.message}`);
     }
   }
 
   async delete(collection, id) {
     try {
-      const docRef = db.collection(collection).doc(id);
-      const doc = await docRef.get();
-      if (!doc.exists) {
-        return null;
-      }
-      await this.update(collection,id,{status:'Baja'});
+     await this.update(collection,id,{status:'Baja'})
       return true;
     } catch (error) {
       throw new Error(`Failed to delete document: ${error.message}`);
     }
   }
 
-  async getAllCollections(){
+
+  async import(){
+    async function mudar(collection){
+      let newArray =  []
+      let data = []
+      let getAll = []
+
+    getAll = await db.collection(collection).get()
+    data = getAll.docs.map(item => ({id:item.id,...item.data()}) )
+    data.forEach((item) =>{
+      newArray.push(item)
+    })
+
+    const lista = await db.collection('femepashidi').doc(`${collection}List`).get()
+    if(!lista.exists){
+      await db.collection('femepashidi').doc(collection).set({
+        [`${collection}List`]:newArray
+
+      })
+    }else{
+      await db.collection('femepashidi').doc(collection).update({
+        [`${collection}List`]:newArray
+      })
+    }}
+
+    const colecciones = ['users']
+
+    colecciones.forEach(async (item) => {
+      await mudar(item)
+    })
 
 
-    let users = await this.getAll('users')
-    if(users === null){
-      users=[]
-    }
 
-    let vehicles = await this.getAll('vehicles')
-    if(vehicles === null){
-      vehicles=[]
-    }
 
-    let drivers = await this.getAll('drivers')
-    if(drivers === null){
-      drivers=[]
-    }
-
-    return {
-      users,vehicles,drivers
-    }
   }
+
+
+
+
 
 
 }

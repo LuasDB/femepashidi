@@ -23,7 +23,7 @@ function routerApi(app){
   router.use('/upload',uploadsRouter);
   router.use('/letters',lettersRouter);
   router.use('/streaming',streamingRouter);
-  router.use('/managment',managmentRouter);
+  router.use('/managment',managmentRouter);//TERMINADO
   router.use('/auth',authRouter);
   router.use('/gallery',galleryRouter);
 

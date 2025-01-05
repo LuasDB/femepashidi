@@ -56,7 +56,16 @@ router.delete('/:id',async(req,res,next)=>{
   }
 });
 
-
+router.get('/importar/todos/registros',async(req,res,next)=>{
+  try {
+    const importacion = await association.import()
+    res.status(200).json({
+      success:true,message:'Importada',importacion
+    })
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 //Retornamos el router
