@@ -195,26 +195,26 @@ class Letters {
   }
 
   async create(data,file){
-
     // const getUser = await db.collection('users').doc(data.id_user).get()
     // const user = await getUser.data()
     // const getAssociation = await db.collection('associations').doc(user.id_asociacion).get()
     // const association = await getAssociation.data()
     const getUsers = await db.collection('femepashidi').doc('users').get()
-    const user = getUsers.data().filter(user=>user.id===data.id_user)
+    const user = getUsers.data().usersList.filter(user=>user.id === data.id_user)[0]
     const getAssociations = await db.collection('femepashidi').doc('associations').get()
-    const association = getAssociations.data().filter(association=>association.id===user.id_asociacion)
 
+    const association = getAssociations.data().associationsList.filter(association=>association.id === user.id_asociacion )[0]
 
     const folio = file.filename.split('-')[0]
 
     const register = {
-      user:user[0],
-      association:association[0],
+      user,
+      association,
       ...data,
       file_name:file.filename,
       folio:folio
     }
+    console.log(register)
 
     const create = await db.collection('letters').add(register)
 
