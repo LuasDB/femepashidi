@@ -118,7 +118,7 @@ class Managment{
       })
     }}
 
-    const colecciones = ['users']
+    const colecciones = ['communications']
 
     colecciones.forEach(async (item) => {
       await mudar(item)

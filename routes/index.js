@@ -10,6 +10,7 @@ const streamingRouter = require('./streaming.router')
 const managmentRouter = require('./managment.router')
 const authRouter = require('./auth.router')
 const galleryRouter = require('./gallery.router')
+const examsRouter = require('./exams.router')
 
 function routerApi(app){
   const router = express.Router();
@@ -26,6 +27,7 @@ function routerApi(app){
   router.use('/managment',managmentRouter);//TERMINADO
   router.use('/auth',authRouter);
   router.use('/gallery',galleryRouter);
+  router.use('/exams',examsRouter);
 
 }
 
