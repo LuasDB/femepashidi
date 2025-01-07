@@ -201,16 +201,16 @@ class Letters {
     // const getAssociation = await db.collection('associations').doc(user.id_asociacion).get()
     // const association = await getAssociation.data()
     const getUsers = await db.collection('femepashidi').doc('users').get()
-    const user = getUsers.data().find(user=>user.id===data.id_user)
+    const user = getUsers.data().filter(user=>user.id===data.id_user)
     const getAssociations = await db.collection('femepashidi').doc('associations').get()
-    const association = getAssociations.data().find(association=>association.id===user.id_asociacion)
+    const association = getAssociations.data().filter(association=>association.id===user.id_asociacion)
 
 
     const folio = file.filename.split('-')[0]
 
     const register = {
-      user,
-      association,
+      user:user[0],
+      association:association[0],
       ...data,
       file_name:file.filename,
       folio:folio
