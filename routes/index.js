@@ -12,7 +12,7 @@ const authRouter = require('./auth.router')
 const galleryRouter = require('./gallery.router')
 const examsRouter = require('./exams.router')
 
-function routerApi(app){
+function routerApi(app,io){
   const router = express.Router();
   app.use('/api/v1',router);
   // router.use('/products',productsRouter);
@@ -27,7 +27,7 @@ function routerApi(app){
   router.use('/managment',managmentRouter);//TERMINADO
   router.use('/auth',authRouter);
   router.use('/gallery',galleryRouter);
-  router.use('/exams',examsRouter);
+  router.use('/exams',examsRouter(io));
 
 }
 

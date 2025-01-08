@@ -7,9 +7,10 @@ class Exam{
 
   }
   async create(data){
-   const { idUser, fecha_solicitud,fecha_examen } = data
+   const { curp, fecha_solicitud,fecha_examen } = data
+   console.log(data)
    const users = await db.collection('femepashidi').doc('users').get()
-   const dataUser = users.data().usersList.filter(item => item.id === idUser)
+   const dataUser = users.data().usersList.filter(item => item.curp === curp)
    if(dataUser.length === 0){
     console.log(
       'Usuario no encontrado'
@@ -17,9 +18,8 @@ class Exam{
     return null
    }
 
-   const exam = {
+   const exam = {...data,
     id:generateUID(20),
-    idUser,fecha_solicitud,fecha_examen,
     jueces:[],
     calificaciones:[],
     dataUser:dataUser[0]
@@ -65,28 +65,79 @@ class Exam{
     return exam[0]
   }
   async addJudges(year,id,judges){
+    
+
     const list = await db.collection('exams').doc(`examenes${year}`).get()
     if(!list.exists){
       return null
     }
-    const exam = list.data().examenesList.filter(item => item.id === id)
-    if(exam.length === 0){
+    const examenes = list.data().examenesList
+    const examIndex = examenes.findIndex(item => item.id === id)
+    if(examIndex === -1){
       return null
     }
-    const newArray = list.data().examenesList.map(item => {
-      if(item.id === id){
-        item.jueces = judges
-      }
-      return item
-    })
+
+    examenes[examIndex].jueces.push(judges)
+
     await db.collection('exams').doc(`examenes${year}`).update({
-      examenesList:newArray
+      examenesList:examenes
     })
-    return true
+
+    return {examen:examenes[examIndex]}
+
   }
+  async addCalJudge(year, id,idJ, cal){
+    const list = await db.collection('exams').doc(`examenes${year}`).get()
+    if(!list.exists){
+      return null
+    }
+    const examenes = list.data().examenesList
+    const examIndex = examenes.findIndex(item => item.id === id)
+    if(examIndex === -1){
+      return null
+    }
+    const jueces = examenes[examIndex].jueces
+    const indexJuez = jueces.findIndex(item=> item.id === idJ)
 
+    jueces[indexJuez]['calificaciones']=cal.calificaciones
 
+    examenes[examIndex]['jueces'] = jueces
 
+    await  db.collection('exams').doc(`examenes${year}`).update({
+      examenesList:examenes
+    })
+    return { examen:examenes[examIndex] }
+
+  }
+  async editOne(year, id, cal){
+    const list = await db.collection('exams').doc(`examenes${year}`).get()
+    if(!list.exists){
+      return null
+    }
+    const examenes = list.data().examenesList
+    if(examenes.length === 0){
+      return null
+    }
+    const examenIndex = examenes.findIndex(item=>item.id === id)
+    examenes[examenIndex]={...examenes[examenIndex],...cal}
+    await db.collection('exams').doc(`examenes${year}`).update({
+      examenesList:examenes
+    })
+    if(cal.isApproved){
+      const usersList = await db.collection('femepashidi').doc(`users`).get()
+      if(!usersList.exists){
+        return null
+      }
+      const users = usersList.data().usersList
+      const userIndex = users.findIndex(item => item.id === examenes[examenIndex].dataUser.id)
+      users[userIndex]['nivel_actual']=  examenes[examenIndex].nuevoNivel
+      await db.collection('femepashidi').doc(`users`).update({
+        usersList:users
+      })
+    }
+     return { resultado: examenes[examenIndex] }
+
+  }
 
 
 

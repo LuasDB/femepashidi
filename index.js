@@ -1,19 +1,24 @@
 //Agregamos express para empezar nuetro servidor ,para intalarlo : npm i express
 const express = require('express');
+const { Server } = require('socket.io');
+//Agregamos la libreria de http para poder utilizar el servidor
+const {createServer} = require('http');
 
 //Traemos la libreria de cors para evitar estos errores en produccion
 const cors = require('cors');
 
 //exportamos nuestra funcion de routerApi para nuestra aplicación
 const routerApi = require('./routes');
+
+
 //Exportamos los Middlewares que utilizaremos para los errores
 const { logErrors,errorHandler,boomErrorHandler } = require('./middleware/error.handler');
-//Exportamos middleware multer para manejo de archivos
-const { upload } = require('./middleware/multer.Middleware');
 //Variable para llamar las funciones de express
 const app = express();
 //Definimos el puerto a utilizar
 const port= process.env.PORT || 3000;
+
+
 //Configuracion para manejar datos de formulario
 app.use(express.urlencoded({ extended: true }));
 //Para que express pueda hacer la conversión de los JSON
@@ -34,8 +39,32 @@ app.use(express.json());
 // app.use(cors(options));
 // para todas las url
 app.use(cors());
+
+
+
+
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*", // Asegúrate de que sea la URL de tu frontend
+    methods: ["GET", "POST"]
+  }
+});
+// Verificar que la instancia de io se ha creado correctamente
+
+
+// Evento de conexión único para socket.io
+io.on('connection', (socket) => {
+  console.log('Usuario conectado', socket.id);
+
+  socket.on('disconnect', () => {
+    console.log('Usuario desconectado', socket.id);
+  });
+});
+
 //Mandamos nuestra aplicación a las rutas
-routerApi(app);
+routerApi(app,io);
 //Manejo de los Middlewares por parte de express, es importante el orden de los mismos
 //Primero mandamos el LogErrors y despues el errorHandler
 
@@ -43,13 +72,11 @@ app.use(boomErrorHandler);
 app.use(logErrors);
 app.use(errorHandler);
 
-
 //Estaticos
 app.use('/app',express.static('public'));
 app.use('/images',express.static('uploads'));
 
-
 //Arrancamos en el puerto declarado
-app.listen(port,()=>{
+httpServer.listen(port,()=>{
   console.log('Mi port:' + port);
 });
