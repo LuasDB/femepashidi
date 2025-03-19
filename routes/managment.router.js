@@ -19,7 +19,6 @@ router.post('/:collection', configureUpload, (req, res, next) => {
 
     const { collection } = req.params;
     const {body,files} = req;
-    console.log('Body',body)
     let data= {
     }
     if(files){

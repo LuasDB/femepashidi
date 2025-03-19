@@ -11,6 +11,7 @@ const managmentRouter = require('./managment.router')
 const authRouter = require('./auth.router')
 const galleryRouter = require('./gallery.router')
 const examsRouter = require('./exams.router')
+const configurationsRouter = require('./configurations.router')
 
 function routerApi(app,io){
   const router = express.Router();
@@ -28,6 +29,7 @@ function routerApi(app,io){
   router.use('/auth',authRouter);
   router.use('/gallery',galleryRouter);
   router.use('/exams',examsRouter(io));
+  router.use('/configurations',configurationsRouter);
 
 }
 

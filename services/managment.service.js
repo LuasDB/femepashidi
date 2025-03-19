@@ -1,4 +1,3 @@
-const { collection } = require('firebase/firestore')
 const { db,server } = require('../db/firebase')
 const { generateUID } = require('./../functions/generales')
 

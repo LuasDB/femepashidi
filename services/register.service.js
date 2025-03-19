@@ -51,13 +51,30 @@ class Register {
 
 
     const { id_user, id_association,id_events,fecha_solicitud,status, nivel_actual,categoria} = data;
-    const user = await db.collection('users').doc(id_user).get()
-    const association = await db.collection('associations').doc(id_association).get()
-    const event = await db.collection('events').doc(id_events).get()
+    const users = await db.collection('femepashidi').doc('users').get()
+    if(!users.exists){
+      return {message:'No hay usuarios',success:false}
+    }
+    const user = users.data().usersList.filter(item=>item.id === id_user)[0]
+    console.log('EL USUARIO ES',user)
+
+    const associations = await db.collection('femepashidi').doc('associations').get()
+    if(!associations.exists){
+      return {message:'No hay asociaciones',success:false}
+    }
+    const association = associations.data().associationsList.filter(item=>item.id === id_association)[0]
+    console.log('LA ASOCIACION ES',association)
+    const events = await db.collection('femepashidi').doc('events').get()
+    if(!events.exists){
+      return {message:'No hay eventos',success:false}
+    }
+    const event = events.data().eventsList.filter(item=>item.id === id_events)[0]
+    console.log('EL EVENTO ES',event)
+
     const register ={
-      user:{id:user.id,...user.data()},
-      association:{id:association.id,...association.data()},
-      event:{id:event.id,...event.data()},
+      user:{id:id_user,...user},
+      association:{id:id_association,...association},
+      event:{id:id_events,...event},
       fecha_solicitud,
       status,nivel_actual,categoria
     }
@@ -67,7 +84,7 @@ class Register {
       console.log('ESTA VERIFICADO PARA INSCRIPOCION')
       const res = await db.collection('register').add(register);
       if(res.id){
-        const destinatario=user.data().correo;
+        const destinatario=user.correo;
         console.log(res.id)
 
         // Contenido HTML del correo al Competidor
@@ -103,10 +120,10 @@ class Register {
         <body>
           <div class="container">
             <h2 style="
-            color:#268;">HOLA ${user.data().nombre}</h2>
+            color:#268;">HOLA ${user.nombre}</h2>
 
           <p style="
-          color:#333;">Recibimos tu solicitud de inscripcion para la competencia ${event.data().nombre} que se llevará a cabo del ${fechaLarga(event.data().fecha_inicio)} al ${fechaLarga(event.data().fecha_fin)}</p>
+          color:#333;">Recibimos tu solicitud de inscripcion para la competencia ${event.nombre} que se llevará a cabo del ${fechaLarga(event.fecha_inicio)} al ${fechaLarga(event.fecha_fin)}</p>
           <p style="
           color:#333;">Haz click en el siguiente boton para confirmar tu inscripción y continuar con tu proceso</p>
 
