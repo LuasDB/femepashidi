@@ -11,8 +11,8 @@ const transporter = nodemailer.createTransport({
   port: 465, // Puerto SMTP seguro (reemplaza con el puerto adecuado)
   secure: true, // Habilitar SSL/TLS
   auth: {
-      user: 'registros@femepashidi.com.mx', // Reemplaza con tu dirección de correo electrónico
-      pass: 'Registros2024@' // Reemplaza con tu contraseña de correo electrónico
+      user: process.env.EMAIL_USER, // Reemplaza con tu dirección de correo electrónico
+      pass:process.env.EMAIL_PASS // Reemplaza con tu contraseña de correo electrónico
   }
   // service: 'gmail',
   // auth: {
@@ -166,7 +166,12 @@ class Register {
         };
         // Enviar el correo
         transporter.sendMail(opcionesCorreo, (error, info) => {
-
+          if(error){
+            console.log('Error al enviar el correo:', error);
+          }
+          else{
+            console.log('Correo enviado:', info.response);
+          }
 
         });
       }
