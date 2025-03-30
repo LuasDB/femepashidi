@@ -69,7 +69,7 @@ class Register {
       return {message:'No hay eventos',success:false}
     }
     const event = events.data().eventsList.filter(item=>item.id === id_events)[0]
-    console.log('EL EVENTO ES',event)
+
 
     const register ={
       user:{id:id_user,...user},
@@ -79,9 +79,10 @@ class Register {
       status,nivel_actual,categoria
     }
     if(user.verificacion === 'true' || user.verificacion === true || !user.verificacion){
-      console.log('Se manda inscripcion')
-      console.log(register)
-      console.log('ESTA VERIFICADO PARA INSCRIPOCION')
+      const isRegisterd = await db.collection('register').where('user.id','==',id_user).where('event.nombre','==',event.nombre).get()
+      if(!isRegisterd.empty){
+        return {message:'Ya estas registrado en este evento',success:false}
+      }
       const res = await db.collection('register').add(register);
       if(res.id){
         const destinatario=user.correo;
