@@ -201,6 +201,10 @@ class Register {
   async findOne(id){
     try {
       const register = await db.collection('register').doc(id).get()
+      if(!register.exists){
+        return {message:'No existe el registro',success:false}
+      }
+
       return {id:register.id,...register.data()}
     } catch (error) {
       return {success:false,message:error}

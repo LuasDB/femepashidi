@@ -31,8 +31,8 @@ router.get('/',async(req,res,next)=>{
 router.get('/:id',async(req,res,next)=>{
   const { id }=req.params;
   try {
-    const users = await registro.findOne(id);
-    res.status(200).json(users);
+    const user = await registro.findOne(id);
+    res.status(200).json({success: true, data:user});
   } catch (error) {
     next(error);
   }
