@@ -213,9 +213,11 @@ class Register {
   }
   async update(id,data){
     try {
-
       const update = await db.collection('register').doc(id).update(data)
-      return{ success:true}
+      if(!update){
+        return {message:'No se actualizó',success:false}
+      }
+      return{ success:true,message:'Actualizado'}
     } catch (error) {
       return { success:false,message:error}
     }

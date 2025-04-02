@@ -152,6 +152,22 @@ router.delete('/:collection/:id', async (req, res, next) => {
     next(Boom.internal('Algo salio mal al intentar eliminar el registro', error));
   }
 });
+router.delete('/one/:collection/:id', async (req, res, next) => {
+  const { collection, id } = req.params;
+
+  try {
+    const deletedDoc = await managment.deleteOneById(collection, id);
+    if (!deletedDoc) {
+      return next(Boom.notFound('No se encontro el registro'));
+    }
+    res.status(200).json({
+      success: true,
+      message: 'Se elimino correctamente'
+    });
+  } catch (error) {
+    next(Boom.internal('Algo salio mal al intentar eliminar el registro', error));
+  }
+});
 
 router.get('/new/comienso/para/export/nuevo/', async (req, res, next) => {
   try {

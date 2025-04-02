@@ -92,6 +92,33 @@ class Managment{
     }
   }
 
+  async deleteOneById(collection, id) {
+    try {
+      const doc = await db.collection('femepashidi').doc(collection).get();
+      if (!doc.exists) {
+        throw new Error(`Collection ${collection} does not exist.`);
+      }
+
+      const list = doc.data()[`${collection}List`] || [];
+      const index = list.findIndex(item => item.id === id);
+
+      if (index === -1) {
+        throw new Error(`Document with id ${id} not found in collection ${collection}.`);
+      }
+
+      // Remove the specific item
+      list.splice(index, 1);
+
+      await db.collection('femepashidi').doc(collection).update({
+        [`${collection}List`]: list
+      });
+
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to delete document in ${collection}: ${error.message}`);
+    }
+  }
+
 
   async import(){
     async function mudar(collection){

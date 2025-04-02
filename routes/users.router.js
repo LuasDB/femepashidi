@@ -132,6 +132,7 @@ router.get('/validate/:curp',async(req,res,next)=>{
   const { curp }=req.params;
   try {
     const dataUser = await user.validateExist(curp);
+
     let ressult = true
     if(!dataUser){
       ressult=false

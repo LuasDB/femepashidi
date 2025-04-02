@@ -848,6 +848,7 @@ class User {
     // }
     try {
       const user = await this.getByCurp(curp)
+      console.log(user)
       if(user.verificacion){
         return {...user}
       }else{

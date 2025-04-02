@@ -32,8 +32,8 @@ const transporter = nodemailer.createTransport({
   port: process.env.EMAIL_PORT, // Puerto SMTP seguro
   secure: true, // Habilitar SSL/TLS
   auth: {
-      user: 'registros@femepashidi.com.mx', // Reemplaza con tu dirección de correo electrónico
-      pass: 'Registros2024@' // Reemplaza con tu contraseña de correo electrónico
+      user:process.env.EMAIL_USER, // Reemplaza con tu dirección de correo electrónico
+      pass: process.env.EMAIL_PASS // Reemplaza con tu contraseña de correo electrónico
   }
 });
 
@@ -239,7 +239,7 @@ class Letters {
       });
       // Opciones del correo
       const opcionesCorreoUsuario = {
-        from:'registros@femepashidi.com.mx',
+        from:process.env.EMAIL_USER,
         to: user.correo,
         subject: `SOLICTUD CARTA PERMISO ${folio}-${capitalizeFirstLetter(user.nombre)} ${user.apellido_paterno.toUpperCase()}`,
         html: htmlUser,
@@ -253,7 +253,7 @@ class Letters {
         };
 
       const opcionesCorreoPresidente = {
-        from:'registros@femepashidi.com.mx',
+        from:process.env.EMAIL_USER,
         to: association.correo,
         subject: `SOLICTUD CARTA PERMISO ${folio}-${capitalizeFirstLetter(user.nombre)} ${user.apellido_paterno.toUpperCase()}`,
         html: htmlPresidente,
@@ -334,7 +334,7 @@ class Letters {
 
     }
     const opcionesCorreoPresidente = {
-      from:'registros@femepashidi.com.mx',
+      from:process.env.EMAIL_USER,
       to: 'analuisa@femepashidi.com.mx',
       subject: `SOLICTUD CARTA PERMISO ${letter.folio}-${capitalizeFirstLetter(letter.user.nombre)} ${letter.user.apellido_paterno.toUpperCase()}`,
       html: htmlPresidencia,
@@ -393,7 +393,7 @@ class Letters {
       })
       //Configuracion del correo
       const opcionesCorreoUsuario = {
-        from:'registros@femepashidi.com.mx',
+        from:process.env.EMAIL_USER,
         to: letter.user.correo,
         subject: `CARTA PERMISO ${letter.folio}-${capitalizeFirstLetter(letter.user.nombre)} ${letter.user.apellido_paterno.toUpperCase()}`,
         html: htmlUserApprove,
