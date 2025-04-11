@@ -56,7 +56,6 @@ class Register {
       return {message:'No hay usuarios',success:false}
     }
     const user = users.data().usersList.filter(item=>item.id === id_user)[0]
-    console.log('EL USUARIO ES',user)
 
     const associations = await db.collection('femepashidi').doc('associations').get()
     if(!associations.exists){
@@ -80,13 +79,12 @@ class Register {
     }
     if(user.verificacion === 'true' || user.verificacion === true || !user.verificacion){
       const isRegisterd = await db.collection('register').where('user.id','==',id_user).where('event.nombre','==',event.nombre).get()
-      if(!isRegisterd.empty){
+      if(!isRegisterd.empty && user.categoria !== 'ADULTO'){
         return {message:'Ya estas registrado en este evento',success:false}
       }
       const res = await db.collection('register').add(register);
       if(res.id){
         const destinatario=user.correo;
-        console.log(res.id)
 
         // Contenido HTML del correo al Competidor
         const contenidoHtml = `
