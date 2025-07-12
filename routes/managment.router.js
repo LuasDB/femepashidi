@@ -154,7 +154,7 @@ router.delete('/:collection/:id', async (req, res, next) => {
 });
 router.delete('/one/:collection/:id', async (req, res, next) => {
   const { collection, id } = req.params;
-
+  console.log('eliminenado ',id)
   try {
     const deletedDoc = await managment.deleteOneById(collection, id);
     if (!deletedDoc) {
