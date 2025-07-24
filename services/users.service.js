@@ -602,13 +602,17 @@ class User {
       const skater = await db.collection(this.collection).doc(this.document).get()
       if(!skater.exists){
         console.log('No existen registros')
-        return []
+        throw new Error('No se encuentra')
       }
 
-      const userData = skater.data().usersList.filter(item => item.curp === curp)
+      const userData = skater.data().usersList.find(item => item.curp === curp)
+
+      if(!userData){
+          throw new Error('No se encuentra ese usuario')
+      }
+      return userData
 
 
-      return {...userData[0]}
 
     } catch (error) {
       throw new Error(`Algo salio mal al obtener el registro:${error.message}`);
