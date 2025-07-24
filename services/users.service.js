@@ -339,7 +339,7 @@ class User {
       const searchOne = await this.getByCurp(data.curp)
 
       if(searchOne.length > 0){
-      return {success:false}
+      throw new Error('El usuario ya existe')
 
       }
 
